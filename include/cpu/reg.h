@@ -22,12 +22,10 @@ typedef union{
 	 * They match the register encoding scheme used in i386 instruction format.
 	 * See i386 manual for more details.
 	 */
-
-	uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-
-
-
-	swaddr_t eip;
+	struct{
+		uint32_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+		swaddr_t eip;
+	};
 } CPU_state;
 
 extern CPU_state cpu;
