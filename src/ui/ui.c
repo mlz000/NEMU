@@ -106,6 +106,20 @@ void main_loop() {
 				if(p==NULL)	cpu_exec(1);
 				else cpu_exec(atoi(p));
 			}
+		else if(strcmp(p,"info")==0){
+			p=strtok(NULL," ");
+			if(strcmp(p,"r")==0){
+				printf("eax		%x		%d\n",cpu.eax,cpu.eax);
+				printf("ecx		%x		%d\n",cpu.ecx,cpu.ecx);
+				printf("edx		%x		%d\n",cpu.edx,cpu.edx);
+				printf("ebx		%x		%d\n",cpu.ebx,cpu.ebx);
+				printf("esp		%x		%d\n",cpu.esp,cpu.esp);
+				printf("ebp		%x		%d\n",cpu.ebp,cpu.ebp);
+				printf("esi		%x		%d\n",cpu.esi,cpu.esi);
+				printf("edi		%x		%d\n",cpu.edi,cpu.edi);
+				printf("eip		%x		%d\n",cpu.eip,cpu.eip);
+			}
+		}
 		/* TODO: Add more commands */
 		else { printf("Unknown command '%s'\n", p); }
 	}
