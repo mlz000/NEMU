@@ -92,22 +92,6 @@ void main_loop() {
 		else if(strcmp(p, "r") == 0) { cmd_r(); }
 		else if(strcmp(p, "q") == 0) { return; }
 		else if(strcmp(p,"si") == 0){
-			if(nemu_state != END) { 
-				char c;
-				while(1) {
-					printf("The program is already running. Restart the program? (y or n)");
-					scanf("%c", &c);
-					switch(c) {
-						case 'y': goto restart_;
-						case 'n': return;
-						default: puts("Please answer y or n.");
-					}
-				}
-			}
-			restart_:
-			restart();
-			nemu_state = STOP;
-			cmd_c();
 				p=strtok(NULL," ");
 				if(p==NULL)	cpu_exec(1);
 				else cpu_exec(atoi(p));
