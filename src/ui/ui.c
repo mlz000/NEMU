@@ -109,15 +109,15 @@ void main_loop() {
 		else if(strcmp(p,"info")==0){
 			p=strtok(NULL," ");
 			if(strcmp(p,"r")==0){
-				printf("eax		%x		%d\n",cpu.eax,cpu.eax);
-				printf("ecx		%x		%d\n",cpu.ecx,cpu.ecx);
-				printf("edx		%x		%d\n",cpu.edx,cpu.edx);
-				printf("ebx		%x		%d\n",cpu.ebx,cpu.ebx);
-				printf("esp		%x		%d\n",cpu.esp,cpu.esp);
-				printf("ebp		%x		%d\n",cpu.ebp,cpu.ebp);
-				printf("esi		%x		%d\n",cpu.esi,cpu.esi);
-				printf("edi		%x		%d\n",cpu.edi,cpu.edi);
-				printf("eip		%x		%d\n",cpu.eip,cpu.eip);
+				printf("eax		0x%x		%d\n",cpu.eax,cpu.eax);
+				printf("ecx		0x%x		%d\n",cpu.ecx,cpu.ecx);
+				printf("edx		0x%x		%d\n",cpu.edx,cpu.edx);
+				printf("ebx		0x%x		%d\n",cpu.ebx,cpu.ebx);
+				printf("esp		0x%x		%d\n",cpu.esp,cpu.esp);
+				printf("ebp		0x%x		%d\n",cpu.ebp,cpu.ebp);
+				printf("esi		0x%x		%d\n",cpu.esi,cpu.esi);
+				printf("edi		0x%x		%d\n",cpu.edi,cpu.edi);
+				printf("eip		0x%x		%d\n",cpu.eip,cpu.eip);
 			}
 		}
 		/* TODO: Add more commands */
