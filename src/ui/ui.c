@@ -94,10 +94,11 @@ void main_loop() {
 		else if(strcmp(p,"si") == 0){
 				p=strtok(NULL," ");
 				if(nemu_state == END) {
-					puts("The Program does not start. Use 'r' command to start the program.");
-					if(nemu_state != END) { nemu_state = STOP; }
+					restart();
+					nemu_state=RUNNING;
 					if(p==NULL)	cpu_exec(1);
 					else cpu_exec(atoi(p));
+					if(nemu_state != END) { nemu_state = STOP; }
 					continue;
 				}
 				nemu_state = RUNNING;
