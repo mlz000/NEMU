@@ -131,8 +131,8 @@ void main_loop() {
 			int k=strtol(p,NULL,16);
 			int i;
 			for(i=0;i<t;++i){
-				printf("%02x\n,",swaddr_read(k,4));
-				k+=4;
+				printf("%02x\n,",swaddr_read(k,1));
+				++k;
 			}
 		}
 		else { printf("Unknown command '%s'\n", p); }
