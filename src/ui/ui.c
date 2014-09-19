@@ -65,6 +65,7 @@ static void cmd_r() {
 		char c;
 		while(1) {
 			printf("The program is already running. Restart the program? (y or n)");
+			fflush(stdout);
 			scanf("%c", &c);
 			switch(c) {
 				case 'y': goto restart_;
@@ -79,7 +80,17 @@ restart_:
 	nemu_state = STOP;
 	cmd_c();
 }
-
+void print_reg(){
+	printf("eax		0x%x		%d\n",cpu.eax,cpu.eax);
+	printf("ecx		0x%x		%d\n",cpu.ecx,cpu.ecx);
+	printf("edx		0x%x		%d\n",cpu.edx,cpu.edx);
+	printf("ebx		0x%x		%d\n",cpu.ebx,cpu.ebx);
+	printf("esp		0x%x		%d\n",cpu.esp,cpu.esp);
+	printf("ebp		0x%x		%d\n",cpu.ebp,cpu.ebp);
+	printf("esi		0x%x		%d\n",cpu.esi,cpu.esi);
+	printf("edi		0x%x		%d\n",cpu.edi,cpu.edi);
+	printf("eip		0x%x		%d\n",cpu.eip,cpu.eip);
+}
 void main_loop() {
 	char *cmd;
 	while(1) {
@@ -109,18 +120,23 @@ void main_loop() {
 		else if(strcmp(p,"info")==0){
 			p=strtok(NULL," ");
 			if(strcmp(p,"r")==0){
-				printf("eax		0x%x		%d\n",cpu.eax,cpu.eax);
-				printf("ecx		0x%x		%d\n",cpu.ecx,cpu.ecx);
-				printf("edx		0x%x		%d\n",cpu.edx,cpu.edx);
-				printf("ebx		0x%x		%d\n",cpu.ebx,cpu.ebx);
-				printf("esp		0x%x		%d\n",cpu.esp,cpu.esp);
-				printf("ebp		0x%x		%d\n",cpu.ebp,cpu.ebp);
-				printf("esi		0x%x		%d\n",cpu.esi,cpu.esi);
-				printf("edi		0x%x		%d\n",cpu.edi,cpu.edi);
-				printf("eip		0x%x		%d\n",cpu.eip,cpu.eip);
+				print_reg();
 			}
 		}
 		/* TODO: Add more commands */
+		else if(strcmp(p,"x")==0){
+			p=strtok(NULL," ");
+			int t=atoi(p);
+			p=strtok(NULL," ");
+			printf("%d\n",t);
+			int k=strtol(p,NULL,16);
+			int i;
+			printf("%d\n",k);
+			for(i=0;i<t;++i){
+				swaddr_read(k,4);
+				k+=4;
+			}
+		}
 		else { printf("Unknown command '%s'\n", p); }
 	}
 }
