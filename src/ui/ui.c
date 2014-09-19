@@ -128,12 +128,10 @@ void main_loop() {
 			p=strtok(NULL," ");
 			int t=atoi(p);
 			p=strtok(NULL," ");
-			printf("%d\n",t);
 			int k=strtol(p,NULL,16);
 			int i;
-			printf("%d\n",k);
 			for(i=0;i<t;++i){
-				swaddr_read(k,4);
+				printf("%02x\n,",swaddr_read(k,4));
 				k+=4;
 			}
 		}
