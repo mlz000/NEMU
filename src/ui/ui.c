@@ -113,9 +113,9 @@ void main_loop() {
 					continue;
 				}
 				nemu_state = RUNNING;
-				if(nemu_state != END) { nemu_state = STOP; }
 				if(p==NULL)	cpu_exec(1);
 				else cpu_exec(atoi(p));
+				if(nemu_state != END) { nemu_state = STOP; }
 			}
 		else if(strcmp(p,"info")==0){
 			p=strtok(NULL," ");
