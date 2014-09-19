@@ -126,7 +126,7 @@ void main_loop() {
 			int k=strtol(p,NULL,16);
 			int i;
 			for(i=0;i<t;++i){
-				printf("0x%x	%02x\n",k,swaddr_read(k,4));
+				printf("0x%x	0x%02x\n",k,swaddr_read(k,4));
 				k+=4;
 			}
 		}
