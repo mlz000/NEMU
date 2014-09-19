@@ -85,11 +85,11 @@ void print_reg(){
 	printf("ecx		0x%x		%d\n",cpu.ecx,cpu.ecx);
 	printf("edx		0x%x		%d\n",cpu.edx,cpu.edx);
 	printf("ebx		0x%x		%d\n",cpu.ebx,cpu.ebx);
-	printf("esp		0x%x		%d\n",cpu.esp,cpu.esp);
-	printf("ebp		0x%x		%d\n",cpu.ebp,cpu.ebp);
+	printf("esp		0x%x		0x%x\n",cpu.esp,cpu.esp);
+	printf("ebp		0x%x		0x%x\n",cpu.ebp,cpu.ebp);
 	printf("esi		0x%x		%d\n",cpu.esi,cpu.esi);
 	printf("edi		0x%x		%d\n",cpu.edi,cpu.edi);
-	printf("eip		0x%x		%d\n",cpu.eip,cpu.eip);
+	printf("eip		0x%x		0x%x\n",cpu.eip,cpu.eip);
 }
 void main_loop() {
 	char *cmd;
@@ -106,11 +106,6 @@ void main_loop() {
 				p=strtok(NULL," ");
 				if(nemu_state == END) {
 					restart();
-					nemu_state=RUNNING;
-					if(p==NULL)	cpu_exec(1);
-					else cpu_exec(atoi(p));
-					if(nemu_state != END) { nemu_state = STOP; }
-					continue;
 				}
 				nemu_state = RUNNING;
 				if(p==NULL)	cpu_exec(1);
