@@ -56,5 +56,6 @@ void work() {
 		swaddr_write(t -> addr, 1, 0xcc);
 		t = t -> next;
 	}
+	return ;
 }
 /* TODO: Implement the function of breakpoint */
