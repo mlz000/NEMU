@@ -61,6 +61,7 @@ void work() {
 }
 void print_breakpoint() {
 	BP *t = head;
+	if (t == NULL)	return;
 	printf ("Num\tType\tAddress\n");
 	int cnt = 0;
 	while(t != NULL) {
