@@ -53,6 +53,7 @@ void free_bp(BP *bp) {
 void work() {
 	BP *t = head;
 	while(t != NULL) {
+		t -> inst = swaddr_read(t -> addr, 1);
 		swaddr_write(t -> addr, 1, 0xcc);
 		t = t -> next;
 	}
