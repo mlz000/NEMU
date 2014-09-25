@@ -18,5 +18,36 @@ void init_bp_pool() {
 	head = NULL;
 	free_ = bp_pool;
 }
-
+BP* new_bp() {
+	if (free_ == NULL)	assert(0);
+	BP *t = free_;
+	free_ = free_ -> next;
+	t -> next = head;
+	head = t;
+	return head;
+}
+uint32_t find(uint32_t x) {
+	if (head == NULL)	assert(0);
+	BP *t = head;
+	int now = 31;
+	while (now-- && t -> addr != x) {
+		t = t -> next;
+	}
+	return t -> inst;
+}
+void free_bp(BP *bp) {
+	if (head == NULL)	return ;
+	BP * t = head;
+	if (t == bp)	head = head -> next;
+	else {
+		int i;
+		for (i = 0; i < NR_BP - 1 && t -> next != bp && t -> next != NULL; ++i) {
+			t = t -> next;
+		}
+		t -> next = bp -> next;
+	}
+	bp -> next = free_;
+	free_ = bp;
+	return ;
+}
 /* TODO: Implement the function of breakpoint */

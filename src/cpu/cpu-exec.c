@@ -12,7 +12,7 @@ void init_dram();
 
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
-
+uint32_t find(uint32_t x);
 extern uint8_t loader [];
 extern uint32_t loader_len;
 
@@ -44,9 +44,18 @@ void cpu_exec(volatile uint32_t n) {
 	for(; n > 0; n --) {
 		swaddr_t eip_temp = cpu.eip;
 		int instr_len = exec(cpu.eip);
-
 		cpu.eip += instr_len;
-
+		if (nemu_state == BREAK_0) {
+			cpu.eip -= instr_len;
+			uint32_t tmp = find(cpu.eip);
+			swaddr_write(cpu.eip, 1, tmp);
+			nemu_state = BREAK_1;
+			break;
+		}
+		else if (nemu_state == BREAK_1) {
+			swaddr_write(cpu.eip - instr_len, 1, 0xcc);
+			nemu_state = RUNNING;
+		}
 		if(n_temp != -1 || (enable_debug && !quiet)) {
 			print_bin_instr(eip_temp, instr_len);
 			puts(assembly);

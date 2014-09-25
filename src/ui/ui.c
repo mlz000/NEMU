@@ -1,5 +1,5 @@
 #include "ui/ui.h"
-
+#include "ui/breakpoint.h"
 #include "nemu.h"
 
 #include <signal.h>
@@ -8,7 +8,8 @@
 #include <readline/history.h>
 
 int nemu_state = END;
-
+BP* new_bp();
+uint32_t find(uint32_t x);
 void cpu_exec(uint32_t);
 void restart();
 
@@ -54,8 +55,7 @@ static void cmd_c() {
 		puts("The Program does not start. Use 'r' command to start the program.");
 		return;
 	}
-
-	nemu_state = RUNNING;
+	if (nemu_state != BREAK_1)	nemu_state = RUNNING;
 	cpu_exec(-1);
 	if(nemu_state != END) { nemu_state = STOP; }
 }
@@ -107,7 +107,7 @@ void main_loop() {
 				if(nemu_state == END) {
 					restart();
 				}
-				nemu_state = RUNNING;
+				if (nemu_state != BREAK_1)	nemu_state = RUNNING;
 				if(p==NULL)	cpu_exec(1);
 				else cpu_exec(atoi(p));
 				if(nemu_state != END) { nemu_state = STOP; }
@@ -129,6 +129,14 @@ void main_loop() {
 				printf("0x%x	0x%02x\n",k,swaddr_read(k,4));
 				k+=4;
 			}
+		}
+		else if (strcmp(p, "b") == 0) {
+			p = strtok(NULL, " ");
+			uint32_t expr = strtol(p+1, NULL, 16);
+			BP *t = new_bp();
+			t -> addr = expr;
+			t -> inst = swaddr_read(expr, 1);
+			swaddr_write(expr, 1, 0xcc);
 		}
 		else { printf("Unknown command '%s'\n", p); }
 	}
