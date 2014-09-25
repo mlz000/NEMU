@@ -72,11 +72,21 @@ void print_breakpoint() {
 void del_breakpoint(int n) {
 	BP *t = head;
 	int i;
-	for (i = 1; i <= n; ++i){
-		if (t == NULL)	break;
-		else {
-			free_bp(t);
-			t = t -> next;
+	if (n == 100) {
+		for (i = 1; i <= n; ++i){
+			if (t == NULL)	break;
+			else {
+				free_bp(t);
+				t = t -> next;
+			}
+		}
+	}
+	else {
+		while(t != NULL) {
+			if (t -> NO == n) {
+				free_bp(t);
+				break;
+			}
 		}
 	}
 	return ;
