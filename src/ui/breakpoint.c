@@ -59,4 +59,14 @@ void work() {
 	}
 	return ;
 }
+void print_breakpoint() {
+	BP *t = head;
+	printf ("Num\tType\tAddress\n");
+	int cnt = 0;
+	while(t != NULL) {
+		printf("%d\tbreakpoint\t0x%x", ++cnt,t -> addr);
+		t = t -> next;
+	}
+	return ;
+}
 /* TODO: Implement the function of breakpoint */

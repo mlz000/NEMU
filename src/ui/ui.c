@@ -12,7 +12,7 @@ BP* new_bp();
 uint32_t find(uint32_t x);
 void cpu_exec(uint32_t);
 void restart();
-
+void print_breakpoint();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
@@ -116,6 +116,9 @@ void main_loop() {
 			p=strtok(NULL," ");
 			if(strcmp(p,"r")==0){
 				print_reg();
+			}
+			else if (strcmp(p, "b") == 0) {
+				print_breakpoint();
 			}
 		}
 		/* TODO: Add more commands */
