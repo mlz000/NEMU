@@ -37,7 +37,7 @@ uint32_t find(uint32_t x) {
 }
 void free_bp(BP *bp) {
 	if (head == NULL)	return ;
-	BP * t = head;
+	BP *t = head;
 	if (t == bp)	head = head -> next;
 	else {
 		int i;
@@ -49,5 +49,12 @@ void free_bp(BP *bp) {
 	bp -> next = free_;
 	free_ = bp;
 	return ;
+}
+void work() {
+	BP *t = head;
+	while(t != NULL) {
+		swaddr_write(t -> addr, 1, 0xcc);
+		t = t -> next;
+	}
 }
 /* TODO: Implement the function of breakpoint */

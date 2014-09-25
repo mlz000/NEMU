@@ -1,5 +1,4 @@
 #include "ui/ui.h"
-
 #include "nemu.h"
 
 #include <setjmp.h>
@@ -9,7 +8,7 @@
 int exec(swaddr_t);
 void load_prog();
 void init_dram();
-
+void work();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 uint32_t find(uint32_t x);
@@ -26,6 +25,7 @@ void restart() {
 	cpu.eip = LOADER_START;
 
 	init_dram();
+	work();
 }
 
 static void print_bin_instr(swaddr_t eip, int len) {
