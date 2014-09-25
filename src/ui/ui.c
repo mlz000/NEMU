@@ -12,6 +12,7 @@ BP* new_bp();
 uint32_t find(uint32_t x);
 void cpu_exec(uint32_t);
 void restart();
+void del_breakpoint();
 void print_breakpoint();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -140,6 +141,13 @@ void main_loop() {
 			t -> addr = expr;
 			t -> inst = swaddr_read(expr, 1);
 			swaddr_write(expr, 1, 0xcc);
+		}
+		else if (strcmp(p, "d") == 0) {
+			p = strtok(NULL, " ");
+			int n;
+			if (p == NULL)	n = 100;
+			n = atoi(p);
+			del_breakpoint(n);
 		}
 		else { printf("Unknown command '%s'\n", p); }
 	}

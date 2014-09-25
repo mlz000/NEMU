@@ -69,4 +69,16 @@ void print_breakpoint() {
 	}
 	return ;
 }
+void del_breakpoint(int n) {
+	BP *t = head;
+	int i;
+	for (i = 1; i <= n; ++i){
+		if (t == NULL)	break;
+		else {
+			free_bp(t);
+			t = t -> next;
+		}
+	}
+	return ;
+}
 /* TODO: Implement the function of breakpoint */
