@@ -146,7 +146,7 @@ void main_loop() {
 			p = strtok(NULL, " ");
 			int n;
 			if (p == NULL)	n = 100;
-			n = atoi(p);
+			else n = atoi(p);
 			del_breakpoint(n);
 		}
 		else { printf("Unknown command '%s'\n", p); }
