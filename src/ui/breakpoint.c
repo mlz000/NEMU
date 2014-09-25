@@ -77,8 +77,9 @@ void del_breakpoint(int n) {
 		for (i = 1; i <= n; ++i){
 			if (t == NULL)	break;
 			else {
+				BP *tmp = t;
 				free_bp(t);
-				t = t -> next;
+				t = tmp -> next;
 			}
 		}
 	}
