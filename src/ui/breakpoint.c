@@ -80,9 +80,9 @@ void del_breakpoint(int n) {
 		for (i = 1; i <= n; ++i){
 			if (t == NULL)	break;
 			else {
-				BP *tmp = t;
+				BP *tmp = t -> next;
 				free_bp(t);
-				t = tmp -> next;
+				t = tmp;
 			}
 		}
 	}
