@@ -88,6 +88,7 @@ void del_breakpoint(int n) {
 				free_bp(t);
 				break;
 			}
+			t = t -> next;
 		}
 	}
 	return ;
