@@ -64,7 +64,7 @@ void print_breakpoint() {
 	printf ("Num\tType\tAddress\n");
 	int cnt = 0;
 	while(t != NULL) {
-		printf("%d\tbreakpoint\t0x%x", ++cnt,t -> addr);
+		printf("%d\tbreakpoint\t0x%x\n", ++cnt,t -> addr);
 		t = t -> next;
 	}
 	return ;
