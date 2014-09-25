@@ -40,11 +40,14 @@ void free_bp(BP *bp) {
 	BP *t = head;
 	if (t == bp)	head = head -> next;
 	else {
-		int i;
-		for (i = 0; i < NR_BP - 1 && t -> next != bp && t -> next != NULL; ++i) {
-			t = t -> next;
+		int n = 32;
+		while (n-- && t -> next != NULL) {
+			if (t -> next == bp) {
+				t -> next = bp -> next;
+				break;
+			}
+			else t = t -> next;
 		}
-		t -> next = bp -> next;
 	}
 	bp -> next = free_;
 	free_ = bp;
