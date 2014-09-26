@@ -14,7 +14,7 @@ void init_bp_pool() {
 		bp_pool[i].next = &bp_pool[i + 1];
 	}
 	bp_pool[i].next = NULL;
-
+	bp_pool[31].NO = 31;
 	head = NULL;
 	free_ = bp_pool;
 }
@@ -36,8 +36,9 @@ uint32_t find(uint32_t x) {
 	return t -> inst;
 }
 void free_bp(BP *bp) {
-	if (head == NULL)	return ;
+	if (head == NULL || bp == NULL)	return ;
 	BP *t = head;
+	swaddr_write(bp -> addr, 1, bp -> inst);
 	if (t == bp)	head = head -> next;
 	else {
 		int n = 32;
