@@ -66,10 +66,10 @@ void work() {
 void print_breakpoint() {
 	BP *t = head;
 	if (t == NULL)	return;
-	printf ("Num\tType\tAddress\n");
+	printf ("Num\tBreakpointNum\tType\tAddress\n");
 	int cnt = 0;
 	while(t != NULL) {
-		printf("%d\tbreakpoint\t0x%x\n", ++cnt,t -> addr);
+		printf("%d\t%d\tbreakpoint\t0x%x\n", ++cnt,t -> NO, t -> addr);
 		t = t -> next;
 	}
 	return ;
