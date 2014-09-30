@@ -10,9 +10,7 @@ enum {
 	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,
 	HNUM, REG, NEG, DEREFER
 	/* TODO: Add more token types */
-
 };
-
 static struct rule {
 	char *regex;
 	int token_type;
@@ -197,7 +195,7 @@ bool check_parentheses(int l, int r, bool *f) {
 }
 uint32_t eval(int l, int r, bool *f) {
     if (l > r) {
-		f = 0;
+		*f = 0;
 		return 0;
 		/* Bad expression */
 	}
