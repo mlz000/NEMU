@@ -293,7 +293,7 @@ uint32_t expr(char *e, bool *f) {
 		}
 	}
 	//debug
-	//for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
+	for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
 	/* TODO: Implement code to evaluate the expression. */
 	return eval(0, nr_token-1, f);
 }
