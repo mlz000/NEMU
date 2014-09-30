@@ -191,7 +191,7 @@ bool check_parentheses(int l, int r, bool *f) {
 		if (cnt < 0)	*f = 0;
 		if (cnt == 0 && i != r) right = 0;
 	}
-	printf("f:%d\n",*f);
+	//printf("f:%d\n",*f);		//debug
 	if (cnt != 0)	*f = 0, right = 0;
 	return right;
 }
