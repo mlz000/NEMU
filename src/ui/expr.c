@@ -166,7 +166,7 @@ static bool make_token(char *e) {
 					case NUM: case HNUM: case REG:
 						tokens[nr_token].type = rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
-						//tokens[nr_token].str[substr_len] = 0;
+						tokens[nr_token].str[substr_len] = 0;
 						++nr_token;
 						break;
 					default: 
@@ -286,6 +286,7 @@ uint32_t eval(int l, int r, bool *f) {
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
 		f = false;
+		printf("AAA\n");
 		return 0;
 	}
 	int i;
