@@ -152,16 +152,11 @@ static bool make_token(char *e) {
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
-
 				//Log("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
-
 				position += substr_len;
-
-
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-
 				switch(rules[i].token_type) {
 					case NOTYPE:	break;
 					case NUM: case HNUM: case REG:
@@ -177,13 +172,11 @@ static bool make_token(char *e) {
 				break;
 			}
 		}
-
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
-
 	return true; 
 }
 bool check(int type) {
@@ -291,6 +284,7 @@ uint32_t expr(char *e, bool *f) {
 		printf("WRONG\n");			//debug
 		return 0;
 	}
+	puts(e);
 	int i;
 	for (i = 0; i < nr_token; ++i) {
 		if(!i || !check(tokens[i-1].type)) {	//judge NEG and DEREFER
