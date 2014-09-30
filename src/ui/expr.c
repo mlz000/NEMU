@@ -248,7 +248,8 @@ uint32_t eval(int l, int r, bool *f) {
 		/* The expression is surrounded by a matched pair of parentheses. 
 		 * If that is the case, just throw away the parentheses.
 		 */
-		 return eval(l + 1, r - 1, f); 
+		printf("parentheses!\n");
+		return eval(l + 1, r - 1, f); 
 	}
     else {
 		int op = dominant(l, r);
