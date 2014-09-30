@@ -116,7 +116,7 @@ int level(int type) {
 }
 int dominant(int l, int r) {
 	int i, cnt = 0, pos = -1;
-	printf("WOW\n");
+	//printf("WOW\n");	//debug
 	for (i = l; i <= r; ++i) {
 		switch (tokens[i].type) {
 			case '(':
