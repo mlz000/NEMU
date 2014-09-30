@@ -128,7 +128,7 @@ int dominant(int l, int r) {
 			case NUM: case HNUM: case REG: break;
 			default:
 				if (cnt == 0) {				//out of parentheses
-					if (~pos)	pos = i;
+					if (pos == -1)	pos = i;
 					if (level(tokens[i].type) == level(tokens[pos].type)) {
 						switch (tokens[i].type) {
 							case '~': case '!': case NEG: case DEREFER:	break;

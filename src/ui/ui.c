@@ -144,7 +144,7 @@ void cmd_p(char *p) {
 	else {
 		bool f = 1;
 		int ans = expr(p, &f);
-		printf("%d\n", f);
+		//printf("%d\n", f);	//debug
 		if (f)	printf("%d\n", ans);
 		else puts("illegal expression");
 	}
