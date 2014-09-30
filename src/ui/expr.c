@@ -284,7 +284,7 @@ uint32_t expr(char *e, bool *f) {
 		printf("WRONG\n");			//debug
 		return 0;
 	}
-	puts(e);
+	puts(e);		//debug
 	int i;
 	for (i = 0; i < nr_token; ++i) {
 		if(!i || !check(tokens[i-1].type)) {	//judge NEG and DEREFER
