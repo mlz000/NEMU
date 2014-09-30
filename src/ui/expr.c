@@ -243,7 +243,7 @@ uint32_t eval(int l, int r, bool *f) {
 		/* The expression is surrounded by a matched pair of parentheses. 
 		 * If that is the case, just throw away the parentheses.
 		 */
-		printf("parentheses!\n");
+		//printf("parentheses!\n");		//debug
 		return eval(l + 1, r - 1, f); 
 	}
     else {
@@ -283,10 +283,10 @@ uint32_t eval(int l, int r, bool *f) {
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
 		f = false;
-		printf("WRONG\n");			//debug
+		//printf("WRONG\n");			//debug
 		return 0;
 	}
-	puts(e);		//debug
+	//puts(e);		//debug
 	int i;
 	for (i = 0; i < nr_token; ++i) {
 		if(!i || !check(tokens[i-1].type)) {	//judge NEG and DEREFER
@@ -294,7 +294,8 @@ uint32_t expr(char *e, bool *f) {
 			else if (tokens[i].type == '*')	tokens[i].type = DEREFER;
 		}
 	}
-	for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
+	//debug
+	//for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
 	/* TODO: Implement code to evaluate the expression. */
 	return eval(0, nr_token-1, f);
 }
