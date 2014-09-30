@@ -286,7 +286,7 @@ uint32_t eval(int l, int r, bool *f) {
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
 		f = false;
-		printf("AAA\n");
+		printf("WRONG\n");			//debug
 		return 0;
 	}
 	int i;
