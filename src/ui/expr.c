@@ -191,7 +191,7 @@ bool check_parentheses(int l, int r, bool *f) {
 		if (cnt < 0)	f = 0;
 		if (cnt == 0 && i != r) right = 0;
 	}
-	if (cnt != 0)	f = 0;
+	if (cnt != 0)	f = 0, right = 0;
 	return right;
 }
 uint32_t eval(int l, int r, bool *f) {
@@ -246,6 +246,7 @@ uint32_t eval(int l, int r, bool *f) {
 		return eval(l + 1, r - 1, f); 
 	}
     else {
+		if (!f)	return 0;
 		int op = dominant(l, r);
 		uint32_t val1;
 		if (op == l)	val1 = 0;
