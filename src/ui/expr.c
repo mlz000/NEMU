@@ -204,6 +204,7 @@ uint32_t eval(int l, int r, bool *f) {
 				break;
 			case HNUM:
 				sscanf(tokens[l].str, "%x", &x);
+				break;
 			case REG:				//register
 				for (i = 0; i < 8; ++i) {
 					if (strcmp(regsl[i], tokens[l].str + 1) == 0) {
