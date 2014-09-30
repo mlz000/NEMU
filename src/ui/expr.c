@@ -118,7 +118,7 @@ int dominant(int l, int r) {
 			case ')':
 				--cnt;
 				break;
-			case NUM: case HNUM: case REG: break;
+			case NUM: break;//case HNUM: case REG: break;
 			default:
 				if (cnt == 0) {				//out of parentheses
 					if (pos == -1)	pos = i;
