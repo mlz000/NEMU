@@ -10,6 +10,7 @@
 int nemu_state = END;
 BP* new_bp();
 uint32_t find(uint32_t x);
+uint32_t expr(char *s, bool *f);
 void cpu_exec(uint32_t);
 void restart();
 void del_breakpoint();
@@ -17,7 +18,6 @@ void print_breakpoint();
 /* We use the readline library to provide more flexibility to read from stdin. */
 char* rl_gets() {
 	static char *line_read = NULL;
-
 	if (line_read) {
 		free(line_read);
 		line_read = NULL;
@@ -139,7 +139,15 @@ void cmd_d(char *p) {
 	del_breakpoint(n);
 }
 void cmd_p(char *p) {
-
+	p = strtok(NULL, " ");
+	if (p == NULL)	puts("Empty expression");
+	else {
+		bool f = 1;
+		int ans = expr(p, &f);
+		printf("%d\n", f);
+		if (f)	printf("%d\n", ans);
+		else puts("illegal expression");
+	}
 }
 void main_loop() {
 	char *cmd;
