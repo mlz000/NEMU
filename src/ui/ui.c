@@ -139,7 +139,7 @@ void cmd_d(char *p) {
 	del_breakpoint(n);
 }
 void cmd_p(char *p) {
-	p = strtok(NULL, " ");
+	p = strtok(NULL, "");
 	if (p == NULL)	puts("Empty expression");
 	else {
 		bool f = 1;
