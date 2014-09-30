@@ -5,7 +5,6 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
 enum {
 	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,
 	HNUM, REG, NEG, DEREFER
@@ -18,7 +17,6 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-
 	{" +",	NOTYPE},				// white space
 	{"\\+", '+'},					// plus
 	{"-", '-'},
@@ -46,11 +44,8 @@ static struct rule {
 	{"0x[[:xdigit:]]+", HNUM},
 	{"\\$[[:alpha:]]+", REG}
 };
-
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
-
 static regex_t re[NR_REGEX];
-
 /* Rules are used for more times.
  * Therefore we compile them only once before any usage.
  */
@@ -129,7 +124,7 @@ int dominant(int l, int r) {
 					if (pos == -1)	pos = i;
 					if (level(tokens[i].type) == level(tokens[pos].type)) {
 						switch (tokens[i].type) {
-							case '~': case '!': case NEG: case DEREFER:	break;
+							case '~': case NOT: case NEG: case DEREFER:	break;
 							default: pos = i;
 						}
 					}
@@ -160,7 +155,7 @@ static bool make_token(char *e) {
 					case NUM: case HNUM: case REG:
 						tokens[nr_token].type = rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
-						tokens[nr_token].str[substr_len] = 0;
+						//tokens[nr_token].str[substr_len] = 0;
 						++nr_token;
 						break;
 					default: 
@@ -274,13 +269,13 @@ uint32_t eval(int l, int r, bool *f) {
 			case '~': return ~val2;
 			case DEREFER: return swaddr_read(val2, 4);
 			case NEG: return -val2;
-			default: f = 0;return 0;
+			default: *f = 0;return 0;
 	 	} 
 	}
 }
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
-		f = false;
+		*f = 0;
 		//printf("WRONG\n");			//debug
 		return 0;
 	}
@@ -293,7 +288,7 @@ uint32_t expr(char *e, bool *f) {
 		}
 	}
 	//debug
-	for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
+	//for (i = 0; i < nr_token; ++i)	printf("%c\n", tokens[i].type);
 	/* TODO: Implement code to evaluate the expression. */
 	return eval(0, nr_token-1, f);
 }
