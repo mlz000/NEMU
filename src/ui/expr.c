@@ -40,8 +40,8 @@ static struct rule {
 	{"~", '~'},
 	{"\\(", '('},
 	{"\\)", ')'},
-	{"[[:digit:]]+", NUM},	//or [0-9]  These are always used inside square brackets in the form [[:alnum:]] or combined as [[:digit:]a-d]
 	{"0x[[:xdigit:]]+", HNUM},
+	{"[[:digit:]]+", NUM},	//or [0-9]  These are always used inside square brackets in the form [[:alnum:]] or combined as [[:digit:]a-d]
 	{"\\$[[:alpha:]]+", REG}
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
