@@ -53,7 +53,6 @@ void init_regex() {
 	int i;
 	char error_msg[128];
 	int ret;
-
 	for(i = 0; i < NR_REGEX; i ++) {
 		ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
 		if(ret != 0) {
@@ -118,7 +117,7 @@ int dominant(int l, int r) {
 			case ')':
 				--cnt;
 				break;
-			case NUM: break;//case HNUM: case REG: break;
+			case NUM: case HNUM: case REG: break;
 			default:
 				if (cnt == 0) {				//out of parentheses
 					if (pos == -1)	pos = i;
@@ -155,7 +154,6 @@ static bool make_token(char *e) {
 					case NUM: case HNUM: case REG:
 						tokens[nr_token].type = rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
-						//tokens[nr_token].str[substr_len] = 0;
 						++nr_token;
 						break;
 					default: 
@@ -277,7 +275,7 @@ uint32_t eval(int l, int r, bool *f) {
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
 		*f = 0;
-		//printf("WRONG\n");			//debug
+		printf("WRONG\n");			//debug
 		return 0;
 	}
 	//puts(e);		//debug
