@@ -163,6 +163,7 @@ static bool make_token(char *e) {
 				break;
 			}
 		}
+		printf("%d\n", i);//debug
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
@@ -275,7 +276,7 @@ uint32_t eval(int l, int r, bool *f) {
 uint32_t expr(char *e, bool *f) {
 	if(!make_token(e)) {
 		*f = 0;
-		printf("WRONG\n");			//debug
+		//printf("WRONG\n");			//debug
 		return 0;
 	}
 	//puts(e);		//debug
