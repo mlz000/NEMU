@@ -156,7 +156,7 @@ void cmd_w(char *p) {
 	else {
 		bool f = 1;
 		uint32_t ans = expr(p, &f);
-		printf("%u\n", ans);//debug
+		//printf("%u\n", ans);//debug
 		if (!f)	puts("illegal expression");
 		else {
 			BP *t = new_bp();

@@ -34,6 +34,7 @@ bool change() {
 		bool f = 1;
 		if (t -> kind == 1) {
 			uint32_t tmp = expr(t -> s, &f);
+			printf("%u\n", tmp);//debug
 			if (tmp != t -> now) {
 				can = 1;
 				printf("Hardware watchpoint %d: %s\n", t -> NO, t -> s);
