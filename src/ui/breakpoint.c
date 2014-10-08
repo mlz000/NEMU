@@ -29,11 +29,11 @@ BP* new_bp() {
 bool change() {
 	if (head == NULL)	return 0;
 	BP *t = head;
+	printf("%s\n", head -> s);
 	bool can = 0;
 	for (; t != NULL; t = t -> next) {
 		bool f = 1;
 		if (t -> kind == 1) {
-			printf("%s\n", t -> s);
 			uint32_t tmp = expr(t -> s, &f);
 			//printf("%s %u\n", t -> s, t -> now);//debug
 			if (t -> now != tmp) {
