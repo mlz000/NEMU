@@ -6,9 +6,10 @@
 #define INT3_CODE 0xcc
 
 typedef struct breakpoint {
-	int NO;
+	int NO, kind;	//0:breakpoint 1:watchpoint
+	char *s;//expr
 	struct breakpoint *next;
-	uint32_t addr, inst;
+	uint32_t addr, inst, ago, now;
 	/* TODO: Add more members if necessary */
 
 

@@ -127,6 +127,7 @@ void cmd_b(char *p) {
 	p = strtok(NULL, " ");
 	uint32_t expr = strtol(p+1, NULL, 16);
 	BP *t = new_bp();
+	t -> kind = 0;
 	t -> addr = expr;
 	t -> inst = swaddr_read(expr, 1);
 	swaddr_write(expr, 1, 0xcc);
@@ -147,6 +148,21 @@ void cmd_p(char *p) {
 		//printf("%d\n", f);	//debug
 		if (f)	printf("%d\n", ans);
 		else puts("illegal expression");
+	}
+}
+void cmd_w(char *p) {
+	p = strtok(NULL, "");
+	if (p == NULL)	puts("Empty expression");
+	else {
+		bool f = 1;
+		uint32_t ans = expr(p, &f);
+		if (!f)	puts("illegal expression");
+		else {
+			BP *t = new_bp();
+			t -> kind = 1;
+			t -> s = p;
+			t -> now = ans;
+		}
 	}
 }
 void main_loop() {
@@ -176,6 +192,9 @@ void main_loop() {
 		}
 		else if (strcmp(p, "p") == 0) {
 			cmd_p(p);
+		}
+		else if (strcmp(p, "w") == 0) {
+			cmd_w(p);
 		}
 		else { printf("Unknown command '%s'\n", p); }
 	}

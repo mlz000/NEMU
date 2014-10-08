@@ -6,7 +6,7 @@
 
 static BP bp_pool[NR_BP];
 static BP *head, *free_;
-
+uint32_t expr(char *e, bool *f);
 void init_bp_pool() {
 	int i;
 	for(i = 0; i < NR_BP - 1; i ++) {
@@ -25,6 +25,25 @@ BP* new_bp() {
 	t -> next = head;
 	head = t;
 	return head;
+}
+bool change() {
+	if (head == NULL)	return 0;
+	BP *t;
+	bool can = 0;
+	for (t = head; t != NULL; t = t -> next) {
+		bool f = 1;
+		if (t -> kind == 1) {
+			t -> now = expr(t -> s, &f);
+			if (t -> ago != t -> now) {
+				printf("Hardware watchpoint %d: %s", t -> NO, t -> s);
+				printf("Old value = %u\n", t -> ago);
+				printf("New value = %u\n", t -> now);
+				can = 1;
+				t -> ago = t -> now;
+			}
+		}
+	}
+	return can;
 }
 uint32_t find(uint32_t x) {
 	if (head == NULL)	assert(0);

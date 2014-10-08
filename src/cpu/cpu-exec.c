@@ -12,6 +12,7 @@ void work();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
 uint32_t find(uint32_t x);
+bool change();
 extern uint8_t loader [];
 extern uint32_t loader_len;
 
@@ -56,11 +57,13 @@ void cpu_exec(volatile uint32_t n) {
 			swaddr_write(cpu.eip - instr_len, 1, 0xcc);
 			nemu_state = RUNNING;
 		}
+		if (change()) {
+			break;
+		}
 		if(n_temp != -1 || (enable_debug && !quiet)) {
 			print_bin_instr(eip_temp, instr_len);
 			puts(assembly);
 		}
-
 		if(nemu_state == INT) {
 			printf("\n\nUser interrupt\n");
 			return;
