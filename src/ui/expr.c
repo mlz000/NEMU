@@ -154,6 +154,7 @@ static bool make_token(char *e) {
 					case NUM: case HNUM: case REG:
 						tokens[nr_token].type = rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
+						tokens[nr_token].str[substr_len] = '\0';
 						++nr_token;
 						break;
 					default: 
@@ -240,7 +241,7 @@ uint32_t eval(int l, int r, bool *f) {
 		return eval(l + 1, r - 1, f); 
 	}
     else {
-		if (! (*f))	return 0;
+		if (!(*f))	return 0;
 		int op = dominant(l, r);
 		uint32_t val1;
 		if (op == l)	val1 = 0;
@@ -260,12 +261,13 @@ uint32_t eval(int l, int r, bool *f) {
 			case NE: return val1 != val2;
 			case AND: return val1 && val2;
 			case OR: return val1 || val2;
-			case NOT: return !val2;
 			case SAL: return val1 << val2;
 			case SAR: return val1 >> val2;
 			case '&': return val1 & val2;
 			case '|': return val1 | val2;
 			case '^': return val1 ^ val2;
+		//	case NOT: case '~': case NEG: case DEREFER:
+			case NOT: return !val2;
 			case '~': return ~val2;
 			case DEREFER: return swaddr_read(val2, 4);
 			case NEG: return -val2;
