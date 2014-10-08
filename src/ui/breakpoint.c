@@ -28,9 +28,9 @@ BP* new_bp() {
 }
 bool change() {
 	if (head == NULL)	return 0;
-	BP *t;
+	BP *t = head;
 	bool can = 0;
-	for (t = head; t != NULL; t = t -> next) {
+	for (; t != NULL; t = t -> next) {
 		bool f = 1;
 		if (t -> kind == 1) {
 			uint32_t tmp = expr(t -> s, &f);
