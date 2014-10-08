@@ -163,7 +163,7 @@ void cmd_w(char *p) {
 			t -> kind = 1;
 			t -> s = p;
 			t -> now = ans;
-			printf("%s\n", t -> s);//debug
+			printf("%s %u\n", t -> s, t -> now);//debug
 		}
 	}
 }
