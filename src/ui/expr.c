@@ -233,6 +233,7 @@ uint32_t eval(int l, int r, bool *f) {
 				}
 				if (!can)	*f = 0;
 				break;
+			default : *f = 0;
 		}
 		return x;
 	}
