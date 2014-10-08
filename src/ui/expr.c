@@ -274,7 +274,6 @@ uint32_t eval(int l, int r, bool *f) {
 			case '&': return val1 & val2;
 			case '|': return val1 | val2;
 			case '^': return val1 ^ val2;
-		//	case NOT: case '~': case NEG: case DEREFER:
 			case NOT: return !val2;
 			case '~': return ~val2;
 			case DEREFER: return swaddr_read(val2, 4);
