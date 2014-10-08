@@ -29,7 +29,7 @@ BP* new_bp() {
 bool change() {
 	if (head == NULL)	return 0;
 	BP *t = head;
-	printf("%s\n", head -> s);
+	printf("%u%s\n",head -> now,  head -> s);
 	bool can = 0;
 	for (; t != NULL; t = t -> next) {
 		bool f = 1;
