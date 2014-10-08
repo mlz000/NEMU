@@ -35,10 +35,10 @@ bool change() {
 		if (t -> kind == 1) {
 			uint32_t tmp = expr(t -> s, &f);
 			if (tmp != t -> now) {
-				printf("Hardware watchpoint %d: %s", t -> NO, t -> s);
+				can = 1;
+				printf("Hardware watchpoint %d: %s\n", t -> NO, t -> s);
 				printf("Old value = %u\n", t -> ago);
 				printf("New value = %u\n", t -> now);
-				can = 1;
 				t -> ago = t -> now;
 				t -> now = tmp;
 			}
