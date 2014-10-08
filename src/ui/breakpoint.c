@@ -33,8 +33,9 @@ bool change() {
 	for (; t != NULL; t = t -> next) {
 		bool f = 1;
 		if (t -> kind == 1) {
+			printf("%s\n", t -> s);
 			uint32_t tmp = expr(t -> s, &f);
-			printf("%s %u\n", t -> s, t -> now);//debug
+			//printf("%s %u\n", t -> s, t -> now);//debug
 			if (t -> now != tmp) {
 				can = 1;
 				printf("Hardware watchpoint %d: %s\n", t -> NO, t -> s);
