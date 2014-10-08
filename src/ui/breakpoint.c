@@ -33,7 +33,7 @@ bool change() {
 	for (t = head; t != NULL; t = t -> next) {
 		bool f = 1;
 		if (t -> kind == 1) {
-			t -> now = expr(t -> s, &f);
+			t -> ago = expr(t -> s, &f);
 			if (t -> ago != t -> now) {
 				printf("Hardware watchpoint %d: %s", t -> NO, t -> s);
 				printf("Old value = %u\n", t -> ago);
