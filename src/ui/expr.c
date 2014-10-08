@@ -255,6 +255,11 @@ uint32_t eval(int l, int r, bool *f) {
 			*f = 0;
 			return 0;
 		}
+		//binary operator
+		if (op == l && !checkunary(tokens[op].type)) {
+			*f = 0;
+			return 0;
+		}
 		switch(tokens[op].type) {
 		    case '+': return val1 + val2;
 	  	    case '-': return val1 - val2;
