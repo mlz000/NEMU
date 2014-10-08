@@ -188,6 +188,9 @@ bool check_parentheses(int l, int r, bool *f) {
 	if (cnt != 0)	*f = 0, right = 0;
 	return right;
 }
+bool checkunary(int type) {
+	return (type == '~' || type == NOT || type == NEG || type == DEREFER);
+}
 uint32_t eval(int l, int r, bool *f) {
     if (l > r) {
 		*f = 0;
@@ -247,6 +250,11 @@ uint32_t eval(int l, int r, bool *f) {
 		if (op == l)	val1 = 0;
 		else val1 = eval(l, op - 1, f);
 		uint32_t val2 = eval(op + 1, r, f);
+		//unary operator
+		if (op != l && checkunary(tokens[op].type)) {
+			*f = 0;
+			return 0;
+		}
 		switch(tokens[op].type) {
 		    case '+': return val1 + val2;
 	  	    case '-': return val1 - val2;
