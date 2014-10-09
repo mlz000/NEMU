@@ -29,7 +29,7 @@ BP* new_bp() {
 bool change() {
 	if (head == NULL)	return 0;
 	BP *t = head;
-	printf("%u %u %s\n",t -> ago, t -> now,  head -> s);
+	//printf("%u %u %s\n",t -> ago, t -> now,  head -> s);	//debug
 	bool can = 0;
 	for (; t != NULL; t = t -> next) {
 		bool f = 1;
@@ -88,10 +88,15 @@ void work() {
 void print_breakpoint() {
 	BP *t = head;
 	if (t == NULL)	return;
-	printf ("Num\tBreakpointNum\tType\tAddress\n");
+	printf ("Num\tPointNum\tType\tAddress or Expression\n");
 	int cnt = 0;
 	while(t != NULL) {
-		printf("%d\t%d\tbreakpoint\t0x%x\n", ++cnt,t -> NO, t -> addr);
+		if (t -> kind == 0) {
+			printf("%d\t%d\tbreakpoint\t0x%x\n", ++cnt,t -> NO, t -> addr);
+		}
+		else {
+			printf("%d\t%d\thw watchpoint\t%s\n", ++cnt, t -> NO, t -> s);
+		}
 		t = t -> next;
 	}
 	return ;
