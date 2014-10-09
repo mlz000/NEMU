@@ -161,7 +161,7 @@ void cmd_w(char *p) {
 		else {
 			BP *t = new_bp();
 			t -> kind = 1;
-			t -> s = p;
+			strcpy(t -> s, p);
 			t -> now = ans;
 			printf("%s %u\n", t -> s, t -> now);//debug
 		}

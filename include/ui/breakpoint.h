@@ -7,7 +7,7 @@
 
 typedef struct breakpoint {
 	int NO, kind;	//0:breakpoint 1:watchpoint
-	char *s;//expr
+	char s[105];//expr
 	struct breakpoint *next;
 	uint32_t addr, inst, ago, now;
 	/* TODO: Add more members if necessary */
