@@ -29,7 +29,7 @@ BP* new_bp() {
 bool change() {
 	if (head == NULL)	return 0;
 	BP *t = head;
-	printf("%u %u %s\n",t -> ago, t -> now,  head -> s);
+	printf("%u%s\n",head -> now,  head -> s);
 	bool can = 0;
 	for (; t != NULL; t = t -> next) {
 		bool f = 1;
@@ -40,7 +40,7 @@ bool change() {
 				can = 1;
 				printf("Hardware watchpoint %d: %s\n", t -> NO, t -> s);
 				printf("Old value = %u\n", t -> ago);
-				printf("New value = %u\n", t -> now);
+				printf("New value = %u\n", tmp);
 				t -> ago = t -> now;
 				t -> now = tmp;
 			}
@@ -88,10 +88,15 @@ void work() {
 void print_breakpoint() {
 	BP *t = head;
 	if (t == NULL)	return;
-	printf ("Num\tBreakpointNum\tType\tAddress\n");
+	printf ("Num\tPointNum\tType\tAddress or expression\n");
 	int cnt = 0;
 	while(t != NULL) {
-		printf("%d\t%d\tbreakpoint\t0x%x\n", ++cnt,t -> NO, t -> addr);
+		if (t -> kind == 0){
+			printf("%d\t%d\tbreakpoint\t0x%x\n", ++cnt,t -> NO, t -> addr);
+		}
+		else{
+			printf("%d\t%d\thw watchpoint\t%s\n", ++cnt, t -> NO, t -> s);
+		}
 		t = t -> next;
 	}
 	return ;
