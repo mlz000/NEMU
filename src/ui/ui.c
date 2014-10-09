@@ -63,13 +63,12 @@ static void cmd_c() {
 
 static void cmd_r() {
 	if(nemu_state != END) { 
-		char c;
 		while(1) {
 			printf("The program is already running. Restart the program? (y or n)");
 			fflush(stdout);
-			scanf("%c", &c);
-			scanf(" %c", &c);
-			switch(c) {
+			char s[10];
+			scanf("%s", s);
+			switch(s[0]) {
 				case 'y': goto restart_;
 				case 'n': return;
 				default: puts("Please answer y or n.");
