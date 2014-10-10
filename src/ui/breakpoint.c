@@ -82,13 +82,13 @@ void work() {
 		if (t -> kind == 0) {
 			t -> inst = swaddr_read(t -> addr, 1);
 			swaddr_write(t -> addr, 1, 0xcc);
+			t = t -> next;
 		}
 		else {
 			BP * q = t;
-			free_bp(t);
-			t = q;
+			t = t -> next;
+			free_bp(q);
 		}
-		t = t -> next;
 	}
 	return ;
 }
