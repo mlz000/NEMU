@@ -83,6 +83,11 @@ void work() {
 			t -> inst = swaddr_read(t -> addr, 1);
 			swaddr_write(t -> addr, 1, 0xcc);
 		}
+		else {
+			BP * q = t;
+			free_bp(t);
+			t = q;
+		}
 		t = t -> next;
 	}
 	return ;
