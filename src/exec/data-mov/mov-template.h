@@ -83,13 +83,10 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	return 5;
 }
 make_helper(concat(pushr_, SUFFIX)) {
-	ModR_M m;
-	m.val = instr_fetch(eip + 1, 1);
+	int reg_code = instr_fetch(eip, 1) & 0x7;
 	cpu.esp -= DATA_BYTE;
-	swaddr_t addr;
-	int len = read_ModR_M(cpu.esp, &addr);
-	MEM_W(addr, REG(m.reg));
-	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(m.reg));
-	return len + DATA_BYTE + 1;
+	MEM_W(cpu.esp, REG(reg_code));
+	print_asm("push" str(SUFFIX) " %%%s", REG_NAME(reg_code));
+	return 1;
 }
 #include "exec/template-end.h"
