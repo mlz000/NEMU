@@ -114,12 +114,17 @@ void cmd_info(char *p) {
 void cmd_x(char *p) {
 	p=strtok(NULL," ");
 	int t=atoi(p);
-	p=strtok(NULL," ");
-	int k=strtol(p,NULL,16);
-	int i;
-	for(i=0;i<t;++i){
-		printf("0x%x	0x%02x\n",k,swaddr_read(k,4));
-		k+=4;
+	//p=strtok(NULL," ");
+	//int k=strtol(p,NULL,16);
+	bool f = 1;
+	int k = expr(p, &f);
+	if (!f)	printf("illegal expression\n");
+	else {
+		int i;
+		for(i=0;i<t;++i){
+			printf("0x%x	0x%02x\n",k,swaddr_read(k,4));
+			k+=4;
+		}
 	}
 }
 void cmd_b(char *p) {
