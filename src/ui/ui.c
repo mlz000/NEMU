@@ -114,7 +114,7 @@ void cmd_info(char *p) {
 void cmd_x(char *p) {
 	p=strtok(NULL," ");
 	int t=atoi(p);
-	//p=strtok(NULL," ");
+	p = strtok(NULL," ");
 	//int k=strtol(p,NULL,16);
 	bool f = 1;
 	int k = expr(p, &f);
