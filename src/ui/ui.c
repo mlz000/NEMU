@@ -92,7 +92,7 @@ void print_reg(){
 	printf("edi\t0x%x\t%d\n",cpu.edi,cpu.edi);
 	printf("eip\t0x%x\t0x%x\n",cpu.eip,cpu.eip);
 	printf("eflags\t");
-	uint32_t t = cpu.CF + (cpu.PF << 2) + (cpu.AF << 4) + (cpu.ZF << 6) + (cpu.SF << 7) + (cpu.TF << 8) + (cpu.IF << 9) + (cpu.DF << 10) + (cpu.OF << 11);
+	uint32_t t = cpu.CF + (cpu.a << 1) + (cpu.PF << 2) + (cpu.AF << 4) + (cpu.ZF << 6) + (cpu.SF << 7) + (cpu.TF << 8) + (cpu.IF << 9) + (cpu.DF << 10) + (cpu.OF << 11);
 	printf("0x%x\t[", t);
 	if (cpu.CF)	printf("CF ");
 	if (cpu.PF)	printf("PF ");
