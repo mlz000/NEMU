@@ -18,7 +18,6 @@ make_helper(concat(test_i2a_, SUFFIX)) {
 	DATA_TYPE t;
 	t = imm & REG(R_EAX);
 	concat(setflag_, SUFFIX) (t);
-	concat(setflag_, SUFFIX) (t);
 	print_asm("test" str(SUFFIX) " 0x%x,%%%s", imm, REG_NAME(R_EAX));
 	return 2;
 }

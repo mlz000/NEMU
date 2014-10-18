@@ -82,15 +82,26 @@ restart_:
 	cmd_c();
 }
 void print_reg(){
-	printf("eax		0x%x		%d\n",cpu.eax,cpu.eax);
-	printf("ecx		0x%x		%d\n",cpu.ecx,cpu.ecx);
-	printf("edx		0x%x		%d\n",cpu.edx,cpu.edx);
-	printf("ebx		0x%x		%d\n",cpu.ebx,cpu.ebx);
-	printf("esp		0x%x		0x%x\n",cpu.esp,cpu.esp);
-	printf("ebp		0x%x		0x%x\n",cpu.ebp,cpu.ebp);
-	printf("esi		0x%x		%d\n",cpu.esi,cpu.esi);
-	printf("edi		0x%x		%d\n",cpu.edi,cpu.edi);
-	printf("eip		0x%x		0x%x\n",cpu.eip,cpu.eip);
+	printf("eax\t0x%x\t%d\n",cpu.eax,cpu.eax);
+	printf("ecx\t0x%x\t%d\n",cpu.ecx,cpu.ecx);
+	printf("edx\t0x%x\t%d\n",cpu.edx,cpu.edx);
+	printf("ebx\t0x%x\t%d\n",cpu.ebx,cpu.ebx);
+	printf("esp\t0x%x\t0x%x\n",cpu.esp,cpu.esp);
+	printf("ebp\t0x%x\t0x%x\n",cpu.ebp,cpu.ebp);
+	printf("esi\t0x%x\t%d\n",cpu.esi,cpu.esi);
+	printf("edi\t0x%x\t%d\n",cpu.edi,cpu.edi);
+	printf("eip\t0x%x\t0x%x\n",cpu.eip,cpu.eip);
+	printf("eflags\t");
+	uint32_t t = cpu.CF + (cpu.PF << 2) + (cpu.AF << 4) + (cpu.ZF << 6) + (cpu.SF << 7) + (cpu.TF << 8) + (cpu.IF << 9) + (cpu.DF << 10) + (cpu.OF << 11);
+	printf("0x%x\t[", t);
+	if (cpu.CF)	printf("CF ");
+	if (cpu.PF)	printf("PF ");
+	if (cpu.ZF)	printf("ZF ");
+	if (cpu.SF)	printf("SF ");
+	if (cpu.IF)	printf("IF ");
+	if (cpu.DF)	printf("DF ");
+	if (cpu.OF)	printf("OF ");
+	printf("]\n");
 }
 void cmd_si(char *p) {
 	p=strtok(NULL," ");
