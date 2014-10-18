@@ -1,7 +1,7 @@
-#ifndef __MOV_H__
-#define __MOV_H__
+#ifndef __JCC_H__
+#define __JCC_H__
 
-make_helper(jcc_i2r_b);
+make_helper(je_r_b);
 make_helper(jcc_i2rm_b);
 make_helper(jcc_r2rm_b);
 make_helper(jcc_rm2r_b);
