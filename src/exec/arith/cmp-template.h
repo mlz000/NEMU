@@ -1,16 +1,25 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-
-make_helper(concat(cmp_i2r_, SUFFIX)) {
-	int reg_code = instr_fetch(eip, 1) & 0x7;
-	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
-	REG(reg_code) = imm;
-
-	print_asm("cmp" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(reg_code));
-	return DATA_BYTE + 1;
+void concat(setflag1_, SUFFIX) (DATA_TYPE t1,DATA_TYPE t2) {
+	DATA_TYPE t = t1 - t2;
+	if ((t1 >= 0 && t2 >= 0) || (t1 < 0 && t2 < 0))	cpu.OF = 0;
+	if (t1 < t2)	cpu.CF = 1;
+	else if (t1 > t2)	cpu.CF = 0;
+	cpu.ZF = (t == 0);
+	int cnt = 0, i;
+	for (i = 0; i < 8; ++i) {
+		if (t & (1 << i))	++cnt;
+	}
+	cpu.PF = (~(cnt & 1));
 }
-
+make_helper(concat(cmp_i2a_, SUFFIX)) {
+	DATA_TYPE imm;
+	imm = instr_fetch(eip + 1, DATA_BYTE);
+	concat(setflag1_, SUFFIX) (imm, REG(R_EAX));
+	print_asm("cmp" str(SUFFIX) " 0x%x, %%%s", imm, REG_NAME(R_EAX));
+	return 2;
+}
 make_helper(concat(cmp_i2rm_, SUFFIX)) {
 	ModR_M m;
 	DATA_TYPE imm;
@@ -18,6 +27,7 @@ make_helper(concat(cmp_i2rm_, SUFFIX)) {
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
 		REG(m.R_M) = imm;
+		concat(setflag1_, SUFFIX) (imm, REG(m.R_M));
 		print_asm("cmp" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
 	}

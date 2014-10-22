@@ -16,7 +16,9 @@
 /* for instruction encoding overloading */
 
 extern char suffix;
-
+make_helper(je_r_v) {
+	return (suffix == 'l' ? je_r_l(eip) : je_r_w(eip));
+}
 make_helper(jcc_i2r_v) {
 	return (suffix == 'l' ? jcc_i2r_l(eip) : jcc_i2r_w(eip));
 }
