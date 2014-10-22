@@ -26,7 +26,6 @@ make_helper(concat(cmp_i2rm_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
-		REG(m.R_M) = imm;
 		concat(setflag1_, SUFFIX) (imm, REG(m.R_M));
 		print_asm("cmp" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
@@ -35,7 +34,7 @@ make_helper(concat(cmp_i2rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		MEM_W(addr, imm);
+		concat(setflag1_, SUFFIX) (imm, addr);
 		print_asm("cmp" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
