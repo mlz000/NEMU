@@ -26,5 +26,8 @@ make_helper(cmp_rm2r_v) {
 	return (suffix == 'l' ? cmp_rm2r_l(eip) : cmp_rm2r_w(eip));
 }
 make_helper(cmp_i2a_v) {
-	return (suffix == 'l' ? cmp_i2a_l(eip) : cmp_i2a_v(eip));
+	return (suffix == 'l' ? cmp_i2a_l(eip) : cmp_i2a_w(eip));
+}
+make_helper(cmp_ib2rm_v) {
+	return (suffix == 'l' ? cmp_ib2rm_l(eip) : cmp_i2rm_w(eip));
 }

@@ -29,18 +29,18 @@ nemu: $(OBJS)
 $(TEST_FILE_LIST):
 	cd `dirname $@` && make
 
-loader: src/elf/loader.c
 
-src/elf/loader.c: $(TESTFILE)
+	
+loader: $(TESTFILE)
 	objcopy -S -O binary $(TESTFILE) loader
-	xxd -i loader > $@
+	xxd -i loader > src/elf/loader.c
 	rm loader
 
 
-run: nemu
+run: nemu $(TESTFILE)
 	./nemu -d $(TESTFILE) 2>&1 | tee log.txt
 
-gdb: nemu
+gdb: nemu $(TESTFILE)
 	gdb --args ./nemu -dq $(TESTFILE)
 
 test: nemu $(TEST_FILE_LIST)
