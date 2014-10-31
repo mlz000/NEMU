@@ -40,6 +40,18 @@ make_helper(mov_a2moffs_v) {
 make_helper(mov_moffs2a_v) {
 	return (suffix == 'l' ? mov_moffs2a_l(eip) : mov_moffs2a_w(eip));
 }
+make_helper(movsx_rmb2r_v) {
+	return (suffix == 'l' ? movsx_rmb2r_l(eip) : movsx_rmb2r_w(eip));
+}
+make_helper(movsx_rmw2r_v) {
+	return (suffix == 'l' ? movsx_rmw2r_l(eip) : movsx_rmw2r_w(eip));
+}
+make_helper(movzx_rmb2r_v) {
+	return (suffix == 'l' ? movzx_rmb2r_l(eip) : movzx_rmb2r_w(eip));
+}
+make_helper(movzx_rmw2r_v) {
+	return (suffix == 'l' ? movzx_rmw2r_l(eip) : movzx_rmw2r_w(eip));
+}
 make_helper(pushr_v) {
 	return (suffix == 'l' ? pushr_l(eip) : pushr_w(eip));
 }
@@ -54,4 +66,7 @@ make_helper(popr_v) {
 }
 make_helper(popm_v) {
 	return (suffix == 'l' ? popm_l(eip) : popm_w(eip));
+}
+make_helper(leave_v) {
+	return (suffix == 'l' ? leave_l(eip) : leave_w(eip));
 }

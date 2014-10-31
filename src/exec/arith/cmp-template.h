@@ -36,7 +36,7 @@ make_helper(concat(cmp_i2rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		concat(setflag1_, SUFFIX) (imm, addr, 1);
+		concat(setflag1_, SUFFIX) (imm, MEM_R(addr), 1);
 		print_asm("cmp" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
 	}
@@ -46,11 +46,16 @@ make_helper(concat(cmp_ib2rm_, SUFFIX)) {
 	DATA_TYPE imm;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		imm = instr_fetch(eip + 1 + 1, 1);
-		if (imm & (1 << 7)) { //signal extend
-			if (DATA_BYTE == 2)	imm |= 0xff00;
-			if (DATA_BYTE == 4)	imm |= 0xffff00;
+		DATA_TYPE t = instr_fetch(eip + 1 + 1, 1);
+		if (t & (1 << 7)) { //signal extend
+			if (DATA_BYTE == 2)	t |= 0xff00;
+			else	t |= 0xffff0000;
 		}
+		else {
+			if (DATA_BYTE == 2)	t &= 0xff;
+			else t &= 0xffff;
+		}
+		imm = t;
 		concat(setflag1_, SUFFIX) (imm, REG(m.R_M), 1);
 		print_asm("cmp" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 3;
@@ -58,12 +63,17 @@ make_helper(concat(cmp_ib2rm_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		imm = instr_fetch(eip + 1 + len, 1);
-		if (imm & (1 << 7)) {
-			if (DATA_BYTE == 2)	imm |= 0xff00;
-			if (DATA_BYTE == 4)	imm |= 0xffff00;
+		DATA_TYPE t = instr_fetch(eip + 1 + len, 1);
+		if (t & (1 << 7)) { //signal extend
+			if (DATA_BYTE == 2)	t |= 0xff00;
+			else	t |= 0xffff0000;
 		}
-		concat(setflag1_, SUFFIX) (imm, addr, 1);
+		else {
+			if (DATA_BYTE == 2)	t &= 0xff;
+			else t &= 0xffff;
+		}
+		imm = t;
+		concat(setflag1_, SUFFIX) (imm, MEM_R(addr), 1);
 		print_asm("cmp" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
 		return len + 2;
 	}

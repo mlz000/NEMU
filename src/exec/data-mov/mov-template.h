@@ -1,7 +1,6 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-
 make_helper(concat(mov_i2r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE imm = instr_fetch(eip + 1, DATA_BYTE);
@@ -82,10 +81,111 @@ make_helper(concat(mov_moffs2a_, SUFFIX)) {
 	print_asm("mov" str(SUFFIX) "   0x%x,%%%s", addr, REG_NAME(R_EAX));
 	return 5;
 }
+make_helper(concat(movsx_rmb2r_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 7)) {
+			if (DATA_BYTE == 2)	t |= 0xff00;
+			else	t |= 0xffff00;
+		}
+		else {
+			if (DATA_BYTE == 2)	t &= 0xff;
+			else t &= 0xffff;
+		}
+		REG(m.reg) = t;
+		print_asm("movsx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 7)) {
+			if (DATA_BYTE == 2)	t |= 0xff00;
+			else	t |= 0xffff00;
+		}
+		else {
+			if (DATA_BYTE == 2)	t &= 0xff;
+			else t &= 0xffff;
+		}
+		REG(m.reg) = t;	
+		print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		return len + 1;
+	}
+}
+make_helper(concat(movsx_rmw2r_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 15))	t |= 0xffff0000;
+		else	t &= 0xffff;
+		REG(m.reg) = t;
+		print_asm("movsx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 15))	t |= 0xffff0000;
+		else t &= 0xffff;
+		REG(m.reg) = t;	
+		print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		return len + 1;
+	}
+}
+make_helper(concat(movzx_rmb2r_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		DATA_TYPE t = REG(m.R_M);
+		if (DATA_BYTE == 2)	t &= 0xff;
+		else t &= 0xffff;
+		REG(m.reg) = t;
+		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		DATA_TYPE t = REG(m.R_M);
+		if (DATA_BYTE == 2)	t &= 0xff;
+		else t &= 0xffff;
+		REG(m.reg) = t;	
+		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		return len + 1;
+	}
+}
+make_helper(concat(movzx_rmw2r_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 15))	t |= 0xffff0000;
+		else	t &= 0xffff;
+		REG(m.reg) = t;
+		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		DATA_TYPE t = REG(m.R_M);
+		if (t & (1 << 15))	t |= 0xffff0000;
+		else t &= 0xffff;
+		REG(m.reg) = t;	
+		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		return len + 1;
+	}
+}
 make_helper(concat(pushr_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
+	DATA_TYPE t = REG(reg_code);
 	cpu.esp -= DATA_BYTE;
-	MEM_W(cpu.esp, REG(reg_code));
+	MEM_W(cpu.esp, t);
 	print_asm("push" str(SUFFIX) "  %%%s", REG_NAME(reg_code));
 	return 1;
 }
@@ -107,7 +207,7 @@ make_helper(concat(pushi_, SUFFIX)) {
 }
 make_helper(concat(popr_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
-	MEM_W(REG(reg_code), cpu.esp);
+	REG(reg_code) = MEM_R(cpu.esp);
 	cpu.esp += DATA_BYTE;
 	print_asm("pop" str(SUFFIX) "   %%%s", REG_NAME(reg_code));
 	return 1;
@@ -115,9 +215,16 @@ make_helper(concat(popr_, SUFFIX)) {
 make_helper(concat(popm_, SUFFIX)) {
 	swaddr_t addr;
 	int len = read_ModR_M(eip + 1, &addr);
-	MEM_W(MEM_R(addr), cpu.esp);
+	MEM_W(addr, MEM_R(cpu.esp));
 	cpu.esp += DATA_BYTE;
 	print_asm("pop" str(SUFFIX) "   %%%s", ModR_M_asm);
 	return len + 1;
+}
+make_helper(concat(leave_, SUFFIX)) {
+	REG(R_ESP) = REG(R_EBP);
+	REG(R_EBP) = MEM_R(cpu.esp);
+	cpu.esp += DATA_BYTE;
+	print_asm("leave");
+	return 1;
 }
 #include "exec/template-end.h"

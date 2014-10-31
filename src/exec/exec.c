@@ -8,10 +8,10 @@ typedef int (*helper_fun)(swaddr_t);
 /* TODO: Add more instructions!!! */
 
 helper_fun opcode_table [256] = {
-/* 0x00 */	inv, inv, inv, inv, 
-/* 0x04 */	inv, inv, inv, inv, 
+/* 0x00 */	add_r2rm_b, add_r2rm_v, add_rm2r_b, add_rm2r_v, 
+/* 0x04 */	add_i2a_b, add_i2a_v, inv, inv, 
 /* 0x08 */	inv, inv, inv, inv, 
-/* 0x0c */	inv, inv, inv, je_r_v, 
+/* 0x0c */	inv, inv, inv, jump, 
 /* 0x10 */	inv, inv, inv, inv, 
 /* 0x14 */	inv, inv, inv, inv, 
 /* 0x18 */	inv, inv, inv, inv, 
@@ -58,7 +58,7 @@ helper_fun opcode_table [256] = {
 /* 0xbc */	mov_i2r_v, mov_i2r_v, mov_i2r_v, mov_i2r_v, 
 /* 0xc0 */	inv, inv, inv, inv,
 /* 0xc4 */	inv, inv, mov_i2rm_b, mov_i2rm_v,
-/* 0xc8 */	inv, inv, inv, inv,
+/* 0xc8 */	inv, leave_v, inv, inv,
 /* 0xcc */	int3, inv, inv, inv,
 /* 0xd0 */	inv, inv, inv, inv,
 /* 0xd4 */	inv, inv, inv, inv,
@@ -74,6 +74,77 @@ helper_fun opcode_table [256] = {
 /* 0xfc */	inv, inv, inv, pushm_v
 };
 
+helper_fun opcode_table2 [256] = {
+/* 0x00 */	add_r2rm_b, add_r2rm_v, add_rm2r_b, add_rm2r_v, 
+/* 0x04 */	add_i2a_b, add_i2a_v, inv, inv, 
+/* 0x08 */	inv, inv, inv, inv, 
+/* 0x0c */	inv, inv, inv, je_r_v, 
+/* 0x10 */	inv, inv, inv, inv, 
+/* 0x14 */	inv, inv, inv, inv, 
+/* 0x18 */	inv, inv, inv, inv, 
+/* 0x1c */	inv, inv, inv, inv, 
+/* 0x20 */	inv, inv, inv, inv, 
+/* 0x24 */	inv, inv, inv, inv,
+/* 0x28 */	inv, inv, inv, inv, 
+/* 0x2c */	inv, inv, inv, inv, 
+/* 0x30 */	inv, inv, inv, inv, 
+/* 0x34 */	inv, inv, inv, inv,
+/* 0x38 */	cmp_r2rm_b, cmp_r2rm_v, cmp_rm2r_b, cmp_rm2r_v, 
+/* 0x3c */	cmp_i2a_b, cmp_i2a_v, cmp_i2a_v, inv, 
+/* 0x40 */	inv, inv, inv, inv, 
+/* 0x44 */	inv, inv, inv, inv,
+/* 0x48 */	inv, inv, inv, inv, 
+/* 0x4c */	inv, inv, inv, inv, 
+/* 0x50 */	pushr_v, pushr_v, pushr_v, pushr_v, 
+/* 0x54 */	pushr_v, pushr_v, pushr_v, pushr_v,
+/* 0x58 */	popr_v, inv, inv, inv, 
+/* 0x5c */	inv, inv, inv, inv, 
+/* 0x60 */	inv, inv, inv, inv,
+/* 0x64 */	inv, inv, data_size, inv,
+/* 0x68 */	pushi_v, inv, pushi_b, inv, 
+/* 0x6c */	inv, inv, inv, inv, 
+/* 0x70 */	inv, inv, inv, inv,
+/* 0x74 */	je_r_b, inv, inv, inv,
+/* 0x78 */	inv, inv, inv, inv, 
+/* 0x7c */	inv, inv, inv, inv, 
+/* 0x80 */	cmp_i2rm_b, cmp_i2rm_v, nemu_trap, cmp_ib2rm_v, 
+/* 0x84 */	je_r_v, test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v, 
+/* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
+/* 0x8c */	inv, inv, inv, popm_v, 
+/* 0x90 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
+/* 0x94 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
+/* 0x98 */	inv, inv, inv, inv, 
+/* 0x9c */	inv, inv, inv, inv, 
+/* 0xa0 */	mov_moffs2a_b, mov_moffs2a_v, mov_a2moffs_b, mov_a2moffs_v,
+/* 0xa4 */	inv, inv, inv, inv,
+/* 0xa8 */	test_i2a_b, test_i2a_v, inv, inv,
+/* 0xac */	inv, inv, inv, inv,
+/* 0xb0 */	mov_i2r_b, mov_i2r_b, mov_i2r_b, mov_i2r_b,
+/* 0xb4 */	mov_i2r_b, mov_i2r_b, movzx_rmb2r_v, movzx_rmw2r_v,
+/* 0xb8 */	mov_i2r_v, mov_i2r_v, mov_i2r_v, mov_i2r_v, 
+/* 0xbc */	mov_i2r_v, mov_i2r_v, movsx_rmb2r_v, movsx_rmw2r_v, 
+/* 0xc0 */	inv, inv, inv, inv,
+/* 0xc4 */	inv, inv, mov_i2rm_b, mov_i2rm_v,
+/* 0xc8 */	inv, leave_v, inv, inv,
+/* 0xcc */	int3, inv, inv, inv,
+/* 0xd0 */	inv, inv, inv, inv,
+/* 0xd4 */	inv, inv, inv, inv,
+/* 0xd8 */	inv, inv, inv, inv,
+/* 0xdc */	inv, inv, inv, inv,
+/* 0xe0 */	inv, inv, inv, inv,
+/* 0xe4 */	inv, inv, inv, inv,
+/* 0xe8 */	inv, inv, inv, inv,
+/* 0xec */	inv, inv, inv, inv,
+/* 0xf0 */	inv, inv, inv, inv,
+/* 0xf4 */	inv, inv, test_i2rm_b, test_i2rm_v,
+/* 0xf8 */	inv, inv, inv, inv,
+/* 0xfc */	inv, inv, inv, pushm_v
+};
+
+
 make_helper(exec) {
 	return opcode_table[ instr_fetch(eip, 1) ](eip);
+}
+make_helper(jump) {
+	return opcode_table2[ instr_fetch(eip + 1, 1) ] (eip + 1) + 1;
 }
