@@ -49,3 +49,9 @@ make_helper(pushm_v) {
 make_helper(pushi_v) {
 	return (suffix == 'l' ? pushi_l(eip) : pushi_w(eip));
 }
+make_helper(popr_v) {
+	return (suffix == 'l' ? popr_l(eip) : popr_w(eip));
+}
+make_helper(popm_v) {
+	return (suffix == 'l' ? popm_l(eip) : popm_w(eip));
+}

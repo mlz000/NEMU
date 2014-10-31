@@ -19,4 +19,6 @@ make_helper(mov_moffs2a_v);
 make_helper(pushr_v);
 make_helper(pushm_v);
 make_helper(pushi_v);
+make_helper(popr_v);
+make_helper(popm_v);
 #endif
