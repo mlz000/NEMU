@@ -43,3 +43,9 @@ make_helper(mov_moffs2a_v) {
 make_helper(pushr_v) {
 	return (suffix == 'l' ? pushr_l(eip) : pushr_w(eip));
 }
+make_helper(pushm_v) {
+	return (suffix == 'l' ? pushm_l(eip) : pushm_w(eip));
+}
+make_helper(pushi_v) {
+	return (suffix == 'l' ? pushi_l(eip) : pushi_w(eip));
+}

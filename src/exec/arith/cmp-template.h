@@ -1,16 +1,17 @@
 #include "exec/helper.h"
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
-void concat(setflag1_, SUFFIX) (DATA_TYPE t1,DATA_TYPE t2, int sub) {//t1 - t2
-	if (sub)	t2 = ~t2 + 1;
-	DATA_TYPE t = t1 + t2;
-	int c = (t < t1);
-	cpu.CF = (sub ^ c);
-	cpu.OF = (MSB(t1) == MSB(t2) && MSB(t1) != MSB(t));
-	cpu.ZF = (t == 0);
+void concat(setflag1_, SUFFIX) (DATA_TYPE x,DATA_TYPE y, int sub) {//t1 - t2
+	DATA_TYPE ty = y;
+	if (sub)	y = ~y;
+	DATA_TYPE z = x + y + (!!sub);
+	if (sub)	cpu.CF = x < ty;
+	else cpu.CF = z < x; 
+	cpu.OF = (MSB(x) == MSB(y) && MSB(x) != MSB(z));
+	cpu.ZF = (z == 0);
 	int cnt = 0, i;
 	for (i = 0; i < 8; ++i) {
-		if (t & (1 << i))	++cnt;
+		if (z & (1 << i))	++cnt;
 	}
 	cpu.PF = (~(cnt & 1));
 }

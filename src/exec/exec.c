@@ -34,7 +34,7 @@ helper_fun opcode_table [256] = {
 /* 0x5c */	inv, inv, inv, inv, 
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, data_size, inv,
-/* 0x68 */	inv, inv, inv, inv, 
+/* 0x68 */	pushi_v, inv, pushi_b, inv, 
 /* 0x6c */	inv, inv, inv, inv, 
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	je_r_b, inv, inv, inv,
@@ -71,7 +71,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, inv,
 /* 0xf4 */	inv, inv, test_i2rm_b, test_i2rm_v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, inv, inv
+/* 0xfc */	inv, inv, inv, pushm_v
 };
 
 make_helper(exec) {
