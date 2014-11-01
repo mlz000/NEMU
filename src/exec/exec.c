@@ -40,7 +40,7 @@ helper_fun opcode_table [256] = {
 /* 0x74 */	je_r_b, inv, inv, inv,
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	inv, inv, inv, inv, 
-/* 0x80 */	cmp_i2rm_b, cmp_i2rm_v, nemu_trap, cmp_ib2rm_v, 
+/* 0x80 */	immgrp1, immgrp2, nemu_trap, immgrp3, 
 /* 0x84 */	test_r2rm_b, test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
 /* 0x8c */	inv, inv, inv, popm_v, 
@@ -147,4 +147,46 @@ make_helper(exec) {
 }
 make_helper(jump) {
 	return opcode_table2[ instr_fetch(eip + 1, 1) ] (eip + 1) + 1;
+}
+make_helper(immgrp1) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return add_i2rm_b(eip);
+		case 1: return or_i2rm_b(eip);
+	    case 2: return adc_i2rm_b(eip);
+	    case 3: return sbb_i2rm_b(eip);
+		case 4: return and_i2rm_b(eip);
+		case 5: return sub_i2rm_b(eip);
+		case 6: return xor_i2rm_b(eip);
+		case 7: return cmp_i2rm_b(eip);
+	}
+	return 1;
+}
+make_helper(immgrp2) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return add_i2rm_v(eip);
+		case 1: return or_i2rm_v(eip);
+	    case 2: return adc_i2rm_v(eip);
+	    case 3: return sbb_i2rm_v(eip);
+		case 4: return and_i2rm_v(eip);
+		case 5: return sub_i2rm_v(eip);
+		case 6: return xor_i2rm_v(eip);
+		case 7: return cmp_i2rm_v(eip);
+	}
+	return 1;
+}
+make_helper(immgrp3) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return add_ib2rm_v(eip);
+		case 1: return or_ib2rm_v(eip);
+	    case 2: return adc_ib2rm_v(eip);
+	    case 3: return sbb_ib2rm_v(eip);
+		case 4: return and_ib2rm_v(eip);
+		case 5: return sub_ib2rm_v(eip);
+		case 6: return xor_ib2rm_v(eip);
+		case 7: return cmp_ib2rm_v(eip);
+	}
+	return 1;
 }
