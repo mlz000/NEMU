@@ -3,6 +3,7 @@
 #include "data-mov/xchg.h"
 #include "logic/test.h"
 #include "control/jcc.h"
+#include "control/ret.h"
 #include "arith/cmp.h"
 #include "arith/add.h"
 #include "arith/or.h"
