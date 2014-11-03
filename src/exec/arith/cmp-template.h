@@ -21,7 +21,7 @@ make_helper(concat(cmp_i2a_, SUFFIX)) {
 	imm = instr_fetch(eip + 1, DATA_BYTE);
 	concat(setflag1_, SUFFIX) (REG(R_EAX), imm, 1);
 	print_asm("cmp" str(SUFFIX) "   0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(cmp_i2rm_, SUFFIX)) {
 	ModR_M m;

@@ -18,7 +18,7 @@ make_helper(concat(or_i2a_, SUFFIX)) {
 	concat(setflagor_, SUFFIX) (imm, REG(R_EAX));
 	REG(R_EAX) |= imm;
 	print_asm("or" str(SUFFIX) "    0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(or_i2rm_, SUFFIX)) {
 	ModR_M m;
@@ -109,7 +109,7 @@ make_helper(concat(xor_i2a_, SUFFIX)) {
 	concat(setflagor_, SUFFIX) (imm, REG(R_EAX));
 	REG(R_EAX) ^= imm;
 	print_asm("xor" str(SUFFIX) "    0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(xor_i2rm_, SUFFIX)) {
 	ModR_M m;
@@ -200,7 +200,7 @@ make_helper(concat(and_i2a_, SUFFIX)) {
 	concat(setflagor_, SUFFIX) (imm, REG(R_EAX));
 	REG(R_EAX) &= imm;
 	print_asm("and" str(SUFFIX) "    0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(and_i2rm_, SUFFIX)) {
 	ModR_M m;

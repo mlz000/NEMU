@@ -22,7 +22,7 @@ make_helper(concat(add_i2a_, SUFFIX)) {
 	concat(setflag2_, SUFFIX) (imm, REG(R_EAX), 0);
 	REG(R_EAX) += imm;
 	print_asm("add" str(SUFFIX) "   0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(add_i2rm_, SUFFIX)) {
 	ModR_M m;
@@ -114,7 +114,7 @@ make_helper(concat(adc_i2a_, SUFFIX)) {
 	concat(setflag2_, SUFFIX) (imm, REG(R_EAX), 0);
 	REG(R_EAX) += imm + cpu.CF;
 	print_asm("adc" str(SUFFIX) "   0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(adc_i2rm_, SUFFIX)) {
 	ModR_M m;
@@ -206,7 +206,7 @@ make_helper(concat(sbb_i2a_, SUFFIX)) {
 	concat(setflag2_, SUFFIX) (REG(R_EAX), imm, 1);
 	REG(R_EAX) -= imm + cpu.CF;
 	print_asm("sbb" str(SUFFIX) "   0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(sbb_i2rm_, SUFFIX)) {
 	ModR_M m;
@@ -298,7 +298,7 @@ make_helper(concat(sub_i2a_, SUFFIX)) {
 	concat(setflag2_, SUFFIX) (REG(R_EAX), imm, 1);
 	REG(R_EAX) -= imm;
 	print_asm("sub" str(SUFFIX) "   0x%x, %%%s", imm, REG_NAME(R_EAX));
-	return 2;
+	return DATA_BYTE + 1;
 }
 make_helper(concat(sub_i2rm_, SUFFIX)) {
 	ModR_M m;
