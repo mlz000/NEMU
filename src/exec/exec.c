@@ -24,26 +24,26 @@ helper_fun opcode_table [256] = {
 /* 0x34 */	inv, inv, inv, inv,
 /* 0x38 */	cmp_r2rm_b, cmp_r2rm_v, cmp_rm2r_b, cmp_rm2r_v, 
 /* 0x3c */	cmp_i2a_b, cmp_i2a_v, cmp_i2a_v, inv, 
-/* 0x40 */	inv, inv, inv, inv, 
+/* 0x40 */	inc_r_v, inv, inv, inv, 
 /* 0x44 */	inv, inv, inv, inv,
-/* 0x48 */	inv, inv, inv, inv, 
+/* 0x48 */	dec_r_v, inv, inv, inv, 
 /* 0x4c */	inv, inv, inv, inv, 
-/* 0x50 */	pushr_v, pushr_v, pushr_v, pushr_v, 
-/* 0x54 */	pushr_v, pushr_v, pushr_v, pushr_v,
-/* 0x58 */	popr_v, inv, inv, inv, 
+/* 0x50 */	push_r_v, push_r_v, push_r_v, push_r_v, 
+/* 0x54 */	push_r_v, push_r_v, push_r_v, push_r_v,
+/* 0x58 */	pop_r_v, inv, inv, inv, 
 /* 0x5c */	inv, inv, inv, inv, 
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, data_size, inv,
-/* 0x68 */	pushi_v, inv, pushi_b, inv, 
+/* 0x68 */	push_i_v, inv, push_i_b, inv, 
 /* 0x6c */	inv, inv, inv, inv, 
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	je_r_b, inv, inv, inv,
 /* 0x78 */	inv, inv, inv, inv, 
 /* 0x7c */	inv, inv, inv, inv, 
-/* 0x80 */	immgrp1, immgrp2, nemu_trap, immgrp3, 
+/* 0x80 */	grp1ib, grp1iv, nemu_trap, grp1ibv, 
 /* 0x84 */	test_r2rm_b, test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
-/* 0x8c */	inv, inv, inv, popm_v, 
+/* 0x8c */	inv, inv, inv, pop_m_v, 
 /* 0x90 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x94 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x98 */	inv, inv, inv, inv, 
@@ -69,9 +69,9 @@ helper_fun opcode_table [256] = {
 /* 0xe8 */	inv, inv, inv, inv,
 /* 0xec */	inv, inv, inv, inv,
 /* 0xf0 */	inv, inv, inv, inv,
-/* 0xf4 */	inv, inv, test_i2rm_b, test_i2rm_v,
+/* 0xf4 */	inv, inv, grp3b, grp3v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, inv, pushm_v
+/* 0xfc */	inv, inv, grp4, grp5
 };
 
 helper_fun opcode_table2 [256] = {
@@ -95,13 +95,13 @@ helper_fun opcode_table2 [256] = {
 /* 0x44 */	inv, inv, inv, inv,
 /* 0x48 */	inv, inv, inv, inv, 
 /* 0x4c */	inv, inv, inv, inv, 
-/* 0x50 */	pushr_v, pushr_v, pushr_v, pushr_v, 
-/* 0x54 */	pushr_v, pushr_v, pushr_v, pushr_v,
-/* 0x58 */	popr_v, inv, inv, inv, 
+/* 0x50 */	push_r_v, push_r_v, push_r_v, push_r_v, 
+/* 0x54 */	push_r_v, push_r_v, push_r_v, push_r_v,
+/* 0x58 */	pop_r_v, inv, inv, inv, 
 /* 0x5c */	inv, inv, inv, inv, 
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, data_size, inv,
-/* 0x68 */	pushi_v, inv, pushi_b, inv, 
+/* 0x68 */	push_i_v, inv, push_i_b, inv, 
 /* 0x6c */	inv, inv, inv, inv, 
 /* 0x70 */	inv, inv, inv, inv,
 /* 0x74 */	je_r_b, inv, inv, inv,
@@ -110,7 +110,7 @@ helper_fun opcode_table2 [256] = {
 /* 0x80 */	cmp_i2rm_b, cmp_i2rm_v, nemu_trap, cmp_ib2rm_v, 
 /* 0x84 */	je_r_v, test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
-/* 0x8c */	inv, inv, inv, popm_v, 
+/* 0x8c */	inv, inv, inv, pop_m_v, 
 /* 0x90 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x94 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x98 */	inv, inv, inv, inv, 
@@ -138,7 +138,7 @@ helper_fun opcode_table2 [256] = {
 /* 0xf0 */	inv, inv, inv, inv,
 /* 0xf4 */	inv, inv, test_i2rm_b, test_i2rm_v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, inv, pushm_v
+/* 0xfc */	inv, inv, inv, push_m_v
 };
 
 
@@ -148,7 +148,7 @@ make_helper(exec) {
 make_helper(jump) {
 	return opcode_table2[ instr_fetch(eip + 1, 1) ] (eip + 1) + 1;
 }
-make_helper(immgrp1) {
+make_helper(grp1ib) {
 	int t = instr_fetch(eip + 1, 1);
 	switch((t >> 3) & 7) {
 		case 0:	return add_i2rm_b(eip);
@@ -162,7 +162,7 @@ make_helper(immgrp1) {
 	}
 	return 1;
 }
-make_helper(immgrp2) {
+make_helper(grp1iv) {
 	int t = instr_fetch(eip + 1, 1);
 	switch((t >> 3) & 7) {
 		case 0:	return add_i2rm_v(eip);
@@ -176,7 +176,7 @@ make_helper(immgrp2) {
 	}
 	return 1;
 }
-make_helper(immgrp3) {
+make_helper(grp1ibv) {
 	int t = instr_fetch(eip + 1, 1);
 	switch((t >> 3) & 7) {
 		case 0:	return add_ib2rm_v(eip);
@@ -187,6 +187,37 @@ make_helper(immgrp3) {
 		case 5: return sub_ib2rm_v(eip);
 		case 6: return xor_ib2rm_v(eip);
 		case 7: return cmp_ib2rm_v(eip);
+	}
+	return 1;
+}
+make_helper(grp3b) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return test_i2rm_b(eip);
+	}
+	return 1;
+}
+make_helper(grp3v) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0: return test_i2rm_v(eip);
+	}
+	return 1;
+}
+make_helper(grp4) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return inc_rm_b(eip);
+		case 1: return dec_rm_b(eip);
+	}
+	return 1;
+}
+make_helper(grp5) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 0:	return inc_rm_v(eip);
+		case 1: return dec_rm_v(eip);
+		case 6: return push_m_v(eip);
 	}
 	return 1;
 }

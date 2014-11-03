@@ -181,7 +181,7 @@ make_helper(concat(movzx_rmw2r_, SUFFIX)) {
 		return len + 1;
 	}
 }
-make_helper(concat(pushr_, SUFFIX)) {
+make_helper(concat(push_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	DATA_TYPE t = REG(reg_code);
 	cpu.esp -= DATA_BYTE;
@@ -189,7 +189,7 @@ make_helper(concat(pushr_, SUFFIX)) {
 	print_asm("push" str(SUFFIX) "  %%%s", REG_NAME(reg_code));
 	return 1;
 }
-make_helper(concat(pushm_, SUFFIX)) {
+make_helper(concat(push_m_, SUFFIX)) {
 	swaddr_t addr;
 	int len = read_ModR_M(eip + 1, &addr);
 	cpu.esp -= DATA_BYTE;
@@ -197,7 +197,7 @@ make_helper(concat(pushm_, SUFFIX)) {
 	print_asm("push" str(SUFFIX) "  %%%s", ModR_M_asm);
 	return len + 1;
 }
-make_helper(concat(pushi_, SUFFIX)) {
+make_helper(concat(push_i_, SUFFIX)) {
 	DATA_TYPE imm;
 	imm = instr_fetch(eip + 1, DATA_BYTE);
 	cpu.esp -= DATA_BYTE;
@@ -205,14 +205,14 @@ make_helper(concat(pushi_, SUFFIX)) {
 	print_asm("push" str(SUFFIX) "  $0x%x", imm);
 	return DATA_BYTE + 1;
 }
-make_helper(concat(popr_, SUFFIX)) {
+make_helper(concat(pop_r_, SUFFIX)) {
 	int reg_code = instr_fetch(eip, 1) & 0x7;
 	REG(reg_code) = MEM_R(cpu.esp);
 	cpu.esp += DATA_BYTE;
 	print_asm("pop" str(SUFFIX) "   %%%s", REG_NAME(reg_code));
 	return 1;
 }
-make_helper(concat(popm_, SUFFIX)) {
+make_helper(concat(pop_m_, SUFFIX)) {
 	swaddr_t addr;
 	int len = read_ModR_M(eip + 1, &addr);
 	MEM_W(addr, MEM_R(cpu.esp));

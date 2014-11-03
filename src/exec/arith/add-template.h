@@ -15,6 +15,7 @@ void concat(setflag2_, SUFFIX) (DATA_TYPE x, DATA_TYPE y, int sub) {
 	}
 	cpu.PF = (~(cnt & 1));
 }
+//add
 make_helper(concat(add_i2a_, SUFFIX)) {
 	DATA_TYPE imm;
 	imm = instr_fetch(eip + 1, DATA_BYTE);
@@ -106,6 +107,7 @@ make_helper(concat(add_rm2r_, SUFFIX)) {
 		return len + 1;
 	}
 }
+//adc
 make_helper(concat(adc_i2a_, SUFFIX)) {
 	DATA_TYPE imm;
 	imm = instr_fetch(eip + 1, DATA_BYTE);
@@ -197,6 +199,7 @@ make_helper(concat(adc_rm2r_, SUFFIX)) {
 		return len + 1;
 	}
 }
+//sbb
 make_helper(concat(sbb_i2a_, SUFFIX)) {
 	DATA_TYPE imm;
 	imm = instr_fetch(eip + 1, DATA_BYTE);
@@ -379,5 +382,57 @@ make_helper(concat(sub_rm2r_, SUFFIX)) {
 		print_asm("sub" str(SUFFIX) "   %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
 		return len + 1;
 	}
+}
+//inc
+make_helper(concat(inc_rm_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		concat(setflag2_, SUFFIX) (REG(m.R_M),1, 0);
+		++REG(m.R_M);
+		print_asm("inc" str(SUFFIX) "   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		concat(setflag2_, SUFFIX) (MEM_R(addr), 1, 0);
+		MEM_W(addr, MEM_R(addr) + 1);
+		print_asm("inc" str(SUFFIX) "   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(inc_r_, SUFFIX)) {
+	int reg_code = instr_fetch(eip, 1) & 0x7;
+	concat(setflag2_, SUFFIX) (REG(reg_code), 1, 0);
+	++REG(reg_code);
+	print_asm("inc    %%%s", REG_NAME(reg_code));
+	return 1;
+}
+//dec
+make_helper(concat(dec_rm_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		concat(setflag2_, SUFFIX) (REG(m.R_M),1, 1);
+		--REG(m.R_M);
+		print_asm("dec" str(SUFFIX) "   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		concat(setflag2_, SUFFIX) (MEM_R(addr), 1, 1);
+		MEM_W(addr, MEM_R(addr) - 1);
+		print_asm("dec" str(SUFFIX) "   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(dec_r_, SUFFIX)) {
+	int reg_code = instr_fetch(eip, 1) & 0x7;
+	concat(setflag2_, SUFFIX) (REG(reg_code), 1, 1);
+	--REG(reg_code);
+	print_asm("dec    %%%s", REG_NAME(reg_code));
+	return 1;
 }
 #include "exec/template-end.h"

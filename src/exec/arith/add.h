@@ -20,6 +20,10 @@ make_helper(sub_i2a_b);
 make_helper(sub_i2rm_b);
 make_helper(sub_r2rm_b);
 make_helper(sub_rm2r_b);
+//inc
+make_helper(inc_rm_b);
+//dec
+make_helper(dec_rm_b);
 
 //add
 make_helper(add_i2a_v);
@@ -45,4 +49,11 @@ make_helper(sub_i2rm_v);
 make_helper(sub_r2rm_v);
 make_helper(sub_rm2r_v);
 make_helper(sub_ib2rm_v);
+//inc
+make_helper(inc_rm_v);
+make_helper(inc_r_v);
+//dec
+make_helper(dec_rm_v);
+make_helper(dec_r_v);
+
 #endif
