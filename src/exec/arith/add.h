@@ -24,6 +24,8 @@ make_helper(sub_rm2r_b);
 make_helper(inc_rm_b);
 //dec
 make_helper(dec_rm_b);
+//neg
+make_helper(neg_rm_b);
 
 //add
 make_helper(add_i2a_v);
@@ -55,5 +57,8 @@ make_helper(inc_r_v);
 //dec
 make_helper(dec_rm_v);
 make_helper(dec_r_v);
+//neg
+make_helper(neg_r_v);
+
 
 #endif

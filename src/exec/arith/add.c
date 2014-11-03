@@ -94,3 +94,7 @@ make_helper(dec_rm_v) {
 make_helper(dec_r_v) {
 	return (suffix == 'l' ? dec_r_l(eip) : dec_r_w(eip));
 }
+//neg
+make_helper(neg_rm_v) {
+	return (suffix == 'l' ? neg_rm_l(eip) : neg_rm_w(eip));
+}

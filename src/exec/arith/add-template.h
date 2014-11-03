@@ -435,4 +435,27 @@ make_helper(concat(dec_r_, SUFFIX)) {
 	print_asm("dec    %%%s", REG_NAME(reg_code));
 	return 1;
 }
+//neg
+make_helper(concat(neg_rm_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if(m.mod == 3) {
+		concat(setflag2_, SUFFIX)(0, REG(m.R_M), 1);
+		if (!REG(m.R_M))	cpu.CF = 0;
+		else cpu.CF = 1;
+		REG(m.R_M) = -REG(m.R_M);
+		print_asm("neg    %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		concat(setflag2_, SUFFIX)(0, MEM_R(addr), 1);
+		if (!MEM_R(addr))	cpu.CF = 0;
+		else cpu.CF = 1;
+		MEM_W(addr, -MEM_R(addr));
+		print_asm("neg" str(SUFFIX)"   %s",ModR_M_asm);
+		return len + 1;
+	}
+}
 #include "exec/template-end.h"

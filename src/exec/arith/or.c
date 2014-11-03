@@ -64,3 +64,7 @@ make_helper(and_i2a_v) {
 make_helper(and_ib2rm_v) {
 		return (suffix == 'l' ? and_ib2rm_l(eip) : and_i2rm_w(eip));
 }
+//not
+make_helper(not_rm_v) {
+	return (suffix == 'l' ? not_rm_l(eip) : not_rm_w(eip));
+}

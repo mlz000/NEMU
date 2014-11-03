@@ -15,6 +15,7 @@ void concat(setflag1_, SUFFIX) (DATA_TYPE x,DATA_TYPE y, int sub) {//t1 - t2
 	}
 	cpu.PF = (~(cnt & 1));
 }
+//cmp
 make_helper(concat(cmp_i2a_, SUFFIX)) {
 	DATA_TYPE imm;
 	imm = instr_fetch(eip + 1, DATA_BYTE);
