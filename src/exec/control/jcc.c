@@ -20,6 +20,10 @@ extern char suffix;
 make_helper(je_r_v) {
 	return (suffix == 'l' ? je_r_l(eip) : je_r_w(eip));
 }
+//jle
+make_helper(jle_r_v) {
+	return (suffix == 'l' ? jle_r_l(eip) : jle_r_w(eip));
+}
 //jmp
 make_helper(jmp_r_v) {
 	return (suffix == 'l' ? jmp_r_l(eip) : jmp_r_w(eip));
