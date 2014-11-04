@@ -14,7 +14,7 @@ make_helper(concat(je_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("je" str(SUFFIX) "    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("je      0x%x", cpu.eip + x + DATA_BYTE + 1);
 	if (cpu.CF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -31,7 +31,7 @@ make_helper(concat(jle_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jle" str(SUFFIX) "   0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jle    0x%x", cpu.eip + x + DATA_BYTE + 1);
 	if (cpu.ZF ==1 || cpu.SF != cpu.OF)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -50,7 +50,7 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	}
 	else x = t;
 	cpu.eip += x;
-	print_asm("jmp" str(SUFFIX) "   0x%x", cpu.eip + DATA_BYTE + 1);
+	print_asm("jmp    0x%x", cpu.eip + DATA_BYTE + 1);
 	return DATA_BYTE + 1;
 }
 #include "exec/template-end.h"
