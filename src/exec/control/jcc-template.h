@@ -16,7 +16,7 @@ make_helper(concat(je_r_, SUFFIX)) {
 		}
 		else x = t;
 		cpu.eip += x;
-		print_asm("je" str(SUFFIX) "    0x%x", cpu.eip);
+		print_asm("je" str(SUFFIX) "    0x%x", cpu.eip + DATA_BYTE + 1);
 	}
 	return DATA_BYTE + 1;
 }
@@ -34,7 +34,7 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	}
 	else x = t;
 	cpu.eip += x;
-	print_asm("jmp" str(SUFFIX) "   0x%x", cpu.eip);
+	print_asm("jmp" str(SUFFIX) "   0x%x", cpu.eip + DATA_BYTE + 1);
 	return DATA_BYTE + 1;
 }
 #include "exec/template-end.h"
