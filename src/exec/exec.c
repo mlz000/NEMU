@@ -164,6 +164,7 @@ make_helper(grp1ib) {
 }
 make_helper(grp1iv) {
 	int t = instr_fetch(eip + 1, 1);
+	//printf("t:%d\n", t >> 3 & 7);//debug
 	switch((t >> 3) & 7) {
 		case 0:	return add_i2rm_v(eip);
 		case 1: return or_i2rm_v(eip);
@@ -174,7 +175,6 @@ make_helper(grp1iv) {
 		case 6: return xor_i2rm_v(eip);
 		case 7: return cmp_i2rm_v(eip);
 	}
-	printf("%d\n", t);//debug
 	return 1;
 }
 make_helper(grp1ibv) {
