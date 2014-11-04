@@ -174,6 +174,7 @@ make_helper(grp1iv) {
 		case 6: return xor_i2rm_v(eip);
 		case 7: return cmp_i2rm_v(eip);
 	}
+	printf("%d\n", t);//debug
 	return 1;
 }
 make_helper(grp1ibv) {
