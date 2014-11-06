@@ -58,7 +58,7 @@ static void cmd_c() {
 	}
 	if (nemu_state != BREAK_1)	nemu_state = RUNNING;
 	cpu_exec(-1);
-	if(nemu_state != END) { nemu_state = STOP; }
+	if(nemu_state != END && nemu_state != BREAK_1) { nemu_state = STOP; }
 }
 
 static void cmd_r() {
