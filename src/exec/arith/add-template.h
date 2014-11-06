@@ -7,6 +7,7 @@ void concat(setflag2_, SUFFIX) (DATA_TYPE x, DATA_TYPE y, int sub) {
 	DATA_TYPE z = x + y + (!!sub);
 	if (sub)	cpu.CF = x < ty;
 	else cpu.CF = z < x;
+	cpu.SF = MSB(z);
 	cpu.OF = (MSB(x) == MSB(y) && MSB(x) != MSB(z));
 	cpu.ZF = (z == 0);
 	int cnt = 0, i;
