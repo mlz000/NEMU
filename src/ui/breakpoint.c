@@ -49,12 +49,13 @@ bool change() {
 	return can;
 }
 uint32_t find(uint32_t x) {
-	if (head == NULL)	assert(0);
+	if (head == NULL)	return -1;
 	BP *t = head;
 	int now = 31;
 	while (now-- && t -> addr != x) {
 		t = t -> next;
 	}
+	if (!now)	return -1;
 	return t -> inst;
 }
 void free_bp(BP *bp) {

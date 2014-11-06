@@ -56,7 +56,8 @@ void cpu_exec(volatile uint32_t n) {
 			break;
 		}
 		else if (nemu_state == BREAK_1) {
-			swaddr_write(cpu.eip - instr_len, 1, 0xcc);
+			uint32_t t = find(eip_temp );
+			if (t != -1)	swaddr_write(cpu.eip - instr_len, 1, 0xcc);
 			nemu_state = RUNNING;
 		}
 		if (change()) {
