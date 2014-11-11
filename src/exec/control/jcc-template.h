@@ -304,7 +304,28 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	}
 	else x = t;
 	cpu.eip += x;
+	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
 	print_asm("jmp    0x%x", cpu.eip + DATA_BYTE + 1);
 	return DATA_BYTE + 1;
+}
+make_helper(concat(jmp_rm_, SUFFIX)) {
+	ModR_M m;
+	m.val = instr_fetch(eip + 1, 1);
+	if (m.mod == 3) {
+		if (DATA_BYTE == 2)	cpu.eip = REG(m.R_M) & 0xffff;
+		else cpu.eip = REG(m.R_M);
+		print_asm("jmp    %%%s", REG_NAME(m.R_M));
+		cpu.eip -= 2;
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1, &addr);
+		if (DATA_BYTE == 2)	cpu.eip = MEM_R(addr) & 0xffff;
+		else cpu.eip = MEM_R(addr);
+		print_asm("jmp    %s", ModR_M_asm);
+		cpu.eip -= len + 1;
+		return len + 1;
+	}
 }
 #include "exec/template-end.h"

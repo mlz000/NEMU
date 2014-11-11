@@ -72,6 +72,6 @@ make_helper(jle_r_v);
 make_helper(jg_r_v);
 //jmp
 make_helper(jmp_r_v);
-
+make_helper(jmp_rm_v);
 
 #endif

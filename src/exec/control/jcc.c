@@ -84,3 +84,6 @@ make_helper(jg_r_v) {
 make_helper(jmp_r_v) {
 	return (suffix == 'l' ? jmp_r_l(eip) : jmp_r_w(eip));
 }
+make_helper(jmp_rm_v) {
+	return (suffix == 'l' ? jmp_rm_l(eip) : jmp_rm_w(eip));
+}

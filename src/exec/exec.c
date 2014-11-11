@@ -66,7 +66,7 @@ helper_fun opcode_table [256] = {
 /* 0xdc */	inv, inv, inv, inv,
 /* 0xe0 */	inv, inv, inv, jcxz_r_b,
 /* 0xe4 */	inv, inv, inv, inv,
-/* 0xe8 */	inv, jmp_r_v, inv, jmp_r_b,
+/* 0xe8 */	call_r_v, jmp_r_v, inv, jmp_r_b,
 /* 0xec */	inv, inv, inv, inv,
 /* 0xf0 */	inv, inv, inv, inv,
 /* 0xf4 */	inv, inv, grp3b, grp3v,
@@ -218,7 +218,10 @@ make_helper(grp5) {
 	switch((t >> 3) & 7) {
 		case 0:	return inc_rm_v(eip);
 		case 1: return dec_rm_v(eip);
+		case 2: return call_rm_v(eip);
+		case 4: return jmp_rm_v(eip);
 		case 6: return push_m_v(eip);
+	
 	}
 	return 1;
 }

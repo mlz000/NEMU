@@ -16,6 +16,15 @@
 /* for instruction encoding overloading */
 
 extern char suffix;
+
+//ret
 make_helper(ret_v) {
 	return (suffix == 'l' ? ret_l(eip) : ret_w(eip));
+}
+//call
+make_helper(call_r_v) {
+	return (suffix == 'l' ? call_r_l(eip) : call_r_w(eip));
+}
+make_helper(call_rm_v) {
+	return (suffix == 'l' ? call_rm_l(eip) : call_rm_w(eip));
 }
