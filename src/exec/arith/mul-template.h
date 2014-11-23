@@ -2,13 +2,13 @@
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
 void concat(setflagdiv_, SUFFIX) (DATA_TYPE x) {
-	uint64_t t = (uint64_t)REG(R_EAX) | (((uint64_t)(REG(R_EDX)))<<(DATA_BYTE << 3));
+	uint64_t t = (uint64_t)REG(R_EAX) | ((uint64_t)(REG(R_EDX)))<<(DATA_BYTE << 3);
 	REG(R_EAX) = (DATA_TYPE)(t / x);
 	if (DATA_BYTE == 1)	REG(R_AH) = (DATA_TYPE)(t % x);
 	else REG(R_EDX) = (DATA_TYPE)(t % x);
 }
 void concat(setflagidiv_, SUFFIX) (DATA_TYPE_S x) {
-	int64_t t = (int64_t)(REG(R_EAX)) | (((int64_t)(DATA_TYPE_S)(REG(R_EDX))) << (DATA_BYTE << 3));
+	int64_t t = (int64_t)(REG(R_EAX)) | ((int64_t)(DATA_TYPE_S)(REG(R_EDX))) << (DATA_BYTE << 3);
 	REG(R_EAX) = (DATA_TYPE_S)(t / x);
 	if (DATA_BYTE == 1)	REG(R_AH) = (DATA_TYPE_S)(t % x);
 	else REG(R_EDX) = (DATA_TYPE_S)(t % x);
