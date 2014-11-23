@@ -108,7 +108,7 @@ make_helper(concat(imul_irm2r_, SUFFIX)) {
 		return DATA_BYTE + len + 1;
 	}
 }
-// 8 byte imm or r/rm
+// 8 byte imm or r/rm16/32
 make_helper(concat(imul_ibrm2r_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
@@ -117,6 +117,7 @@ make_helper(concat(imul_ibrm2r_, SUFFIX)) {
 		DATA_TYPE imm = (DATA_TYPE_S)t;
 		concat(setflagimul_, SUFFIX)(REG(m.R_M), imm, 0);
 		REG(m.reg) = (DATA_TYPE_S)REG(m.R_M) * (DATA_TYPE_S)imm;
+		puts("Cai!");
 		if(m.reg == m.R_M)	print_asm("imul   $0x%x,%%%s", t, REG_NAME(m.reg));
 		else print_asm("imul   $0x%x,%%%s,%%%s", t, REG_NAME(m.R_M), REG_NAME(m.reg));
 		return 3;
