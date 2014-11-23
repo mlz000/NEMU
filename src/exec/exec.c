@@ -34,7 +34,7 @@ helper_fun opcode_table [256] = {
 /* 0x5c */	inv, inv, inv, inv, 
 /* 0x60 */	inv, inv, inv, inv,
 /* 0x64 */	inv, inv, data_size, inv,
-/* 0x68 */	push_i_v, inv, push_i_b, inv, 
+/* 0x68 */	push_i_v, imul_irm2r_v, push_i_b, imul_ibrm2r_b, 
 /* 0x6c */	inv, inv, inv, inv, 
 /* 0x70 */	jo_r_b, jno_r_b, jb_r_b, jae_r_b,
 /* 0x74 */	je_r_b, jne_r_b, jbe_r_b, ja_r_b,
@@ -118,7 +118,7 @@ helper_fun opcode_table2 [256] = {
 /* 0xa0 */	mov_moffs2a_b, mov_moffs2a_v, mov_a2moffs_b, mov_a2moffs_v,
 /* 0xa4 */	inv, inv, inv, inv,
 /* 0xa8 */	test_i2a_b, test_i2a_v, inv, inv,
-/* 0xac */	inv, inv, inv, inv,
+/* 0xac */	inv, inv, inv, imul_rm2r_v,
 /* 0xb0 */	mov_i2r_b, mov_i2r_b, mov_i2r_b, mov_i2r_b,
 /* 0xb4 */	mov_i2r_b, mov_i2r_b, movzx_rmb2r_v, movzx_rmw2r_v,
 /* 0xb8 */	mov_i2r_v, mov_i2r_v, mov_i2r_v, mov_i2r_v, 
@@ -195,6 +195,10 @@ make_helper(grp3b) {
 	int t = instr_fetch(eip + 1, 1);
 	switch((t >> 3) & 7) {
 		case 0:	return test_i2rm_b(eip);
+		case 4: return mul_rm2a_b(eip);
+		case 5: return imul_rm2a_b(eip);
+		case 6: return div_rm2a_b(eip);
+		case 7: return idiv_rm2a_b(eip);
 	}
 	return 1;
 }
@@ -202,6 +206,10 @@ make_helper(grp3v) {
 	int t = instr_fetch(eip + 1, 1);
 	switch((t >> 3) & 7) {
 		case 0: return test_i2rm_v(eip);
+		case 4: return mul_rm2a_v(eip);
+		case 5: return imul_rm2a_v(eip);
+		case 6: return div_rm2a_v(eip);
+		case 7: return idiv_rm2a_v(eip);
 	}
 	return 1;
 }

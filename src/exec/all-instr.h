@@ -7,6 +7,7 @@
 #include "arith/cmp.h"
 #include "arith/add.h"
 #include "arith/or.h"
+#include "arith/mul.h"
 #include "misc/misc.h"
 make_helper(jump);
 make_helper(grp1ib);
