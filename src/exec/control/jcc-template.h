@@ -14,7 +14,7 @@ make_helper(concat(jcxz_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jcxz   0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jcxz   0x%x", eip + x + DATA_BYTE + 1);
 	if (REG(R_ECX) == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -31,7 +31,7 @@ make_helper(concat(jo_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jo     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jo     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.OF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -48,7 +48,7 @@ make_helper(concat(jno_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jno    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jno    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.OF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -65,7 +65,7 @@ make_helper(concat(jb_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jb     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jb     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.CF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -82,7 +82,7 @@ make_helper(concat(jae_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jae    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jae    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.CF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -99,7 +99,7 @@ make_helper(concat(je_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("je     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("je     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.ZF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -116,7 +116,7 @@ make_helper(concat(jne_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jne    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jne    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.ZF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -133,7 +133,7 @@ make_helper(concat(jbe_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jbe    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jbe    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.CF == 1 || cpu.ZF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -150,7 +150,7 @@ make_helper(concat(ja_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("ja     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("ja     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.CF == 0 && cpu.ZF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -167,7 +167,7 @@ make_helper(concat(js_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("js     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("js     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.SF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -184,7 +184,7 @@ make_helper(concat(jns_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jns    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jns    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.SF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -201,7 +201,7 @@ make_helper(concat(jp_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jp     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jp     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.PF == 1)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -218,7 +218,7 @@ make_helper(concat(jnp_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jnp    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jnp    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.PF == 0)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -235,7 +235,7 @@ make_helper(concat(jl_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jl     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jl     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.SF != cpu.OF)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -252,7 +252,7 @@ make_helper(concat(jge_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jge    0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jge    0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.SF == cpu.OF)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -286,7 +286,7 @@ make_helper(concat(jg_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jg     0x%x", cpu.eip + x + DATA_BYTE + 1);
+	print_asm("jg     0x%x", eip + x + DATA_BYTE + 1);
 	if (cpu.ZF ==0 && cpu.SF == cpu.OF)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
@@ -305,7 +305,7 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	else x = t;
 	cpu.eip += x;
 	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
-	print_asm("jmp    0x%x", cpu.eip + DATA_BYTE + 1);
+	print_asm("jmp    0x%x", eip + DATA_BYTE + 1);
 	return DATA_BYTE + 1;
 }
 make_helper(concat(jmp_rm_, SUFFIX)) {
