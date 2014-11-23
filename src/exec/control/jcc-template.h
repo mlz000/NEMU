@@ -269,8 +269,8 @@ make_helper(concat(jle_r_, SUFFIX)) {
 		else x = t & 0xffff;
 	}
 	else x = t;
-	print_asm("jle    0x%x", cpu.eip + x + DATA_BYTE + 1);
-	if (cpu.ZF ==1 || cpu.SF != cpu.OF)	cpu.eip += x;
+	print_asm("jle    0x%x", eip + x + DATA_BYTE + 1);
+	if (cpu.ZF == 1 || cpu.SF != cpu.OF)	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
 //jg
