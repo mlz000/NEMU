@@ -87,3 +87,52 @@ make_helper(jmp_r_v) {
 make_helper(jmp_rm_v) {
 	return (suffix == 'l' ? jmp_rm_l(eip) : jmp_rm_w(eip));
 }
+//setcc
+make_helper(seto_rm_v) {
+	return (suffix == 'l' ? seto_rm_l(eip) : seto_rm_w(eip));
+}
+make_helper(setno_rm_v) {
+	return (suffix == 'l' ? setno_rm_l(eip) : setno_rm_w(eip));
+}
+make_helper(setb_rm_v) {
+	return (suffix == 'l' ? setb_rm_l(eip) : setb_rm_w(eip));
+}
+make_helper(setae_rm_v) {
+	return (suffix == 'l' ? setae_rm_l(eip) : setae_rm_w(eip));
+}
+make_helper(sete_rm_v) {
+	return (suffix == 'l' ? sete_rm_l(eip) : sete_rm_w(eip));
+}
+make_helper(setne_rm_v) {
+	return (suffix == 'l' ? setne_rm_l(eip) : setne_rm_w(eip));
+}
+make_helper(setbe_rm_v) {
+	return (suffix == 'l' ? setbe_rm_l(eip) : setbe_rm_w(eip));
+}
+make_helper(seta_rm_v) {
+	return (suffix == 'l' ? seta_rm_l(eip) : seta_rm_w(eip));
+}
+make_helper(sets_rm_v) {
+	return (suffix == 'l' ? sets_rm_l(eip) : sets_rm_w(eip));
+}
+make_helper(setns_rm_v) {
+	return (suffix == 'l' ? setns_rm_l(eip) : setns_rm_w(eip));
+}
+make_helper(setp_rm_v) {
+	return (suffix == 'l' ? setp_rm_l(eip) : setp_rm_w(eip));
+}
+make_helper(setnp_rm_v) {
+	return (suffix == 'l' ? setnp_rm_l(eip) : setnp_rm_w(eip));
+}
+make_helper(setl_rm_v) {
+	return (suffix == 'l' ? setl_rm_l(eip) : setl_rm_w(eip));
+}
+make_helper(setge_rm_v) {
+	return (suffix == 'l' ? setge_rm_l(eip) : setge_rm_w(eip));
+}
+make_helper(setle_rm_v) {
+	return (suffix == 'l' ? setle_rm_l(eip) : setle_rm_w(eip));
+}
+make_helper(setg_rm_v) {
+	return (suffix == 'l' ? setg_rm_l(eip) : setg_rm_w(eip));
+}

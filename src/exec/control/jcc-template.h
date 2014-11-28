@@ -328,4 +328,277 @@ make_helper(concat(jmp_rm_, SUFFIX)) {
 		return len + 1;
 	}
 }
+//setcc
+make_helper(concat(seto_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.OF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("seto   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("seto   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setno_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = !cpu.OF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setno  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setno  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setb_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.CF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setb   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setb   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setae_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = !cpu.CF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setae  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setae  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(sete_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.ZF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("sete   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("sete   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setne_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = !cpu.ZF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setne  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setne  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setbe_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.ZF && cpu.CF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setbe  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setbe  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(seta_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = (!cpu.ZF && !cpu.CF);
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("seta   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("seta   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(sets_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.SF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("sets   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("sets   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setns_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = !cpu.SF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setns  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setns  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setp_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = cpu.PF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setp   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setp   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setnp_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = !cpu.PF;
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setnp  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setnp  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setl_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = (cpu.SF != cpu.OF);
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setl   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setl   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setge_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = (cpu.SF == cpu.OF);
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setge  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setge  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setle_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = (cpu.ZF && cpu.SF != cpu.OF);
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setle  %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setle  %s", ModR_M_asm);
+		return len + 1;
+	}
+}
+make_helper(concat(setg_rm_, SUFFIX)){
+	ModR_M m;
+	uint8_t t = (!cpu.ZF && cpu.SF == cpu.OF);
+	m.val = instr_fetch(eip + 1, DATA_BYTE);
+	if(m.mod == 3){
+		REG(m.R_M) = t;
+		print_asm("setg   %%%s", REG_NAME(m.R_M));
+		return 2;
+	}
+	else {
+		swaddr_t addr;
+		int len = read_ModR_M(eip + 1,&addr);
+		MEM_W(addr, t);
+		print_asm("setg   %s", ModR_M_asm);
+		return len + 1;
+	}
+}
 #include "exec/template-end.h"
