@@ -17,6 +17,18 @@ make_helper(and_r2rm_b);
 make_helper(and_rm2r_b);
 //not
 make_helper(not_rm_b);
+//sal
+make_helper(sal_rm_b);
+make_helper(sal_rmi_b);
+make_helper(sal_cl_b);
+//sar
+make_helper(sar_rm_b);
+make_helper(sar_rmi_b);
+make_helper(sar_cl_b);
+//shr
+make_helper(shr_rm_b);
+make_helper(shr_rmi_b);
+make_helper(shr_cl_b);
 
 //or
 make_helper(or_i2a_v);
@@ -38,5 +50,16 @@ make_helper(and_r2rm_v);
 make_helper(and_rm2r_v);
 //not
 make_helper(not_rm_v);
-
+//sal
+make_helper(sal_rm_v);
+make_helper(sal_rmi_v);
+make_helper(sal_cl_v);
+//sar
+make_helper(sar_rm_v);
+make_helper(sar_rmi_v);
+make_helper(sar_cl_v);
+//shr
+make_helper(shr_rm_v);
+make_helper(shr_rmi_v);
+make_helper(shr_cl_v);
 #endif
