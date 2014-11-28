@@ -305,7 +305,7 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	else x = t;
 	cpu.eip += x;
 	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
-	print_asm("jmp    0x%x", eip + DATA_BYTE + 1);
+	print_asm("jmp    0x%x", cpu.eip + DATA_BYTE + 1);
 	return DATA_BYTE + 1;
 }
 make_helper(concat(jmp_rm_, SUFFIX)) {

@@ -3,10 +3,11 @@
 #include "cpu/modrm.h"
 //ret
 make_helper(concat(ret_, SUFFIX)) {
-	REG(R_EBP) = MEM_R(cpu.esp);
-	if (DATA_BYTE == 2)	REG(R_EBP) &= 0xffff;
+	cpu.eip = MEM_R(cpu.esp);
+	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
 	cpu.esp += DATA_BYTE;
 	print_asm("ret");
+	--cpu.eip;
 	return 1;
 }
 //call
