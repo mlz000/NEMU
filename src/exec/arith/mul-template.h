@@ -13,8 +13,8 @@ void concat(setflagidiv_, SUFFIX) (DATA_TYPE_S x) {
 	if (DATA_BYTE == 1)	REG(R_AH) = (DATA_TYPE_S)(t % x);
 	else REG(R_EDX) = (DATA_TYPE_S)(t % x);
 }
-void concat(setflagmul_, SUFFIX) (uint64_t x, uint64_t y, int c) {
-	uint64_t t = x * y;
+void concat(setflagmul_, SUFFIX) (DATA_TYPE x, DATA_TYPE y, int c) {
+	uint64_t t = (uint64_t)x * (uint64_t)y;
 	DATA_TYPE ans = t;
 	cpu.OF = cpu.CF = (ans != t);
 	if (c) {
