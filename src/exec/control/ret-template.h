@@ -10,6 +10,16 @@ make_helper(concat(ret_, SUFFIX)) {
 	--cpu.eip;
 	return 1;
 }
+make_helper(concat(reti_, SUFFIX)) {
+	DATA_TYPE imm = instr_fetch(eip + 1, 1); 
+	cpu.eip = MEM_R(cpu.esp);
+	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
+	cpu.esp += DATA_BYTE;
+	print_asm("reti");
+	cpu.eip -= DATA_BYTE + 1;
+	cpu.esp += imm;
+	return DATA_BYTE + 1;
+}
 //call
 make_helper(concat(call_r_, SUFFIX)) {
 	cpu.esp -= DATA_BYTE;
@@ -52,5 +62,10 @@ make_helper(concat(call_rm_, SUFFIX)) {
 		cpu.eip -= len + 1;
 		return len + 1;
 	}
+}
+//movs
+make_helper(concat(movs_, SUFFIX)) {
+	MEM_W(cpu.edi, MEM_R(cpu.esi));
+	return 1;
 }
 #include "exec/template-end.h"

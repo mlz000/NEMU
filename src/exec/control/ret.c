@@ -21,10 +21,17 @@ extern char suffix;
 make_helper(ret_v) {
 	return (suffix == 'l' ? ret_l(eip) : ret_w(eip));
 }
+make_helper(reti_v) {
+	return (suffix == 'l' ? reti_l(eip) : reti_w(eip));
+}
 //call
 make_helper(call_r_v) {
 	return (suffix == 'l' ? call_r_l(eip) : call_r_w(eip));
 }
 make_helper(call_rm_v) {
 	return (suffix == 'l' ? call_rm_l(eip) : call_rm_w(eip));
+}
+//movs
+make_helper(movs_v) {
+	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
 }
