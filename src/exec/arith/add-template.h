@@ -64,9 +64,7 @@ make_helper(concat(add_ib2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, 1);
 		if (imm & (1 << 7))	imm |= ((1ll << (DATA_BYTE * 8)) - 1) ^ ((1 << 8) - 1);//signal extend
 		concat(setflag2_, SUFFIX) (imm, MEM_R(addr), 0);
-		printf("aaaaa %x\n", MEM_R(addr));
 		MEM_W(addr, MEM_R(addr) + imm);
-		printf("aaaaa %x\n", MEM_R(addr));
 		print_asm("add" str(SUFFIX) "   $0x%x,%s", imm, ModR_M_asm);
 		return len + 2;
 	}
