@@ -22,8 +22,8 @@ void concat(setflagmul_, SUFFIX) (uint64_t x, uint64_t y, int c) {
 		else REG(R_AH) = (DATA_TYPE)(t >> ((DATA_BYTE << 3) - 1));
 	}
 }
-void concat(setflagimul_, SUFFIX) (int64_t x, int64_t y, int c) {
-	int64_t t = x * y;
+void concat(setflagimul_, SUFFIX) (DATA_TYPE_S x, DATA_TYPE_S y, int c) {
+	int64_t t = (int64_t)x * (int64_t)y;
 	DATA_TYPE_S ans = (DATA_TYPE_S)t;
 	cpu.CF = cpu.OF = (ans != t);
 	if (c) {
