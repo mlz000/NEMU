@@ -35,7 +35,7 @@ DATA_TYPE concat(setflagshr, SUFFIX) (DATA_TYPE x, int cnt) {
 	DATA_TYPE t = x;
 	int time = cnt;
 	while (time--) {
-		cpu.CF = x & 1;
+		cpu.CF = (x & 1);
 		x >>= 1;
 	}
 	if (cnt == 1)	cpu.OF = MSB(t);
