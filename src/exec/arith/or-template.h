@@ -18,6 +18,14 @@ DATA_TYPE concat(setflagsal, SUFFIX) (DATA_TYPE x, int cnt) {
 		x <<= 1;
 	}
 	if (cnt == 1)	cpu.OF = (MSB(x) != cpu.CF);
+	cpu.SF = MSB(x);
+	cpu.ZF = (x == 0);
+	cnt = 0;
+	int i;
+	for (i = 0; i < 8; ++i) {
+		if (x & (1 << i)) ++cnt;
+	}
+	cpu.PF = (~(cnt & 1));
 	return x;
 }
 DATA_TYPE concat(setflagsar, SUFFIX) (DATA_TYPE x, int cnt) {
@@ -29,6 +37,14 @@ DATA_TYPE concat(setflagsar, SUFFIX) (DATA_TYPE x, int cnt) {
 		x |= (t << ((DATA_BYTE << 3) - 1));
 	}
 	if (cnt == 1)	cpu.OF = 0;
+	cpu.SF = MSB(x);
+	cpu.ZF = (x == 0);
+	cnt = 0;
+	int i;
+	for (i = 0; i < 8; ++i) {
+		if (x & (1 << i)) ++cnt;
+	}
+	cpu.PF = (~(cnt & 1));	
 	return x;
 }
 DATA_TYPE concat(setflagshr, SUFFIX) (DATA_TYPE x, int cnt) {
@@ -39,6 +55,14 @@ DATA_TYPE concat(setflagshr, SUFFIX) (DATA_TYPE x, int cnt) {
 		x >>= 1;
 	}
 	if (cnt == 1)	cpu.OF = MSB(t);
+	cpu.SF = MSB(x);
+	cpu.ZF = (x == 0);
+	cnt = 0;
+	int i;
+	for (i = 0; i < 8; ++i) {
+		if (x & (1 << i)) ++cnt;
+	}
+	cpu.PF = (~(cnt & 1));	
 	return x;
 }
 //or
