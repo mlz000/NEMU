@@ -71,7 +71,7 @@ helper_fun opcode_table [256] = {
 /* 0xf0 */	inv, inv, inv, jump,
 /* 0xf4 */	inv, inv, grp3b, grp3v,
 /* 0xf8 */	inv, inv, inv, inv,
-/* 0xfc */	inv, inv, grp4, grp5
+/* 0xfc */	cld, std, grp4, grp5
 };
 
 helper_fun opcode_table2 [256] = {

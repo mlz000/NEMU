@@ -26,5 +26,13 @@ make_helper(test_i2a_v) {
 make_helper(test_r2rm_v) {
 	return (suffix == 'l' ? test_r2rm_l(eip) : test_r2rm_w(eip));
 }
-
-
+make_helper(cld) {
+	cpu.DF = 0;
+	print_asm("cld");
+	return 1;
+}
+make_helper(std) {
+	cpu.DF = 1;
+	print_asm("std");
+	return 1;
+}
