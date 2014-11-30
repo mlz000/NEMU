@@ -125,9 +125,7 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		DATA_TYPE t = REG(m.R_M);
-		if (DATA_BYTE == 2)	t &= 0xff;
-		else t &= 0xffff;
+		DATA_TYPE_S t = REG(m.R_M);
 		REG(m.reg) = t;
 		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
 		return 2;
@@ -135,9 +133,7 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		DATA_TYPE t = REG(m.R_M);
-		if (DATA_BYTE == 2)	t &= 0xff;
-		else t &= 0xffff;
+		DATA_TYPE_S t = REG(m.R_M);
 		REG(m.reg) = t;	
 		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
 		return len + 1;
