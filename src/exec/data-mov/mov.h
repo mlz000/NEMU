@@ -26,4 +26,5 @@ make_helper(pop_r_v);
 make_helper(pop_m_v);
 
 make_helper(leave_v);
+make_helper(lea_v);
 #endif

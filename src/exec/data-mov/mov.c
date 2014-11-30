@@ -70,3 +70,7 @@ make_helper(pop_m_v) {
 make_helper(leave_v) {
 	return (suffix == 'l' ? leave_l(eip) : leave_w(eip));
 }
+//lea
+make_helper(lea_v) {
+	return (suffix == 'l' ? lea_l(eip) : lea_w(eip));
+}
