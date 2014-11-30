@@ -35,10 +35,12 @@ loader: $(TESTFILE)
 	objcopy -S -O binary $(TESTFILE) loader
 	xxd -i loader > src/elf/loader.c
 	rm loader
+just-run: nemu $(TESTFILE)
+	./nemu -q $(TESTFILE) 2>&1 | tee log.txt
 
 
 run: nemu $(TESTFILE)
-	./nemu -q $(TESTFILE) 2>&1 | tee log.txt
+	./nemu -d $(TESTFILE) 2>&1 | tee log.txt
 
 gdb: nemu $(TESTFILE)
 	gdb --args ./nemu -dq $(TESTFILE)
