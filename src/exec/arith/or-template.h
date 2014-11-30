@@ -17,16 +17,16 @@ DATA_TYPE concat(setflagsal, SUFFIX) (DATA_TYPE x, int cnt) {
 		cpu.CF = MSB(x);
 		x <<= 1;
 	}
-	if (cnt == 1)	(cpu.OF = (MSB(x) != cpu.CF));
+	if (cnt == 1)	cpu.OF = (MSB(x) != cpu.CF);
 	return x;
 }
 DATA_TYPE concat(setflagsar, SUFFIX) (DATA_TYPE x, int cnt) {
 	int t = cnt;
 	while (t--) {
-		cpu.CF = x & 1;
+		cpu.CF = (x & 1);
 		int t = MSB(x);
 		x >>= 1;
-		x |= t << ((DATA_BYTE << 3) - 1);
+		x |= (t << ((DATA_BYTE << 3) - 1));
 	}
 	if (cnt == 1)	cpu.OF = 0;
 	return x;
