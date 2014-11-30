@@ -65,20 +65,20 @@ make_helper(concat(call_rm_, SUFFIX)) {
 }
 //movs
 make_helper(concat(movs_, SUFFIX)) {
-	MEM_W(cpu.edi, MEM_R(cpu.esi));
+	MEM_W(reg_l(R_EDI), MEM_R(reg_l(R_ESI)));
 	int t = 0;
 	if (cpu.DF == 0) t = DATA_BYTE;
 	else t = -DATA_BYTE;
 	cpu.esi += t;
 	cpu.edi += t;
-	print_asm("movs ");
+	print_asm("movs" str(SUFFIX));
 	return 1;
 }
 //rep
 make_helper(concat(rep_movs_, SUFFIX)) {
 	print_asm("rep");
 	while (cpu.ecx) {
-		MEM_W(cpu.edi, MEM_R(cpu.esi));
+		MEM_W(reg_l(R_EDI), MEM_R(reg_l(R_ESI)));
 		int t = 0;
 		if (cpu.DF == 0) t = DATA_BYTE;
 		else t = -DATA_BYTE;
