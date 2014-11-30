@@ -43,7 +43,7 @@ make_helper(concat(mul_rm2a_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		concat(setflagmul_, SUFFIX) ((MEM_R(addr)), REG(R_EAX), 1);
+		concat(setflagmul_, SUFFIX) (MEM_R(addr), REG(R_EAX), 1);
 		REG(R_EAX) = MEM_R(addr) * REG(R_EAX);
 		print_asm("mul" str(SUFFIX) "   %s", ModR_M_asm);
 		return len + 1;

@@ -12,15 +12,17 @@ void concat(setflagor_, SUFFIX) (DATA_TYPE t1,DATA_TYPE t2) {//t1 - t2
 	cpu.PF = (~(cnt & 1));
 }
 DATA_TYPE concat(setflagsal, SUFFIX) (DATA_TYPE x, int cnt) {
-	while (cnt--) {
+	int t = cnt;
+	while (t--) {
 		cpu.CF = MSB(x);
 		x <<= 1;
 	}
-	if (cnt == 1)	(cpu.OF = MSB(x) != cpu.CF);
+	if (cnt == 1)	(cpu.OF = (MSB(x) != cpu.CF));
 	return x;
 }
 DATA_TYPE concat(setflagsar, SUFFIX) (DATA_TYPE x, int cnt) {
-	while (cnt--) {
+	int t = cnt;
+	while (t--) {
 		cpu.CF = x & 1;
 		int t = MSB(x);
 		x >>= 1;
@@ -31,7 +33,8 @@ DATA_TYPE concat(setflagsar, SUFFIX) (DATA_TYPE x, int cnt) {
 }
 DATA_TYPE concat(setflagshr, SUFFIX) (DATA_TYPE x, int cnt) {
 	DATA_TYPE t = x;
-	while (cnt--) {
+	int time = cnt;
+	while (time--) {
 		cpu.CF = x & 1;
 		x >>= 1;
 	}
