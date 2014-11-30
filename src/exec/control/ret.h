@@ -9,4 +9,7 @@ make_helper(call_rm_v);
 //movs
 make_helper(movs_b);
 make_helper(movs_v);
+//rep
+make_helper(rep_movs_b);
+make_helper(rep_movs_v);
 #endif

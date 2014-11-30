@@ -35,3 +35,7 @@ make_helper(call_rm_v) {
 make_helper(movs_v) {
 	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
 }
+//rep
+make_helper(rep_movs_v) {
+	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
+}

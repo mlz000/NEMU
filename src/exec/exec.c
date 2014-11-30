@@ -68,7 +68,7 @@ helper_fun opcode_table [256] = {
 /* 0xe4 */	inv, inv, inv, inv,
 /* 0xe8 */	call_r_v, jmp_r_v, inv, jmp_r_b,
 /* 0xec */	inv, inv, inv, inv,
-/* 0xf0 */	inv, inv, inv, inv,
+/* 0xf0 */	inv, inv, inv, jump,
 /* 0xf4 */	inv, inv, grp3b, grp3v,
 /* 0xf8 */	inv, inv, inv, inv,
 /* 0xfc */	inv, inv, grp4, grp5
@@ -116,7 +116,7 @@ helper_fun opcode_table2 [256] = {
 /* 0x98 */	sets_rm_v, setns_rm_v, setp_rm_v, setnp_rm_v, 
 /* 0x9c */	setl_rm_v, setge_rm_v, setle_rm_v, setg_rm_v, 
 /* 0xa0 */	mov_moffs2a_b, mov_moffs2a_v, mov_a2moffs_b, mov_a2moffs_v,
-/* 0xa4 */	inv, inv, inv, inv,
+/* 0xa4 */	rep_movs_b, rep_movs_v, inv, inv,
 /* 0xa8 */	test_i2a_b, test_i2a_v, inv, inv,
 /* 0xac */	inv, inv, inv, imul_rm2r_v,
 /* 0xb0 */	mov_i2r_b, mov_i2r_b, mov_i2r_b, mov_i2r_b,
@@ -293,3 +293,4 @@ make_helper(grp5) {
 	}
 	return 1;
 }
+
