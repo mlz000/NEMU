@@ -12,6 +12,7 @@ BP* new_bp();
 uint32_t find(uint32_t x);
 uint32_t expr(char *s, bool *f);
 void cpu_exec(uint32_t);
+char *func_name(swaddr_t);
 void restart();
 void del_breakpoint();
 void print_breakpoint();
@@ -157,7 +158,7 @@ void cmd_bt(){
 		puts("No stack.");
 		return ;
 	}
-	//printf("#0\tfunc:%s\n", func_name(cpu.eip));
+	printf("#0\tfunc:%s\n", func_name(cpu.eip));
 }
 void cmd_d(char *p) {
 	p = strtok(NULL, " ");
