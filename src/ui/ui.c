@@ -141,7 +141,7 @@ void cmd_x(char *p) {
 void cmd_b(char *p) {
 	//p = strtok(NULL, " ");
 	//uint32_t expr = strtol(p+1, NULL, 16);
-	p = strtok(NULL, "");
+	p = strtok(NULL, " ");
 	if (p == NULL)	puts("Empty expression");
 	bool f = 1;
 	swaddr_t addr = expr(p, &f);
