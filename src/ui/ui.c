@@ -139,13 +139,18 @@ void cmd_x(char *p) {
 	}
 }
 void cmd_b(char *p) {
-	p = strtok(NULL, " ");
-	uint32_t expr = strtol(p+1, NULL, 16);
+	//p = strtok(NULL, " ");
+	//uint32_t expr = strtol(p+1, NULL, 16);
+	p = strtok(NULL, "");
+	if (p == NULL)	puts("Empty expression");
+	bool f = 1;
+	swaddr_t addr = expr(p, &f);
+	if (!f)	{puts("illegal expression");return;}
 	BP *t = new_bp();
 	t -> kind = 0;
-	t -> addr = expr;
-	t -> inst = swaddr_read(expr, 1);
-	swaddr_write(expr, 1, 0xcc);
+	t -> addr = addr;
+	t -> inst = swaddr_read(addr, 1);
+	swaddr_write(addr, 1, 0xcc);
 }
 void cmd_d(char *p) {
 	p = strtok(NULL, " ");
