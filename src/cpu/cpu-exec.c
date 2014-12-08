@@ -1,6 +1,6 @@
 #include "ui/ui.h"
 #include "nemu.h"
-
+#include "exec/func.h"
 #include <setjmp.h>
 
 #define LOADER_START 0x100000

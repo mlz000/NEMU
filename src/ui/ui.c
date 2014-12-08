@@ -1,5 +1,6 @@
 #include "ui/ui.h"
 #include "ui/breakpoint.h"
+#include "exec/func.h"
 #include "nemu.h"
 
 #include <signal.h>
@@ -16,6 +17,7 @@ void restart();
 void del_breakpoint();
 void print_breakpoint();
 /* We use the readline library to provide more flexibility to read from stdin. */
+struct stack func_stack;
 char* rl_gets() {
 	static char *line_read = NULL;
 	if (line_read) {
@@ -152,6 +154,17 @@ void cmd_b(char *p) {
 	t -> inst = swaddr_read(addr, 1);
 	swaddr_write(addr, 1, 0xcc);
 }
+void cmd_bt(char *p) {
+	if (!cpu.eip) {
+		puts("No stack.");
+		return ;
+	}
+	printf("#0\func:%s\n", func_name(cpu.eip));
+	int t = func_stack.top;//stack
+	for (;t >= 0; --t) {
+		printf("#%d\t0x%x in func:%s\n", func_stack.top - t + 1, func_stack.rstack[t], func_name(now_func(func_stack.rstack[t])));
+	}
+}
 void cmd_d(char *p) {
 	p = strtok(NULL, " ");
 	int n;
@@ -218,6 +231,7 @@ void main_loop() {
 		else if (strcmp(p, "w") == 0) {
 			cmd_w(p);
 		}
+		else if (strcmp(p, "bt") == 0)	cmd_bt(p);
 		else { printf("Unknown command '%s'\n", p); }
 	}
 }
