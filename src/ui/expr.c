@@ -1,13 +1,16 @@
 #include "common.h"
 #include "nemu.h"
+#include "cpu/reg.h"
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <sys/types.h>
 #include <regex.h>
+
+extern swaddr_t find_var(char *);
 enum {
 	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,
-	HNUM, REG, NEG, DEREFER
+	HNUM, REG, NEG, DEREFER, VAR
 	/* TODO: Add more token types */
 };
 static struct rule {
@@ -42,7 +45,8 @@ static struct rule {
 	{"\\)", ')'},
 	{"0x[[:xdigit:]]+", HNUM},
 	{"[[:digit:]]+", NUM},	//or [0-9]  These are always used inside square brackets in the form [[:alnum:]] or combined as [[:digit:]a-d]
-	{"\\$[[:alpha:]]+", REG}
+	{"\\$[[:alpha:]]+", REG},
+	{"[[:alpha:]][[:alpha:][:digit:]_]*", VAR}
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 static regex_t re[NR_REGEX];
@@ -151,7 +155,7 @@ static bool make_token(char *e) {
 				 */
 				switch(rules[i].token_type) {
 					case NOTYPE:	break;
-					case NUM: case HNUM: case REG:
+					case NUM: case HNUM: case REG: case VAR:
 						tokens[nr_token].type = rules[i].token_type;
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
 						tokens[nr_token].str[substr_len] = '\0';
@@ -173,7 +177,7 @@ static bool make_token(char *e) {
 	return true; 
 }
 bool check(int type) {
-	return (type == NUM || type == HNUM || type == REG || type == ')');
+	return (type == NUM || type == HNUM || type == REG || type == ')' || type == VAR);
 }
 bool check_parentheses(int l, int r, bool *f) {
 	int i, cnt = 0;
@@ -233,6 +237,14 @@ uint32_t eval(int l, int r, bool *f) {
 				}
 				if (!can)	*f = 0;
 				break;
+			case VAR: { 
+				swaddr_t addr = find_var(tokens[l].str + 1);
+				if (addr != 0) {
+					printf("0x%x\n", addr);//debug
+					return addr;
+				}
+				else	*f = 0;
+			}
 			default : *f = 0;
 		}
 		return x;
