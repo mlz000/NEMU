@@ -160,7 +160,7 @@ static bool make_token(char *e) {
 						strncpy(tokens[nr_token].str, substr_start, substr_len);
 						tokens[nr_token].str[substr_len] = '\0';
 						++nr_token;
-						puts(tokens[nr_token-1].str);//debug
+						//puts(tokens[nr_token-1].str);//debug
 						break;
 					default: 
 						tokens[nr_token].type = rules[i].token_type;
@@ -240,6 +240,7 @@ uint32_t eval(int l, int r, bool *f) {
 				break;
 			case VAR: { 
 				swaddr_t addr = find_var(tokens[l].str + 1);
+				puts("NO");//debug
 				if (addr != 0) {
 					//printf("0x%x\n", addr);//debug
 					return addr;
