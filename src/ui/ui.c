@@ -144,7 +144,7 @@ void cmd_b(char *p) {
 	p = strtok(NULL, " ");
 	if (p == NULL)	puts("Empty expression");
 	bool f = 1;
-	swaddr_t addr = expr(p + 1, &f);
+	swaddr_t addr = expr(p, &f);
 	if (!f)	{puts("illegal expression");return;}
 	BP *t = new_bp();
 	t -> kind = 0;
