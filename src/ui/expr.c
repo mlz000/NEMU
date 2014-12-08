@@ -243,7 +243,10 @@ uint32_t eval(int l, int r, bool *f) {
 					printf("0x%x\n", addr);//debug
 					return addr;
 				}
-				else	*f = 0;
+				else {
+					puts("no");
+					*f = 0;
+				}
 			}
 			default : *f = 0;
 		}
