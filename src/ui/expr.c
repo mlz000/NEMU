@@ -240,6 +240,7 @@ uint32_t eval(int l, int r, bool *f) {
 				break;
 			case VAR: { 
 				swaddr_t addr = find_var(tokens[l].str + 1);
+				printf("0x%x\n", addr);//debug
 				puts("NO");//debug
 				if (addr != 0) {
 					//printf("0x%x\n", addr);//debug
