@@ -168,9 +168,10 @@ void cmd_bt(){
 		func_name(addr);
 		char tmp[50];
 		strcpy(tmp, assembly);
-		print_asm("%s", tmp);
+		print_asm("%s", s);
 		printf("#%d\t%#x in %s ()\n",cnt, addr, tmp);
 		++cnt;
+		puts("wtf!");	//debug
 		addr = swaddr_read(tebp + 4, 4);
 		tebp = swaddr_read(tebp, 4);
 	}
