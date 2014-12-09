@@ -45,7 +45,7 @@ void cpu_exec(volatile uint32_t n) {
 	setjmp(jbuf);
 	for(; n > 0; n --) {
 		swaddr_t eip_temp = cpu.eip;
-		int instr_len = exec(cpu.eip);
+		int instr_len = exec(eip_temp);
 		cpu.eip += instr_len;
 		if (nemu_state == BREAK_0) {
 			cpu.eip -= instr_len;
