@@ -155,7 +155,7 @@ void cmd_b(char *p) {
 	swaddr_write(addr, 1, 0xcc);
 }
 void cmd_bt(){
-	if (!cpu.eip) {
+	if (nemu_state == END) {
 		puts("No stack.");
 		return ;
 	}
