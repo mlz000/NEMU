@@ -1,7 +1,8 @@
 #include "ui/ui.h"
 #include "ui/breakpoint.h"
 #include "nemu.h"
-
+#include "common.h"
+#include "exec/helper.h"
 #include <signal.h>
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -158,7 +159,22 @@ void cmd_bt(){
 		puts("No stack.");
 		return ;
 	}
-	printf("#0\tfunc:%s\n", func_name(cpu.eip));
+	uint32_t addr = cpu.eip;
+	uint32_t tebp = cpu.ebp;
+	uint32_t cnt = 0;
+	while (tebp) {
+		char s[50];
+		strcpy(s, assembly);
+		func_name(addr);
+		char tmp[50];
+		strcpy(tmp, assembly);
+		print_asm("%s", tmp);
+		printf("#%d\t%#x in %s ()\n",cnt, addr, tmp);
+		++cnt;
+		addr = swaddr_read(tebp + 4, 4);
+		tebp = swaddr_read(tebp, 4);
+	}
+	if (!cnt) puts("No stack.");
 }
 void cmd_d(char *p) {
 	p = strtok(NULL, " ");
