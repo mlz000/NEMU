@@ -217,6 +217,13 @@ void main_loop() {
 	char *cmd;
 	while(1) {
 		cmd = rl_gets();
+		if (strcmp(cmd, "\0") ==0) {
+			HIST_ENTRY *t;
+			t = previous_history();
+			if(t != NULL && t -> line!=NULL){
+				strcpy(cmd, t -> line);
+			}
+		}
 		char *p = strtok(cmd, " ");
 		if(p == NULL) { continue; }
 		if(strcmp(p, "c") == 0) { cmd_c(); }
