@@ -171,8 +171,9 @@ void cmd_bt(){
 		print_asm("%s", s);
 		printf("#%d\t%#x in %s ()\n",cnt, addr, tmp);
 		++cnt;
-		puts("wtf!");	//debug
+		//puts("wtf!");	//debug
 		addr = swaddr_read(tebp + 4, 4);
+		puts("wtf!");	//debug
 		tebp = swaddr_read(tebp, 4);
 	}
 	if (!cnt) puts("No stack.");
