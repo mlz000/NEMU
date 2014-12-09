@@ -163,10 +163,10 @@ void cmd_bt(){
 	uint32_t tebp = cpu.ebp;
 	uint32_t cnt = 0;
 	while (tebp) {
-		char s[50];
+		char s[40];
 		strcpy(s, assembly);
 		func_name(addr);
-		char tmp[50];
+		char tmp[40];
 		strcpy(tmp, assembly);
 		print_asm("%s", s);
 		printf("#%d\t%#x in %s ()\n",cnt, addr, tmp);

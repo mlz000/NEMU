@@ -124,7 +124,7 @@ void func_addr(swaddr_t addr) {
 			return ;
 		}
 	}
-}/*
+}
 void func_name(swaddr_t addr) {
 	int i = 0;
 	for (; i < nr_symtab_entry; ++i) {
@@ -135,15 +135,4 @@ void func_name(swaddr_t addr) {
 			}
 		}
 	}
-}*/
-void func_name(uint32_t addr){
-	int i;
-	for(i=0;i<nr_symtab_entry;i++){
-		if((symtab[i].st_info&0xf)!=STT_FUNC)continue;
-		if(addr>=symtab[i].st_value && addr<=symtab[i].st_value+symtab[i].st_size){
-			print_asm("%s",symtab[i].st_name+strtab);
-			return;
-		}
-	}
 }
-
