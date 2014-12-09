@@ -160,8 +160,9 @@ make_helper(concat(push_r_, SUFFIX)) {
 make_helper(concat(push_m_, SUFFIX)) {
 	swaddr_t addr;
 	int len = read_ModR_M(eip + 1, &addr);
+	DATA_TYPE t = MEM_R(addr);
 	cpu.esp -= DATA_BYTE;
-	MEM_W(cpu.esp, MEM_R(addr));
+	MEM_W(cpu.esp, t);
 	print_asm("push" str(SUFFIX) "  %%%s", ModR_M_asm);
 	return len + 1;
 }
