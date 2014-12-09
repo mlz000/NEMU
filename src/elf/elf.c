@@ -125,12 +125,12 @@ void func_addr(swaddr_t addr) {
 		}
 	}
 }
-void func_name(swaddr_t func) {
+void func_name(swaddr_t addr) {
 	int i = 0;
 	for (; i < nr_symtab_entry; ++i) {
 		if (ELF32_ST_TYPE(symtab[i].st_info) == STT_FUNC) {
-			if (func == symtab[i].st_value) {
-				print_asm("%s", symtab[i].st_name+strtab);
+				if(addr >= symtab[i].st_value && addr <= symtab[i].st_value+symtab[i].st_size){
+				print_asm("%s", symtab[i].st_name + strtab);
 				return ;
 			}
 		}
