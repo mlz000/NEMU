@@ -37,7 +37,7 @@ loader:
 	objcopy -S -O binary $(LOADER_DIR)/loader loader
 	xxd -i loader > src/elf/loader.c
 	rm loader
-just-run: nemu $(TESTFILE)
+run2: nemu $(TESTFILE)
 	./nemu -q $(TESTFILE) 2>&1 | tee log.txt
 
 
