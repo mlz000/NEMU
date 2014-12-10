@@ -85,17 +85,27 @@ make_helper(concat(movsx_rmb2r_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		if (DATA_BYTE == 4)	reg_l(m.reg) = (int32_t)(int8_t)reg_b(m.R_M);
-		else if(DATA_BYTE == 2) reg_w(m.reg) = (int16_t)(int8_t)reg_b(m.R_M);
-		print_asm("movsx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		if (DATA_BYTE == 4) {
+			reg_l(m.reg) = (int32_t)(int8_t)reg_b(m.R_M);
+			print_asm("movsx" str(SUFFIX) " %%%s,%%%s", regsb[m.R_M], regsl[m.reg]);
+		}
+		else if(DATA_BYTE == 2) {
+			reg_w(m.reg) = (int16_t)(int8_t)reg_b(m.R_M);
+			print_asm("movsx" str(SUFFIX) " %%%s,%%%s", regsb[m.R_M], regsw[m.reg]);
+		}
 		return 2;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		if (DATA_BYTE == 4)	reg_l(m.reg) = (int32_t)(int8_t)swaddr_read(addr, 1);
-		else if (DATA_BYTE == 2)	reg_w(m.reg) = (int16_t)(int8_t)swaddr_read(addr, 1);
-		print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		if (DATA_BYTE == 4) {
+			reg_l(m.reg) = (int32_t)(int8_t)swaddr_read(addr, 1);
+			print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsl[m.reg]);
+		}
+		else if (DATA_BYTE == 2) {
+			reg_w(m.reg) = (int16_t)(int8_t)swaddr_read(addr, 1);
+			print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsw[m.reg]);
+		}
 		return len + 1;
 	}
 }
@@ -104,14 +114,14 @@ make_helper(concat(movsx_rmw2r_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		reg_l(m.reg) = (int32_t)(int16_t)reg_w(m.R_M);
-		print_asm("movsx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		print_asm("movsx" str(SUFFIX) " %%%s,%%%s", regsw[m.R_M], regsl[m.reg]);
 		return 2;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		reg_l(m.reg) = (int32_t)(int16_t)swaddr_read(addr, 2);
-		print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		print_asm("movsx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsl[m.reg]);
 		return len + 1;
 	}
 }
@@ -119,17 +129,27 @@ make_helper(concat(movzx_rmb2r_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
-		if (DATA_BYTE == 4) reg_l(m.reg) = (uint32_t)reg_b(m.R_M);
-		else if (DATA_BYTE == 2) reg_w(m.reg) = (uint16_t)reg_b(m.R_M);
-		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		if (DATA_BYTE == 4) {
+			reg_l(m.reg) = (uint32_t)reg_b(m.R_M);
+			print_asm("movzx" str(SUFFIX) " %%%s,%%%s", regsb[m.R_M], regsl[m.reg]);
+		}
+		else if (DATA_BYTE == 2) {
+			reg_w(m.reg) = (uint16_t)reg_b(m.R_M);
+			print_asm("movzx" str(SUFFIX) " %%%s,%%%s", regsb[m.R_M], regsw[m.reg]);
+		}
 		return 2;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		if (DATA_BYTE == 4) reg_l(m.reg) = (uint32_t)swaddr_read(addr, 1);
-		else if (DATA_BYTE == 2) reg_w(m.reg) = (uint16_t)swaddr_read(addr, 1);
-		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		if (DATA_BYTE == 4) {
+			reg_l(m.reg) = (uint32_t)swaddr_read(addr, 1);
+			print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsl[m.reg]);
+		}
+		else if (DATA_BYTE == 2) {
+			reg_w(m.reg) = (uint16_t)swaddr_read(addr, 1);
+			print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsw[m.reg]);
+		}
 		return len + 1;
 	}
 }
@@ -138,14 +158,14 @@ make_helper(concat(movzx_rmw2r_, SUFFIX)) {
 	m.val = instr_fetch(eip + 1, 1);
 	if(m.mod == 3) {
 		reg_l(m.reg) = (uint32_t)reg_w(m.R_M);
-		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", REG_NAME(m.R_M), REG_NAME(m.reg));
+		print_asm("movzx" str(SUFFIX) " %%%s,%%%s", regsw[m.R_M], regsl[m.reg]);
 		return 2;
 	}
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		reg_l(m.reg) = (uint32_t)swaddr_read(addr, 2);
-		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, REG_NAME(m.reg));
+		print_asm("movzx" str(SUFFIX) " %s,%%%s", ModR_M_asm, regsl[m.reg]);
 		return len + 1;
 	}
 }
