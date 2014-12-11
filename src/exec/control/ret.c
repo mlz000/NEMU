@@ -36,6 +36,8 @@ make_helper(movs_v) {
 	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
 }
 //rep
-make_helper(rep_movs_v) {
-	return (suffix == 'l' ? movs_l(eip) : movs_w(eip));
+make_helper(rep) {
+	int t = instr_fetch(eip + 1, 1);
+	if (t == 0xa4)	return movs_b(eip + 1);
+	else return movs_v(eip + 1) + 1;
 }
