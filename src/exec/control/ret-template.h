@@ -87,6 +87,5 @@ make_helper(concat(movs_, SUFFIX)) {
 		}
 	}
 	return 1;
-	return 1;
 }
 #include "exec/template-end.h"
