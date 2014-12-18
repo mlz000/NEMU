@@ -19,33 +19,33 @@ typedef struct {
 	int32_t tag;
 	bool val;
 	bool dir;
-}Cache[SET_SIZE][NR_SIZE];
-Cache ca;
+}L2Cache[SET_SIZE][NR_SIZE];
+L2Cache L2ca;
 void init_L2cache() {
 	int i, j;
 	for (i = 0; i < SET_SIZE; ++i)
 		for (j = 0; j < NR_SIZE; ++j)
-			ca[i][j].val = 0;
+			L2ca[i][j].val = 0;
 }
 
 void L2cache_replace(uint32_t i, int j, uint32_t tag) {
 	int k;
 	L2cache_addr t;
-	if (ca[i][j].val && ca[i][j].dir) {
+	if (L2ca[i][j].val && L2ca[i][j].dir) {
 		t.addr = 0;
-		t.tag = ca[i][j].tag;
+		t.tag = L2ca[i][j].tag;
 		t.set = i;
 	 	for (k = 0; k < BLOCK_SIZE; ++k) {
-			dram_write(t.addr + k, 1, ca[i][j].block[k]);
+			dram_write(t.addr + k, 1, L2ca[i][j].block[k]);
 		}
 	}
 	t.addr = 0;
 	t.tag = tag;
 	t.set = i;
-	for (k = 0; k < BLOCK_SIZE; ++k)	ca[i][j].block[k] = dram_read(t.addr + k, 1);
-	ca[i][j].tag = tag;
-	ca[i][j].val = 1;
-	ca[i][j].dir = 1;
+	for (k = 0; k < BLOCK_SIZE; ++k)	L2ca[i][j].block[k] = dram_read(t.addr + k, 1);
+	L2ca[i][j].tag = tag;
+	L2ca[i][j].val = 1;
+	L2ca[i][j].dir = 1;
 }
 //like ddr3_read
 void L2cache_read2(hwaddr_t addr, void* data) {
@@ -57,13 +57,13 @@ void L2cache_read2(hwaddr_t addr, void* data) {
 	uint32_t tag = t.tag;
 	int j;
 	for (j = 0; j < NR_SIZE; ++j) {
-		if ((!ca[i][j].val) || (ca[i][j].val && (ca[i][j].tag == tag)))	break;
+		if ((!L2ca[i][j].val) || (L2ca[i][j].val && (L2ca[i][j].tag == tag)))	break;
 	}
-	if ((j == NR_SIZE) || (!ca[i][j].val)) {
+	if ((j == NR_SIZE) || (!L2ca[i][j].val)) {
 		if (j == NR_SIZE)	j = rand() % NR_SIZE; //random replace
 		L2cache_replace(i, j, tag);
 	}
-	memcpy(data, ca[i][j].block + offset, DATA_SIZE);
+	memcpy(data, L2ca[i][j].block + offset, DATA_SIZE);
 }
 //like ddr3_write
 void L2cache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
@@ -75,15 +75,15 @@ void L2cache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
 	uint32_t tag = t.tag;
 	int j;
 	for (j = 0; j < NR_SIZE; ++j) {
-		if ((!ca[i][j].val) || (ca[i][j].val && (ca[i][j].tag == tag)))	break;
+		if ((!L2ca[i][j].val) || (L2ca[i][j].val && (L2ca[i][j].tag == tag)))	break;
 	}
-	if ((j == NR_SIZE) || (!ca[i][j].val)) {
+	if ((j == NR_SIZE) || (!L2ca[i][j].val)) {
 		if (j == NR_SIZE)	j = rand() % NR_SIZE;
 		L2cache_replace(i, j, tag);
-		memcpy_with_mask(ca[i][j].block + offset, data, DATA_SIZE, mask);
+		memcpy_with_mask(L2ca[i][j].block + offset, data, DATA_SIZE, mask);
 	}
-	if ((j < NR_SIZE) && (ca[i][j].val))	memcpy_with_mask(ca[i][j].block + offset, data, DATA_SIZE, mask);
-	ca[i][j].dir = 1;
+	if ((j < NR_SIZE) && (L2ca[i][j].val))	memcpy_with_mask(L2ca[i][j].block + offset, data, DATA_SIZE, mask);
+	L2ca[i][j].dir = 1;
 }
 //like dram_read
 uint32_t L2cache_read(hwaddr_t addr, size_t len) {

@@ -16,13 +16,13 @@ typedef struct {
 	uint8_t block[BLOCK_SIZE];
 	int32_t tag;
 	bool val;
-}Cache[SET_SIZE][NR_SIZE];
-Cache ca;
+}ICache[SET_SIZE][NR_SIZE];
+ICache Ica;
 void init_Icache() {
 	int i, j;
 	for (i = 0; i < SET_SIZE; ++i)
 		for (j = 0; j < NR_SIZE; ++j)
-			ca[i][j].val = 0;
+			Ica[i][j].val = 0;
 }
 
 void Icache_replace(uint32_t i, int j, uint32_t tag) {
@@ -31,9 +31,9 @@ void Icache_replace(uint32_t i, int j, uint32_t tag) {
 	t.addr = 0;
 	t.tag = tag;
 	t.set = i;
-	for (k = 0; k < BLOCK_SIZE; ++k)	ca[i][j].block[k] = L2cache_read(t.addr + k, 1);
-	ca[i][j].tag = tag;
-	ca[i][j].val = 1;
+	for (k = 0; k < BLOCK_SIZE; ++k)	Ica[i][j].block[k] = L2cache_read(t.addr + k, 1);
+	Ica[i][j].tag = tag;
+	Ica[i][j].val = 1;
 }
 //like ddr3_read
 void Icache_read2(hwaddr_t addr, void* data) {
@@ -45,13 +45,13 @@ void Icache_read2(hwaddr_t addr, void* data) {
 	uint32_t tag = t.tag;
 	int j;
 	for (j = 0; j < NR_SIZE; ++j) {
-		if ((!ca[i][j].val) || (ca[i][j].val && (ca[i][j].tag == tag)))	break;
+		if ((!Ica[i][j].val) || (Ica[i][j].val && (Ica[i][j].tag == tag)))	break;
 	}
-	if ((j == NR_SIZE) || (!ca[i][j].val)) {
+	if ((j == NR_SIZE) || (!Ica[i][j].val)) {
 		if (j == NR_SIZE)	j = rand() % NR_SIZE; //random replace
 		Icache_replace(i, j, tag);
 	}
-	memcpy(data, ca[i][j].block + offset, DATA_SIZE);
+	memcpy(data, Ica[i][j].block + offset, DATA_SIZE);
 }
 //like ddr3_write
 void Icache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
@@ -63,9 +63,9 @@ void Icache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
 	uint32_t tag = t.tag;
 	int j;
 	for (j = 0; j < NR_SIZE; ++j) {
-		if ((!ca[i][j].val) || (ca[i][j].val && (ca[i][j].tag == tag)))	break;
+		if ((!Ica[i][j].val) || (Ica[i][j].val && (Ica[i][j].tag == tag)))	break;
 	}
-	if ((j < NR_SIZE) && (ca[i][j].val))	memcpy_with_mask(ca[i][j].block + offset, data, DATA_SIZE, mask);
+	if ((j < NR_SIZE) && (Ica[i][j].val))	memcpy_with_mask(Ica[i][j].block + offset, data, DATA_SIZE, mask);
 }
 //like dram_read
 uint32_t Icache_read(hwaddr_t addr, size_t len) {
