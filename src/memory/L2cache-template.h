@@ -45,7 +45,7 @@ void L2cache_replace(uint32_t i, int j, uint32_t tag) {
 	for (k = 0; k < BLOCK_SIZE; ++k)	ca[i][j].block[k] = dram_read(t.addr + k, 1);
 	ca[i][j].tag = tag;
 	ca[i][j].val = 1;
-	ca[i][j].dir = 0;
+	ca[i][j].dir = 1;
 }
 //like ddr3_read
 void L2cache_read2(hwaddr_t addr, void* data) {
