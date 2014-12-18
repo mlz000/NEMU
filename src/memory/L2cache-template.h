@@ -2,7 +2,7 @@
 #define BLOCK_SIZE (1 << BLOCK_WIDTH)
 #define SET_SIZE (1 << SET_WIDTH)
 #define DATA_SIZE 4
-#define DATA_MASK (DATA_SIZE - 1)
+#define DATA_MASK 3
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 typedef union {

@@ -2,7 +2,7 @@
 #define BLOCK_SIZE (1 << BLOCK_WIDTH)
 #define SET_SIZE (1 << SET_WIDTH)
 #define DATA_SIZE 4
-#define DATA_MASK (DATA_SIZE - 1)
+#define DATA_MASK 3
 typedef union {
 	struct {
 		uint32_t offset : BLOCK_WIDTH;
