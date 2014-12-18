@@ -1,5 +1,5 @@
 #include "common.h"
-
+#include "nemu.h"
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
 

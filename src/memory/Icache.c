@@ -12,7 +12,7 @@ void init_L2cache();
 void init_Icache();
 void init_Dcache();
 void init_cache() {
-	puts("AAA");	//debug
+	//puts("AAA");	//debug
 	init_L2cache();
 	init_Icache();
 	init_Dcache();

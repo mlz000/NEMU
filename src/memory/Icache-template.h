@@ -39,7 +39,7 @@ void Icache_replace(uint32_t i, int j, uint32_t tag) {
 void Icache_read2(hwaddr_t addr, void* data) {
 	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	Icache_addr t;
-	t.addr = addr & ~ DATA_MASK;
+	t.addr = addr & (~DATA_MASK);
 	uint32_t offset = t.offset;
 	uint32_t i = t.set;
 	uint32_t tag = t.tag;
@@ -57,7 +57,7 @@ void Icache_read2(hwaddr_t addr, void* data) {
 void Icache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
 	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	Icache_addr t;
-	t.addr = addr & ~DATA_MASK;
+	t.addr = addr & (~DATA_MASK);
 	uint32_t offset = t.offset;
 	uint32_t i = t.set;
 	uint32_t tag = t.tag;

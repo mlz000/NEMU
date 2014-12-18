@@ -51,7 +51,7 @@ void L2cache_replace(uint32_t i, int j, uint32_t tag) {
 void L2cache_read2(hwaddr_t addr, void* data) {
 	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	L2cache_addr t;
-	t.addr = addr & ~ DATA_MASK;
+	t.addr = addr & (~DATA_MASK);
 	uint32_t offset = t.offset;
 	uint32_t i = t.set;
 	uint32_t tag = t.tag;
@@ -69,7 +69,7 @@ void L2cache_read2(hwaddr_t addr, void* data) {
 void L2cache_write2(hwaddr_t addr, void* data, uint8_t* mask) {
 	test(addr < HW_MEM_SIZE, "addr = %x\n", addr);
 	L2cache_addr t;
-	t.addr = addr & ~DATA_MASK;
+	t.addr = addr & (~DATA_MASK);
 	uint32_t offset = t.offset;
 	uint32_t i = t.set;
 	uint32_t tag = t.tag;
@@ -105,7 +105,6 @@ void L2cache_write(hwaddr_t addr, size_t len, uint32_t data) {
 	memset(mask + offset, 1, len);
 	L2cache_write2(addr, temp, mask);
 	if ((addr ^ (addr + len - 1)) & (~DATA_MASK))	L2cache_write2(addr + DATA_SIZE, temp + DATA_SIZE, mask + DATA_SIZE);
-	
 }
 /*
 #undef TAG_WIDTH
