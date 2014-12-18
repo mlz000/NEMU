@@ -90,8 +90,8 @@ void Dcache_write(hwaddr_t addr, size_t len, uint32_t data) {
 	memset(mask + offset, 1, len);
 	Dcache_write2(addr, temp, mask);
 	if ((addr ^ (addr + len - 1)) & (~DATA_MASK))	Dcache_write2(addr + DATA_SIZE, temp + DATA_SIZE, mask + DATA_SIZE);
-	Icache_write2(addr, temp, mask);
-	if ((addr ^ (addr + len - 1)) & (~DATA_MASK))	Icache_write2(addr + DATA_SIZE, temp + DATA_SIZE, mask + DATA_SIZE);
+	Dcache_write2(addr, temp, mask);//I is for me
+	if ((addr ^ (addr + len - 1)) & (~DATA_MASK))	Dcache_write2(addr + DATA_SIZE, temp + DATA_SIZE, mask + DATA_SIZE);
 	L2cache_write(addr, len, data);
 }
 /*
