@@ -9,6 +9,7 @@
 #include "arith/or.h"
 #include "arith/mul.h"
 #include "misc/misc.h"
+#include "segment/segment.h"
 make_helper(jump);
 make_helper(grp1ib);
 make_helper(grp1iv);
@@ -24,3 +25,4 @@ make_helper(grp3b);
 make_helper(grp3v);
 make_helper(grp4);
 make_helper(grp5);
+make_helper(grp7);

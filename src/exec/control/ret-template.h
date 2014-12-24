@@ -65,27 +65,17 @@ make_helper(concat(call_rm_, SUFFIX)) {
 }
 //movs
 make_helper(concat(movs_, SUFFIX)) {
-	uint32_t t = instr_fetch(eip - 1, 1);
-	if (t != 0xf3) {
-		swaddr_write(reg_l(R_EDI), 4, swaddr_read(reg_l(R_ESI), 4));
-		int t = 0;
-		if (cpu.DF == 0) t = DATA_BYTE;
-		else t = -DATA_BYTE;
-		cpu.esi += t;
-		cpu.edi += t;
-		print_asm("movs" str(SUFFIX)"  %%ds:(%%esi),%%es:(%%edi)");
+	if (DATA_BYTE == 1) {
+		uint8_t t = swaddr_read(reg_l(R_ESI), 1);
+		swaddr_write(reg_l(R_EDI), 1, t);
 	}
 	else {
-		while (REG(R_ECX)--) {
-			swaddr_write(reg_l(R_EDI), 4, swaddr_read(reg_l(R_ESI), 4));
-			int t = 0;
-			if (cpu.DF == 0) t = DATA_BYTE;
-			else t = -DATA_BYTE;
-			cpu.esi += t;
-			cpu.edi += t;
-			print_asm("rep movs"str(SUFFIX)" %%ds:(%%esi),%%es:(%%edi)");
-		}
+		DATA_TYPE t = MEM_R(reg_l(R_ESI));
+		MEM_W(reg_l(R_EDI), t);
 	}
+	if (cpu.DF) cpu.esi -= DATA_BYTE, cpu.edi -= DATA_BYTE;
+	else cpu.esi += DATA_BYTE, cpu.edi += DATA_BYTE;
+	print_asm("movs" str(SUFFIX)"  %%ds:(%%esi),%%es:(%%edi)");
 	return 1;
 }
 #include "exec/template-end.h"

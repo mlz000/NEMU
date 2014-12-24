@@ -31,7 +31,7 @@ $(TEST_FILE_LIST):
 
 
 	
-LOADER_DIR = myloader
+LOADER_DIR = kernel
 loader:
 	cd $(LOADER_DIR) && make
 	objcopy -S -O binary $(LOADER_DIR)/loader loader

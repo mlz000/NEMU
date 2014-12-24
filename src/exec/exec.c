@@ -43,7 +43,7 @@ helper_fun opcode_table [256] = {
 /* 0x80 */	grp1ib, grp1iv, nemu_trap, grp1ibv, 
 /* 0x84 */	test_r2rm_b, test_r2rm_v, xchg_r2rm_b, xchg_r2rm_v, 
 /* 0x88 */	mov_r2rm_b, mov_r2rm_v, mov_rm2r_b, mov_rm2r_v,
-/* 0x8c */	inv, lea_v, inv, pop_m_v, 
+/* 0x8c */	mov_sr2rm, lea_v, mov_rm2sr, pop_m_v, 
 /* 0x90 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x94 */	xchg_r2a_v, xchg_r2a_v, xchg_r2a_v, xchg_r2a_v,
 /* 0x98 */	inv, inv, inv, inv, 
@@ -75,7 +75,7 @@ helper_fun opcode_table [256] = {
 };
 
 helper_fun opcode_table2 [256] = {
-/* 0x00 */	add_r2rm_b, add_r2rm_v, add_rm2r_b, add_rm2r_v, 
+/* 0x00 */	add_r2rm_b, grp7, add_rm2r_b, add_rm2r_v, 
 /* 0x04 */	add_i2a_b, add_i2a_v, inv, inv, 
 /* 0x08 */	inv, inv, inv, inv, 
 /* 0x0c */	inv, inv, inv, je_r_v, 
@@ -83,7 +83,7 @@ helper_fun opcode_table2 [256] = {
 /* 0x14 */	inv, inv, inv, inv, 
 /* 0x18 */	inv, inv, inv, inv, 
 /* 0x1c */	inv, inv, inv, inv, 
-/* 0x20 */	inv, inv, inv, inv, 
+/* 0x20 */	mov_cr2r, inv, mov_r2cr, inv, 
 /* 0x24 */	inv, inv, inv, inv,
 /* 0x28 */	inv, inv, inv, inv, 
 /* 0x2c */	inv, inv, inv, inv, 
@@ -293,4 +293,10 @@ make_helper(grp5) {
 	}
 	return 1;
 }
-
+make_helper(grp7) {
+	int t = instr_fetch(eip + 1, 1);
+	switch((t >> 3) & 7) {
+		case 2: return lgdt_v(eip);
+	}
+	return 1;
+}
