@@ -89,6 +89,7 @@ make_helper(jg_r_v);
 //jmp
 make_helper(jmp_r_v);
 make_helper(jmp_rm_v);
+make_helper(jmpptr_v);
 //setcc
 make_helper(seto_rm_v);
 make_helper(setno_rm_v);

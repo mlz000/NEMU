@@ -87,6 +87,10 @@ make_helper(jmp_r_v) {
 make_helper(jmp_rm_v) {
 	return (suffix == 'l' ? jmp_rm_l(eip) : jmp_rm_w(eip));
 }
+make_helper(jmpptr_v) {
+	return (suffix == 'l' ? jmpptr_l(eip) : jmpptr_w(eip));
+}
+
 //setcc
 make_helper(seto_rm_v) {
 	return (suffix == 'l' ? seto_rm_l(eip) : seto_rm_w(eip));
@@ -136,3 +140,4 @@ make_helper(setle_rm_v) {
 make_helper(setg_rm_v) {
 	return (suffix == 'l' ? setg_rm_l(eip) : setg_rm_w(eip));
 }
+

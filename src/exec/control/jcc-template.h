@@ -328,6 +328,17 @@ make_helper(concat(jmp_rm_, SUFFIX)) {
 		return len + 1;
 	}
 }
+make_helper(concat(jmpptr_, SUFFIX)) {
+	DATA_TYPE addr = instr_fetch(eip + 1, DATA_BYTE);
+	uint16_t t = instr_fetch(eip + DATA_BYTE + 1, 2);
+	if (!cpu.CR0.PE || (cpu.CR0.PE && cpu.VM)) {
+		reg_s(CS).val = t;
+		cpu.eip = addr;
+		cpu.eip -= (DATA_BYTE + 3);
+	}
+	print_asm("jmpptr $%#x, $%#x", t, addr);
+	return DATA_BYTE + 3;
+}
 //setcc
 make_helper(concat(seto_rm_, SUFFIX)){
 	ModR_M m;
