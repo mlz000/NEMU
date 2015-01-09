@@ -49,8 +49,8 @@ typedef struct{
 		uint32_t VM : 1;
 	};
 	struct {
-		lnaddr_t base;
 		uint16_t lim;
+		lnaddr_t base;
 	}gdt;
 	union {//copy from kerel
 		struct {

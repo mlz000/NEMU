@@ -328,7 +328,7 @@ make_helper(concat(jmp_rm_, SUFFIX)) {
 		return len + 1;
 	}
 }
-make_helper(concat(jmpptr_, SUFFIX)) {
+make_helper(concat(ljmp_, SUFFIX)) {
 	DATA_TYPE addr = instr_fetch(eip + 1, DATA_BYTE);
 	uint16_t t = instr_fetch(eip + DATA_BYTE + 1, 2);
 	if (!cpu.CR0.PE || (cpu.CR0.PE && cpu.VM)) {
@@ -336,7 +336,7 @@ make_helper(concat(jmpptr_, SUFFIX)) {
 		cpu.eip = addr;
 		cpu.eip -= (DATA_BYTE + 3);
 	}
-	print_asm("jmpptr $%#x, $%#x", t, addr);
+	print_asm("ljmp $%#x, $%#x", t, addr);
 	return DATA_BYTE + 3;
 }
 //setcc
