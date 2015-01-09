@@ -113,7 +113,7 @@ void cmd_si(char *p) {
 	if (nemu_state != BREAK_1)	nemu_state = RUNNING;
 	if(p==NULL)	cpu_exec(1);
 	else cpu_exec(atoi(p));
-	if(nemu_state != END) { nemu_state = STOP; }
+	nemu_state = STOP;
 }
 void cmd_info(char *p) {
 	p=strtok(NULL," ");
