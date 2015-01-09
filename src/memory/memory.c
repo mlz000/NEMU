@@ -3,6 +3,7 @@
 extern uint8_t current_sreg;
 uint32_t dram_read(hwaddr_t addr, size_t len);
 void dram_write(hwaddr_t addr, size_t len, uint32_t data);
+
 lnaddr_t segment_translate(swaddr_t, uint8_t);
 hwaddr_t page_translate(lnaddr_t);
 /* Memory accessing interfaces */
@@ -11,7 +12,7 @@ uint32_t Dcache_read(hwaddr_t addr, size_t len);
 void Dcache_write(hwaddr_t addr, size_t len, uint32_t data);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return Dcache_read(addr,len);
+	return Dcache_read(addr, len);
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
@@ -37,7 +38,7 @@ uint32_t swaddr_read(swaddr_t addr, size_t len) {
 void swaddr_write(swaddr_t addr, size_t len, uint32_t data) {
 	assert(len == 1 || len == 2 || len == 4);
 	lnaddr_t lnaddr = segment_translate(addr, current_sreg);
-	hwaddr_write(lnaddr, len, data);
+	lnaddr_write(lnaddr, len, data);
 }
 
 static uint32_t hwaddr_read_instr(hwaddr_t addr, size_t len) {
