@@ -50,7 +50,7 @@ typedef struct{
 	};
 	struct {
 		uint16_t lim;
-		lnaddr_t base;
+		uint32_t base;
 	}gdt;
 	union {//copy from kerel
 		struct {
