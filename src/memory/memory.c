@@ -51,6 +51,7 @@ uint32_t lnaddr_read_instr(lnaddr_t addr, size_t len) {
 }
 uint32_t instr_fetch(swaddr_t addr, size_t len) {
 	assert(len == 1 || len == 2 || len == 4);
-	return hwaddr_read_instr(addr, len);
+	lnaddr_t lnaddr = segment_translate(addr, CS);
+	return lnaddr_read_instr(lnaddr, len);
 }
 

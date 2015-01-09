@@ -1,8 +1,8 @@
 #include "common.h"
 #include "memory.h"
-#include <string.h>
+#include "string.h"
 
-#include <elf.h>
+#include "elf.h"
 
 #ifdef HAS_DEVICE
 #define ELF_OFFSET_IN_DISK 0
@@ -50,7 +50,7 @@ uint32_t loader() {
 
 			/* Record the prgram break for future use. */
 			extern uint32_t brk;
-			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
+			uint32_t new_brk = ph -> p_vaddr + ph -> p_memsz - 1;
 			if(brk < new_brk) { brk = new_brk; }
 		}
 	}
