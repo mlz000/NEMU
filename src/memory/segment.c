@@ -19,6 +19,8 @@ uint32_t hwaddr_read(lnaddr_t, size_t);
 uint8_t current_sreg;
 
 lnaddr_t segment_translate(swaddr_t addr, uint8_t code) {
+	return addr;
+	/*
 	static SegDescriptor* GDT = NULL;
 	if (!cpu.CR0.PE)	return addr;
 	if (GDT == NULL)	GDT = (void *)malloc(cpu.gdt.lim + 1);
@@ -27,4 +29,5 @@ lnaddr_t segment_translate(swaddr_t addr, uint8_t code) {
 	SegDescriptor t = GDT[reg_s(code).INDEX];
 	uint32_t base = (t.base2 << 24) | (t.base1 << 16) | t.base0;
 	return addr + base;
+	*/
 }
