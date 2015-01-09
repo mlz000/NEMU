@@ -63,6 +63,7 @@ hwaddr_t page_translate(lnaddr_t addr) {
 		if ((!tlb[i].val) || (tlb[i].val && (tlb[i].tag == laddr.tag)))	break;
 	}
 	if (i == SIZE || (!tlb[i].val)) {
+		if (i == SIZE)	i = rand() % SIZE;
 		hwaddr_t pdeaddr, pteaddr;
 		PDE pde;
 		PTE pte;
