@@ -14,7 +14,6 @@ typedef union {
 	};
 	uint32_t val;
 }PDE;
-PDE pde;
 typedef union {
 	struct {
 		uint32_t present : 1;
@@ -31,7 +30,6 @@ typedef union {
 	};
 	uint32_t val;
 }PTE;
-PTE pte;
 typedef union {
 	struct {
 		uint32_t offset : 12;
@@ -39,9 +37,8 @@ typedef union {
 		uint32_t dir : 10;
 	};
 	struct {
-		uint32_t VPO: 12;
-		uint32_t set : 6;
-		uint32_t tag : 14;
+		uint32_t : 12;
+		uint32_t tag : 20;
 	};
 	uint32_t val;
 }ln_addr;
@@ -58,15 +55,17 @@ void init_tlb() {
 }
 uint32_t hwaddr_read(hwaddr_t, size_t);
 hwaddr_t page_translate(lnaddr_t addr) {
-	if (!cpu.CR0.PE || !cpu.CR0.PG)	return addr;
+	if ((!cpu.CR0.PE) || (!cpu.CR0.PG))	return addr;
 	ln_addr laddr;
 	laddr.val = addr;
 	int i;
 	for (i = 0; i < SIZE; ++i)	{
 		if ((!tlb[i].val) || (tlb[i].val && (tlb[i].tag == laddr.tag)))	break;
 	}
-	if (i == SIZE || !tlb[i].val) {
+	if (i == SIZE || (!tlb[i].val)) {
 		hwaddr_t pdeaddr, pteaddr;
+		PDE pde;
+		PTE pte;
 		if (i == SIZE)	i = rand() % SIZE;
 		pdeaddr = (cpu.CR3.PDB << 12) + laddr.dir * sizeof(PDE);
 		pde.val = hwaddr_read(pdeaddr, 4);
@@ -76,6 +75,6 @@ hwaddr_t page_translate(lnaddr_t addr) {
 		tlb[i].val = 1;
 		tlb[i].pte = pte;
 	}
-	pte = tlb[i].pte;
+	PTE pte = tlb[i].pte;
 	return (pte.page_frame << 12) + laddr.offset;
 }
