@@ -51,12 +51,14 @@ make_helper(mov_cr2r) {
 	print_asm("mov    %%cr%d, %%%s", m.reg, regsl[m.R_M]);
 	return 2;
 }
+void init_tlb();
 make_helper(mov_r2cr) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if (m.reg == 0)	cpu.CR0.val = reg_l(m.R_M);
 	else if (m.reg == 3) {
 		cpu.CR3.val = reg_l(m.R_M);
+		init_tlb();
 	}
 	print_asm("mov    %%%s, %%cr%d", regsl[m.R_M], m.reg);
 	return 2;

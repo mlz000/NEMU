@@ -2,6 +2,7 @@
 #include "exec/template-start.h"
 #include "cpu/modrm.h"
 //ret
+extern uint8_t current_sreg;
 make_helper(concat(ret_, SUFFIX)) {
 	cpu.eip = MEM_R(cpu.esp);
 	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
@@ -66,11 +67,15 @@ make_helper(concat(call_rm_, SUFFIX)) {
 //movs
 make_helper(concat(movs_, SUFFIX)) {
 	if (DATA_BYTE == 1) {
+		current_sreg = ES;
 		uint8_t t = swaddr_read(reg_l(R_ESI), 1);
+		current_sreg = DS;
 		swaddr_write(reg_l(R_EDI), 1, t);
 	}
 	else {
+		current_sreg = ES;
 		DATA_TYPE t = MEM_R(reg_l(R_ESI));
+		current_sreg = DS;
 		MEM_W(reg_l(R_EDI), t);
 	}
 	if (cpu.DF) cpu.esi -= DATA_BYTE, cpu.edi -= DATA_BYTE;

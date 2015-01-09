@@ -8,6 +8,7 @@ int exec(swaddr_t);
 void load_prog();
 void init_dram();
 void init_cache();
+void init_tlb();
 void work();
 char assembly[40];
 jmp_buf jbuf;	/* Make it easy to perform exception handling */
@@ -15,6 +16,7 @@ uint32_t find(uint32_t x);
 bool change();
 extern uint8_t loader [];
 extern uint32_t loader_len;
+extern uint8_t current_sreg;
 extern int quiet;
 
 void restart() {
@@ -24,10 +26,12 @@ void restart() {
 
 	cpu.eip = LOADER_START;
 	cpu.ebp = 0x0;
-	///cpu.esp = 0x8000000;
+	cpu.esp = 0x8000000;
 	cpu.a = 1, cpu.b = cpu.c = 0;
+	cpu.CR0.val = 0;
 	init_dram();
 	init_cache();
+	init_tlb();
 	work();
 }
 
