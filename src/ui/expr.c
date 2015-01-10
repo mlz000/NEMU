@@ -238,11 +238,11 @@ uint32_t eval(int l, int r, bool *f) {
 				}
 				if (strcmp(tokens[l].str + 1, "CR0") == 0) {
 					can = 1;
-					return cpu.CR0.val;
+					x = cpu.CR0.val;
 				}
 				if (strcmp(tokens[l].str + 1, "CR3") == 0) {
 					can = 1;
-					return cpu.CR3.val;
+					x = cpu.CR3.val;
 				}
 				if (!can)	*f = 0;
 				break;
