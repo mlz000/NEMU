@@ -4,7 +4,7 @@
 #include "cpu/reg.h"
 void concat(setflag_, SUFFIX)(DATA_TYPE t){
 	cpu.OF = cpu.CF = 0;
-	cpu.SF = (t >> (DATA_BYTE * 8 - 1) ) & 1;
+	cpu.SF = MSB(t);
 	cpu.ZF = (t == 0);
 	int cnt = 0, i;
 	for (i = 0; i < 8; ++i) {
@@ -28,7 +28,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 	DATA_TYPE t;
 	if(m.mod == 3) {
 		imm = instr_fetch(eip + 1 + 1, DATA_BYTE);
-		t = imm & REG(m.R_M);
+		t = (imm & REG(m.R_M));
 		concat(setflag_, SUFFIX)(t);
 		print_asm("test" str(SUFFIX) " $0x%x,%%%s", imm, REG_NAME(m.R_M));
 		return 1 + DATA_BYTE + 1;
@@ -37,7 +37,7 @@ make_helper(concat(test_i2rm_, SUFFIX)) {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
-		t = imm & addr;
+		t = (imm & MEM_R(addr));
 		concat(setflag_, SUFFIX)(t);
 		print_asm("test" str(SUFFIX) " $0x%x,%s", imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
