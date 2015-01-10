@@ -214,6 +214,7 @@ uint32_t eval(int l, int r, bool *f) {
 				sscanf(tokens[l].str, "%x", &x);
 				break;
 			case REG:				//register
+				printf("%s\n", tokens[l].str + 1);
 				for (i = 0; i < 8; ++i) {
 					if (strcmp(regsl[i], tokens[l].str + 1) == 0) {
 						x = reg_l(i);
@@ -236,11 +237,11 @@ uint32_t eval(int l, int r, bool *f) {
 					x = cpu.eip;
 					can = 1;
 				}
-				if (strcmp(tokens[l].str + 1, "CR0") == 0) {
+				if (strcmp("CR0", tokens[l].str + 1) == 0) {
 					can = 1;
 					x = cpu.CR0.val;
 				}
-				if (strcmp(tokens[l].str + 1, "CR3") == 0) {
+				if (strcmp("CR3", tokens[l].str + 1) == 0) {
 					can = 1;
 					x = cpu.CR3.val;
 				}
