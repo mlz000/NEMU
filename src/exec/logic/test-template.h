@@ -56,7 +56,7 @@ make_helper(concat(test_r2rm_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		t = REG(m.reg) & addr;
+		t = REG(m.reg) & MEM_R(addr);
 		concat(setflag_, SUFFIX)(t);
 		print_asm("test" str(SUFFIX) " %%%s,%s", REG_NAME(m.reg), ModR_M_asm);
 		return len + 1;
