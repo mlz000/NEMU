@@ -236,6 +236,14 @@ uint32_t eval(int l, int r, bool *f) {
 					x = cpu.eip;
 					can = 1;
 				}
+				if (strcmp(tokens[l].str + 1, "CR0") == 0) {
+					can = 1;
+					return cpu.CR0.val;
+				}
+				if (strcmp(tokens[l].str + 1, "CR3") == 0) {
+					can = 1;
+					return cpu.CR3.val;
+				}
 				if (!can)	*f = 0;
 				break;
 			case VAR: { 

@@ -51,11 +51,7 @@ make_helper(concat(cmp_ib2rm_, SUFFIX)) {
 		DATA_TYPE t = instr_fetch(eip + 1 + 1, 1);
 		if (t & (1 << 7)) { //signal extend
 			if (DATA_BYTE == 2)	t |= 0xff00;
-			else	t |= 0xffff0000;
-		}
-		else {
-			if (DATA_BYTE == 2)	t &= 0xff;
-			else t &= 0xffff;
+			else	t |= 0xffffff00;
 		}
 		imm = t;
 		concat(setflag1_, SUFFIX) (REG(m.R_M), imm, 1);
@@ -68,11 +64,7 @@ make_helper(concat(cmp_ib2rm_, SUFFIX)) {
 		DATA_TYPE t = instr_fetch(eip + 1 + len, 1);
 		if (t & (1 << 7)) { //signal extend
 			if (DATA_BYTE == 2)	t |= 0xff00;
-			else	t |= 0xffff0000;
-		}
-		else {
-			if (DATA_BYTE == 2)	t &= 0xff;
-			else t &= 0xffff;
+			else	t |= 0xffffff00;
 		}
 		imm = t;
 		concat(setflag1_, SUFFIX) (MEM_R(addr), imm, 1);
