@@ -45,7 +45,7 @@ static struct rule {
 	{"\\)", ')'},
 	{"0x[[:xdigit:]]+", HNUM},
 	{"[[:digit:]]+", NUM},	//or [0-9]  These are always used inside square brackets in the form [[:alnum:]] or combined as [[:digit:]a-d]
-	{"\\$[[:alpha:]]+", REG},
+	{"\\$[[:alpha:]]+[03]?", REG},
 	{"[[:alpha:]][[:alpha:][:digit:]_]*", VAR}
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -204,48 +204,40 @@ uint32_t eval(int l, int r, bool *f) {
 	}
     else if (l == r) {
 		uint32_t x = 0;
-		bool can = 0;
 		int i;
 		switch (tokens[l].type) {
 			case NUM:
 				sscanf(tokens[l].str, "%d", &x);
-				break;
+				return x;
 			case HNUM:
 				sscanf(tokens[l].str, "%x", &x);
-				break;
+				return x;
 			case REG:				//register
-				printf("%s\n", tokens[l].str + 1);
+				//printf("%s\n", tokens[l].str + 1);
 				for (i = 0; i < 8; ++i) {
 					if (strcmp(regsl[i], tokens[l].str + 1) == 0) {
-						x = reg_l(i);
-						can = 1;
+						return reg_l(i);
 					}
 				}
 				for (i = 0; i < 8; ++i) {
 					if (strcmp(regsw[i], tokens[l].str + 1) == 0) {
-						x = reg_w(i);
-						can = 1;
+						return reg_w(i);
 					}
 				}
 				for (i = 0; i < 8; ++i) {
 					if (strcmp(regsb[i], tokens[l].str + 1) == 0) {
-						x = reg_b(i);
-						can = 1;
+						return reg_b(i);
 					}
 				}
 				if (strcmp("eip", tokens[l].str + 1) == 0) {
-					x = cpu.eip;
-					can = 1;
+					return cpu.eip;
 				}
 				if (strcmp("CR0", tokens[l].str + 1) == 0) {
-					can = 1;
-					x = cpu.CR0.val;
+					return cpu.CR0.val;
 				}
 				if (strcmp("CR3", tokens[l].str + 1) == 0) {
-					can = 1;
-					x = cpu.CR3.val;
+					return cpu.CR3.val;
 				}
-				if (!can)	*f = 0;
 				break;
 			case VAR: { 
 				swaddr_t addr = find_var(tokens[l].str);
