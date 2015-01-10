@@ -25,13 +25,17 @@ make_helper(movs_v) {
 }
 //rep
 make_helper(rep) {
-	while (reg_l(R_ECX) > 0) {
-		exec(eip + 1);
-		--reg_l(R_ECX);
+	int len = 1;
+	if (!reg_l(R_ECX)) {
+		print_asm("rep ");
+		swaddr_read(eip + 1, 1);
 	}
-	char s[40];
-	strcpy(s, assembly);
-	print_asm("rep %s", s);
-	return 2;
+	else {
+		for (; reg_l(R_ECX) > 0; --reg_l(R_ECX)) len = exec(eip + 1);
+		char s[40];
+		strcpy(s, assembly);
+		print_asm("rep %s", s);
+	}
+	return len + 1;
 }
 #include "exec/template-end.h"
