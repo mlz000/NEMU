@@ -14,6 +14,8 @@
 #undef DATA_BYTE
 extern char suffix;
 //stos
+
+make_helper(exec);
 make_helper(stos_v) {
 	return (suffix == 'l' ? stos_l(eip) : stos_w(eip));
 }
@@ -23,34 +25,13 @@ make_helper(movs_v) {
 }
 //rep
 make_helper(rep) {
-	puts("wtf!!!");
-	int op = instr_fetch(eip + 1, 1);
-	printf("0x%x\n", op);
-	int flag = instr_fetch(eip - 1, 1);
-	uint32_t len = 1, t = 4;
-	if (flag == 0x66)	t = 2;
-	printf("%d\n", (op == 0xaa));
-	switch(op) {
-		case 0xa4: while (reg_b(R_ECX)--)	len = movs_b(eip + 1);
-					   ++reg_b(R_ECX);
-		case 0xa5: if (t == 2) {
-					   while (reg_w(R_ECX)--)	len = movs_v(eip + 1);
-					   ++reg_w(R_ECX);
-				   }
-				   else {
-					   while (reg_l(R_ECX)--)	len = movs_v(eip + 1);
-					   ++reg_l(R_ECX);
-				   }
-		case 0xaa: while(reg_b(R_ECX)--)	len = stos_b(eip + 1);
-					   ++reg_b(R_ECX);
-		case 0xab: if (t == 2) {
-					   while (reg_w(R_ECX)--)	len = stos_b(eip + 1);
-					   ++reg_w(R_ECX);
-				   }
+	while (reg_l(R_ECX) > 0) {
+		exec(eip + 1);
+		--reg_l(R_ECX);
 	}
 	char s[40];
 	strcpy(s, assembly);
 	print_asm("rep %s", s);
-	return len + 1;
+	return 2;
 }
 #include "exec/template-end.h"
