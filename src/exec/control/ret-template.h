@@ -64,23 +64,4 @@ make_helper(concat(call_rm_, SUFFIX)) {
 		return len + 1;
 	}
 }
-//movs
-make_helper(concat(movs_, SUFFIX)) {
-	if (DATA_BYTE == 1) {
-		current_sreg = ES;
-		uint8_t t = swaddr_read(reg_l(R_ESI), 1);
-		current_sreg = DS;
-		swaddr_write(reg_l(R_EDI), 1, t);
-	}
-	else {
-		current_sreg = ES;
-		DATA_TYPE t = MEM_R(reg_l(R_ESI));
-		current_sreg = DS;
-		MEM_W(reg_l(R_EDI), t);
-	}
-	if (cpu.DF) cpu.esi -= DATA_BYTE, cpu.edi -= DATA_BYTE;
-	else cpu.esi += DATA_BYTE, cpu.edi += DATA_BYTE;
-	print_asm("movs" str(SUFFIX)"  %%ds:(%%esi),%%es:(%%edi)");
-	return 1;
-}
 #include "exec/template-end.h"

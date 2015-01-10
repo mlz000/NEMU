@@ -10,6 +10,7 @@
 #include "arith/mul.h"
 #include "misc/misc.h"
 #include "segment/segment.h"
+#include "string/string.h"
 #include "sys/flag.h"
 make_helper(jump);
 make_helper(grp1ib);
