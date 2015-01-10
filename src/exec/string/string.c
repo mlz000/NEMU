@@ -29,8 +29,8 @@ make_helper(rep) {
 	int flag = instr_fetch(eip - 1, 1);
 	uint32_t len = 1, t = 4;
 	if (flag == 0x66)	t = 2;
+	printf("%d\n", (op == 0xaa));
 	switch(op) {
-		printf("%d\n", (op == 0xaa));
 		case 0xa4: while (reg_b(R_ECX)--)	len = movs_b(eip + 1);
 					   ++reg_b(R_ECX);
 		case 0xa5: if (t == 2) {
