@@ -4,7 +4,7 @@
 //jcxz
 make_helper(concat(jcxz_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -21,7 +21,7 @@ make_helper(concat(jcxz_r_, SUFFIX)) {
 //jo
 make_helper(concat(jo_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 	}
@@ -36,7 +36,7 @@ make_helper(concat(jo_r_, SUFFIX)) {
 //jno
 make_helper(concat(jno_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 	//	else x = t & 0xff; 
@@ -53,7 +53,7 @@ make_helper(concat(jno_r_, SUFFIX)) {
 //jb
 make_helper(concat(jb_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -70,7 +70,7 @@ make_helper(concat(jb_r_, SUFFIX)) {
 //jae
 make_helper(concat(jae_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -87,7 +87,7 @@ make_helper(concat(jae_r_, SUFFIX)) {
 //je
 make_helper(concat(je_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -104,7 +104,7 @@ make_helper(concat(je_r_, SUFFIX)) {
 //jne
 make_helper(concat(jne_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -121,7 +121,7 @@ make_helper(concat(jne_r_, SUFFIX)) {
 //jbe
 make_helper(concat(jbe_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -138,7 +138,7 @@ make_helper(concat(jbe_r_, SUFFIX)) {
 //ja
 make_helper(concat(ja_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -155,7 +155,7 @@ make_helper(concat(ja_r_, SUFFIX)) {
 //js
 make_helper(concat(js_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -172,7 +172,7 @@ make_helper(concat(js_r_, SUFFIX)) {
 //jns
 make_helper(concat(jns_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -189,7 +189,7 @@ make_helper(concat(jns_r_, SUFFIX)) {
 //jp
 make_helper(concat(jp_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -206,7 +206,7 @@ make_helper(concat(jp_r_, SUFFIX)) {
 //jnp
 make_helper(concat(jnp_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -223,7 +223,7 @@ make_helper(concat(jnp_r_, SUFFIX)) {
 //jl
 make_helper(concat(jl_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -240,7 +240,7 @@ make_helper(concat(jl_r_, SUFFIX)) {
 //jge
 make_helper(concat(jge_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -257,7 +257,7 @@ make_helper(concat(jge_r_, SUFFIX)) {
 //jle
 make_helper(concat(jle_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -274,7 +274,7 @@ make_helper(concat(jle_r_, SUFFIX)) {
 //jg
 make_helper(concat(jg_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-    uint32_t x = t;
+    int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
@@ -291,7 +291,7 @@ make_helper(concat(jg_r_, SUFFIX)) {
 //jmp
 make_helper(concat(jmp_r_, SUFFIX)) {
 	DATA_TYPE t = instr_fetch(eip + 1, DATA_BYTE);
-	uint32_t x = t;
+	int x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
 		//else x = t & 0xff; 
