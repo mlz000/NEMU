@@ -4,22 +4,22 @@
 //ret
 extern uint8_t current_sreg;
 make_helper(concat(ret_, SUFFIX)) {
-	cpu.eip = MEM_R(cpu.esp);
+	cpu.eip = MEM_R(REG(R_ESP));
+	REG(R_ESP) += DATA_BYTE;
 	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
-	cpu.esp += DATA_BYTE;
 	print_asm("ret");
 	--cpu.eip;
 	return 1;
 }
 make_helper(concat(reti_, SUFFIX)) {
-	DATA_TYPE imm = instr_fetch(eip + 1, 1); 
-	cpu.eip = MEM_R(cpu.esp);
+	DATA_TYPE imm = instr_fetch(eip + 1, 2); 
+	cpu.eip = MEM_R(REG(R_ESP));
+	REG(R_ESP) += DATA_BYTE;
 	if (DATA_BYTE == 2)	cpu.eip &= 0xffff;
-	cpu.esp += DATA_BYTE;
 	print_asm("reti");
-	cpu.eip -= DATA_BYTE + 1;
-	cpu.esp += imm;
-	return DATA_BYTE + 1;
+	cpu.eip -= 3;
+	REG(R_ESP) += imm;
+	return 3;
 }
 //call
 make_helper(concat(call_r_, SUFFIX)) {
