@@ -107,11 +107,11 @@ make_helper(concat(jne_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jne    0x%x", eip + x + DATA_BYTE + 1);
@@ -158,11 +158,11 @@ make_helper(concat(js_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("js     0x%x", eip + x + DATA_BYTE + 1);
@@ -175,11 +175,11 @@ make_helper(concat(jns_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+	//	else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jns    0x%x", eip + x + DATA_BYTE + 1);
@@ -192,11 +192,11 @@ make_helper(concat(jp_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jp     0x%x", eip + x + DATA_BYTE + 1);
@@ -209,11 +209,11 @@ make_helper(concat(jnp_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jnp    0x%x", eip + x + DATA_BYTE + 1);
@@ -226,11 +226,11 @@ make_helper(concat(jl_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jl     0x%x", eip + x + DATA_BYTE + 1);
@@ -260,15 +260,15 @@ make_helper(concat(jle_r_, SUFFIX)) {
     uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	print_asm("jle    0x%x", eip + x + DATA_BYTE + 1);
-	if (cpu.ZF == 1 || cpu.SF != cpu.OF)	cpu.eip += x;
+	if (cpu.ZF == 1 || (cpu.SF != cpu.OF))	cpu.eip += x;
 	return DATA_BYTE + 1;
 }
 //jg
@@ -294,11 +294,11 @@ make_helper(concat(jmp_r_, SUFFIX)) {
 	uint32_t x = t;
 	if (DATA_BYTE == 1) {
 		if ((t >> 7) & 1)	x = t | 0xffffff00;
-		else x = t & 0xff; 
+		//else x = t & 0xff; 
 	}
 	else if (DATA_BYTE == 2) {
 		if ((t >> 15) & 1)	x = t | 0xffff0000;
-		else x = t & 0xffff;
+		//else x = t & 0xffff;
 	}
 	else x = t;
 	cpu.eip += x;
@@ -310,8 +310,7 @@ make_helper(concat(jmp_rm_, SUFFIX)) {
 	ModR_M m;
 	m.val = instr_fetch(eip + 1, 1);
 	if (m.mod == 3) {
-		if (DATA_BYTE == 2)	cpu.eip = REG(m.R_M) & 0xffff;
-		else cpu.eip = REG(m.R_M);
+		cpu.eip = REG(m.R_M);
 		print_asm("jmp    %%%s", REG_NAME(m.R_M));
 		cpu.eip -= 2;
 		return 2;
@@ -319,8 +318,7 @@ make_helper(concat(jmp_rm_, SUFFIX)) {
 	else {
 		swaddr_t addr;
 		int len = read_ModR_M(eip + 1, &addr);
-		if (DATA_BYTE == 2)	cpu.eip = MEM_R(addr) & 0xffff;
-		else cpu.eip = MEM_R(addr);
+		cpu.eip = MEM_R(addr);
 		print_asm("jmp    %s", ModR_M_asm);
 		cpu.eip -= len + 1;
 		return len + 1;
