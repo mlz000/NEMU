@@ -5,8 +5,8 @@ void concat(setflag2_, SUFFIX) (DATA_TYPE x, DATA_TYPE y, int sub) {
 	DATA_TYPE ty = y;
 	if (sub)	y = ~y;
 	DATA_TYPE z = x + y + (!!sub);
-	if (sub)	cpu.CF = x < ty;
-	else cpu.CF = z < x;
+	if (sub)	cpu.CF = (x < ty);
+	else cpu.CF = (z < x);
 	cpu.SF = MSB(z);
 	cpu.OF = (MSB(x) == MSB(y) && MSB(x) != MSB(z));
 	cpu.ZF = (z == 0);
@@ -236,7 +236,7 @@ make_helper(concat(sbb_i2rm_, SUFFIX)) {
 		int len = read_ModR_M(eip + 1, &addr);
 		imm = instr_fetch(eip + 1 + len, DATA_BYTE);
 		DATA_TYPE t = MEM_R(addr);
-		MEM_W(addr, MEM_R(addr) - imm - cpu.CF);
+		MEM_W(addr, t - imm - cpu.CF);
 		concat(setflag2_, SUFFIX) (t - cpu.CF, imm, 1);
 		print_asm("sbb" str(SUFFIX) "   $0x%x,%s", imm, ModR_M_asm);
 		return len + DATA_BYTE + 1;
@@ -261,7 +261,7 @@ make_helper(concat(sbb_ib2rm_, SUFFIX)) {
 		imm = instr_fetch(eip + 1 + len, 1);
 		if (imm & (1 << 7))	imm |= ((1ll << (DATA_BYTE * 8)) - 1) ^ ((1 << 8) - 1);//signal extend
 		DATA_TYPE t = MEM_R(addr);
-		MEM_W(addr, MEM_R(addr) - imm - cpu.CF);
+		MEM_W(addr, t - imm - cpu.CF);
 		concat(setflag2_, SUFFIX) (t - cpu.CF, imm, 1);
 		print_asm("sbb" str(SUFFIX) "   $0x%x,%s", imm, ModR_M_asm);
 		return len + 2;
