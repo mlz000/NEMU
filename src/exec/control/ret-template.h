@@ -29,7 +29,7 @@ make_helper(concat(call_r_, SUFFIX)) {
 	cpu.esp-=DATA_BYTE;
 	MEM_W(cpu.esp,cpu.eip + 1 + DATA_BYTE);
 	cpu.eip += t;
-	print_asm("call   %x",cpu.eip + 1+DATA_BYTE);
+	print_asm("call   %x",cpu.eip + 1 + DATA_BYTE);
 	return 1 + DATA_BYTE;
 }
 make_helper(concat(call_rm_, SUFFIX)) {
