@@ -1,0 +1,136 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DATA_BYTE	arith/cmp.c	11;"	d	file:
+DATA_BYTE	arith/cmp.c	13;"	d	file:
+DATA_BYTE	arith/cmp.c	3;"	d	file:
+DATA_BYTE	arith/cmp.c	5;"	d	file:
+DATA_BYTE	arith/cmp.c	7;"	d	file:
+DATA_BYTE	arith/cmp.c	9;"	d	file:
+DATA_BYTE	control/jcc.c	11;"	d	file:
+DATA_BYTE	control/jcc.c	13;"	d	file:
+DATA_BYTE	control/jcc.c	3;"	d	file:
+DATA_BYTE	control/jcc.c	5;"	d	file:
+DATA_BYTE	control/jcc.c	7;"	d	file:
+DATA_BYTE	control/jcc.c	9;"	d	file:
+DATA_BYTE	data-mov/mov.c	11;"	d	file:
+DATA_BYTE	data-mov/mov.c	13;"	d	file:
+DATA_BYTE	data-mov/mov.c	3;"	d	file:
+DATA_BYTE	data-mov/mov.c	5;"	d	file:
+DATA_BYTE	data-mov/mov.c	7;"	d	file:
+DATA_BYTE	data-mov/mov.c	9;"	d	file:
+DATA_BYTE	logic/test.c	11;"	d	file:
+DATA_BYTE	logic/test.c	13;"	d	file:
+DATA_BYTE	logic/test.c	3;"	d	file:
+DATA_BYTE	logic/test.c	5;"	d	file:
+DATA_BYTE	logic/test.c	7;"	d	file:
+DATA_BYTE	logic/test.c	9;"	d	file:
+__CMP_H__	arith/cmp.h	2;"	d
+__MISC_H__	misc/misc.h	2;"	d
+__MOV_H__	control/jcc.h	2;"	d
+__MOV_H__	data-mov/mov.h	2;"	d
+__PREFIX_H__	prefix/prefix.h	2;"	d
+__TEST_H__	logic/test.h	2;"	d
+cmp_a2moffs_b	arith/cmp.h	/^make_helper(cmp_a2moffs_b);$/;"	v
+cmp_a2moffs_v	arith/cmp.h	/^make_helper(cmp_a2moffs_v);$/;"	v
+cmp_i2r_b	arith/cmp.h	/^make_helper(cmp_i2r_b);$/;"	v
+cmp_i2r_v	arith/cmp.h	/^make_helper(cmp_i2r_v);$/;"	v
+cmp_i2rm_b	arith/cmp.h	/^make_helper(cmp_i2rm_b);$/;"	v
+cmp_i2rm_v	arith/cmp.h	/^make_helper(cmp_i2rm_v);$/;"	v
+cmp_moffs2a_b	arith/cmp.h	/^make_helper(cmp_moffs2a_b);$/;"	v
+cmp_moffs2a_v	arith/cmp.h	/^make_helper(cmp_moffs2a_v);$/;"	v
+cmp_r2rm_b	arith/cmp.h	/^make_helper(cmp_r2rm_b);$/;"	v
+cmp_r2rm_v	arith/cmp.h	/^make_helper(cmp_r2rm_v);$/;"	v
+cmp_rm2r_b	arith/cmp.h	/^make_helper(cmp_rm2r_b);$/;"	v
+cmp_rm2r_v	arith/cmp.h	/^make_helper(cmp_rm2r_v);$/;"	v
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_a2moffs_, SUFFIX)) {$/;"	f
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_i2r_, SUFFIX)) {$/;"	f
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_i2rm_, SUFFIX)) {$/;"	f
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_moffs2a_, SUFFIX)) {$/;"	f
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_r2rm_, SUFFIX)) {$/;"	f
+concat	arith/cmp-template.h	/^make_helper(concat(cmp_rm2r_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_a2moffs_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_i2r_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_i2rm_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_moffs2a_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_r2rm_, SUFFIX)) {$/;"	f
+concat	control/jcc-template.h	/^make_helper(concat(jcc_rm2r_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_a2moffs_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_i2r_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_i2rm_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_moffs2a_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_r2rm_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(mov_rm2r_, SUFFIX)) {$/;"	f
+concat	data-mov/mov-template.h	/^make_helper(concat(pushr_, SUFFIX)) {$/;"	f
+concat	logic/test-template.h	/^make_helper(concat(test_i2a_, SUFFIX)) {$/;"	f
+concat	logic/test-template.h	/^make_helper(concat(test_i2rm_, SUFFIX)) {$/;"	f
+concat	logic/test-template.h	/^make_helper(concat(test_r2rm_, SUFFIX)) {$/;"	f
+concat	logic/test-template.h	/^void concat(setflag_, SUFFIX)(DATA_TYPE t){$/;"	f
+data_size	prefix/prefix.h	/^make_helper(data_size);$/;"	v
+helper_fun	exec.c	/^typedef int (*helper_fun)(swaddr_t);$/;"	t	file:
+int3	misc/misc.h	/^make_helper(int3);$/;"	v
+inv	misc/misc.h	/^make_helper(inv);$/;"	v
+jcc_a2moffs_b	control/jcc.h	/^make_helper(jcc_a2moffs_b);$/;"	v
+jcc_a2moffs_v	control/jcc.h	/^make_helper(jcc_a2moffs_v);$/;"	v
+jcc_i2r_b	control/jcc.h	/^make_helper(jcc_i2r_b);$/;"	v
+jcc_i2r_v	control/jcc.h	/^make_helper(jcc_i2r_v);$/;"	v
+jcc_i2rm_b	control/jcc.h	/^make_helper(jcc_i2rm_b);$/;"	v
+jcc_i2rm_v	control/jcc.h	/^make_helper(jcc_i2rm_v);$/;"	v
+jcc_moffs2a_b	control/jcc.h	/^make_helper(jcc_moffs2a_b);$/;"	v
+jcc_moffs2a_v	control/jcc.h	/^make_helper(jcc_moffs2a_v);$/;"	v
+jcc_r2rm_b	control/jcc.h	/^make_helper(jcc_r2rm_b);$/;"	v
+jcc_r2rm_v	control/jcc.h	/^make_helper(jcc_r2rm_v);$/;"	v
+jcc_rm2r_b	control/jcc.h	/^make_helper(jcc_rm2r_b);$/;"	v
+jcc_rm2r_v	control/jcc.h	/^make_helper(jcc_rm2r_v);$/;"	v
+make_helper	arith/cmp.c	/^make_helper(cmp_a2moffs_v) {$/;"	f
+make_helper	arith/cmp.c	/^make_helper(cmp_i2r_v) {$/;"	f
+make_helper	arith/cmp.c	/^make_helper(cmp_i2rm_v) {$/;"	f
+make_helper	arith/cmp.c	/^make_helper(cmp_moffs2a_v) {$/;"	f
+make_helper	arith/cmp.c	/^make_helper(cmp_r2rm_v) {$/;"	f
+make_helper	arith/cmp.c	/^make_helper(cmp_rm2r_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_a2moffs_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_i2r_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_i2rm_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_moffs2a_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_r2rm_v) {$/;"	f
+make_helper	control/jcc.c	/^make_helper(jcc_rm2r_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_a2moffs_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_i2r_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_i2rm_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_moffs2a_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_r2rm_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(mov_rm2r_v) {$/;"	f
+make_helper	data-mov/mov.c	/^make_helper(pushr_v) {$/;"	f
+make_helper	exec.c	/^make_helper(exec) {$/;"	f
+make_helper	logic/test.c	/^make_helper(test_i2a_v) {$/;"	f
+make_helper	logic/test.c	/^make_helper(test_i2rm_v) {$/;"	f
+make_helper	logic/test.c	/^make_helper(test_r2rm_v) {$/;"	f
+make_helper	misc/misc.c	/^make_helper(int3) {$/;"	f
+make_helper	misc/misc.c	/^make_helper(inv) {$/;"	f
+make_helper	misc/misc.c	/^make_helper(nemu_trap) {$/;"	f
+make_helper	prefix/prefix.c	/^make_helper(data_size) {$/;"	f
+mov_a2moffs_b	data-mov/mov.h	/^make_helper(mov_a2moffs_b);$/;"	v
+mov_a2moffs_v	data-mov/mov.h	/^make_helper(mov_a2moffs_v);$/;"	v
+mov_i2r_b	data-mov/mov.h	/^make_helper(mov_i2r_b);$/;"	v
+mov_i2r_v	data-mov/mov.h	/^make_helper(mov_i2r_v);$/;"	v
+mov_i2rm_b	data-mov/mov.h	/^make_helper(mov_i2rm_b);$/;"	v
+mov_i2rm_v	data-mov/mov.h	/^make_helper(mov_i2rm_v);$/;"	v
+mov_moffs2a_b	data-mov/mov.h	/^make_helper(mov_moffs2a_b);$/;"	v
+mov_moffs2a_v	data-mov/mov.h	/^make_helper(mov_moffs2a_v);$/;"	v
+mov_r2rm_b	data-mov/mov.h	/^make_helper(mov_r2rm_b);$/;"	v
+mov_r2rm_v	data-mov/mov.h	/^make_helper(mov_r2rm_v);$/;"	v
+mov_rm2r_b	data-mov/mov.h	/^make_helper(mov_rm2r_b);$/;"	v
+mov_rm2r_v	data-mov/mov.h	/^make_helper(mov_rm2r_v);$/;"	v
+nemu_trap	misc/misc.h	/^make_helper(nemu_trap);$/;"	v
+opcode_table	exec.c	/^helper_fun opcode_table [256] = {$/;"	v
+pushr_v	data-mov/mov.h	/^make_helper(pushr_v);$/;"	v
+suffix	prefix/prefix.c	/^char suffix = 'l';$/;"	v
+test_i2a_b	logic/test.h	/^make_helper(test_i2a_b);$/;"	v
+test_i2a_v	logic/test.h	/^make_helper(test_i2a_v);$/;"	v
+test_i2rm_b	logic/test.h	/^make_helper(test_i2rm_b);$/;"	v
+test_i2rm_v	logic/test.h	/^make_helper(test_i2rm_v);$/;"	v
+test_r2rm_b	logic/test.h	/^make_helper(test_r2rm_b);$/;"	v
+test_r2rm_v	logic/test.h	/^make_helper(test_r2rm_v);$/;"	v

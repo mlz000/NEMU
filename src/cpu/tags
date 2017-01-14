@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+LOADER_START	cpu-exec.c	6;"	d	file:
+ModR_M_asm	modrm.c	/^char ModR_M_asm[MODRM_ASM_BUF_SIZE];$/;"	v
+assembly	cpu-exec.c	/^char assembly[40];$/;"	v
+cpu	reg.c	/^CPU_state cpu;$/;"	v
+cpu_exec	cpu-exec.c	/^void cpu_exec(volatile uint32_t n) {$/;"	f
+jbuf	cpu-exec.c	/^jmp_buf jbuf;	\/* Make it easy to perform exception handling *\/$/;"	v
+print_ModR_M_asm	modrm.c	8;"	d	file:
+print_bin_instr	cpu-exec.c	/^static void print_bin_instr(swaddr_t eip, int len) {$/;"	f	file:
+read_ModR_M	modrm.c	/^int read_ModR_M(swaddr_t eip, swaddr_t *addr) {$/;"	f
+reg_test	reg.c	/^void reg_test() {$/;"	f
+regsb	reg.c	/^const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};$/;"	v
+regsl	reg.c	/^const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};$/;"	v
+regsw	reg.c	/^const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};$/;"	v
+restart	cpu-exec.c	/^void restart() {$/;"	f

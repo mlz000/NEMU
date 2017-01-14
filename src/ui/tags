@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AND	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+DEREFER	expr.c	/^	HNUM, REG, NEG, DEREFER, VAR$/;"	e	enum:__anon1	file:
+EQ	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+GE	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+HNUM	expr.c	/^	HNUM, REG, NEG, DEREFER, VAR$/;"	e	enum:__anon1	file:
+LE	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+NE	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+NEG	expr.c	/^	HNUM, REG, NEG, DEREFER, VAR$/;"	e	enum:__anon1	file:
+NOT	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+NOTYPE	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+NR_BP	breakpoint.c	5;"	d	file:
+NR_REGEX	expr.c	51;"	d	file:
+NUM	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+OR	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+REG	expr.c	/^	HNUM, REG, NEG, DEREFER, VAR$/;"	e	enum:__anon1	file:
+SAL	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+SAR	expr.c	/^	NOTYPE = 256, EQ, NE, LE, GE, AND, OR, NOT, SAL, SAR, NUM,$/;"	e	enum:__anon1	file:
+Token	expr.c	/^} Token;$/;"	t	typeref:struct:token	file:
+VAR	expr.c	/^	HNUM, REG, NEG, DEREFER, VAR$/;"	e	enum:__anon1	file:
+bp_pool	breakpoint.c	/^static BP bp_pool[NR_BP];$/;"	v	file:
+change	breakpoint.c	/^bool change() {$/;"	f
+check	expr.c	/^bool check(int type) {$/;"	f
+check_parentheses	expr.c	/^bool check_parentheses(int l, int r, bool *f) {$/;"	f
+checkunary	expr.c	/^bool checkunary(int type) {$/;"	f
+cmd_b	ui.c	/^void cmd_b(char *p) {$/;"	f
+cmd_bt	ui.c	/^void cmd_bt(){$/;"	f
+cmd_c	ui.c	/^static void cmd_c() {$/;"	f	file:
+cmd_d	ui.c	/^void cmd_d(char *p) {$/;"	f
+cmd_info	ui.c	/^void cmd_info(char *p) {$/;"	f
+cmd_p	ui.c	/^void cmd_p(char *p) {$/;"	f
+cmd_r	ui.c	/^static void cmd_r() {$/;"	f	file:
+cmd_si	ui.c	/^void cmd_si(char *p) {$/;"	f
+cmd_w	ui.c	/^void cmd_w(char *p) {$/;"	f
+cmd_x	ui.c	/^void cmd_x(char *p) {$/;"	f
+control_C	ui.c	/^static void control_C(int signum) {$/;"	f	file:
+del_breakpoint	breakpoint.c	/^void del_breakpoint(int n) {$/;"	f
+dominant	expr.c	/^int dominant(int l, int r) {$/;"	f
+eval	expr.c	/^uint32_t eval(int l, int r, bool *f) {$/;"	f
+expr	expr.c	/^uint32_t expr(char *e, bool *f) {$/;"	f
+find	breakpoint.c	/^uint32_t find(uint32_t x) {$/;"	f
+free_	breakpoint.c	/^static BP *head, *free_;$/;"	v	file:
+free_bp	breakpoint.c	/^void free_bp(BP *bp) {$/;"	f
+head	breakpoint.c	/^static BP *head, *free_;$/;"	v	file:
+init_bp_pool	breakpoint.c	/^void init_bp_pool() {$/;"	f
+init_regex	expr.c	/^void init_regex() {$/;"	f
+init_signal	ui.c	/^void init_signal() {$/;"	f
+level	expr.c	/^int level(int type) {$/;"	f
+main_loop	ui.c	/^void main_loop() {$/;"	f
+make_token	expr.c	/^static bool make_token(char *e) {$/;"	f	file:
+nemu_state	ui.c	/^int nemu_state = END;$/;"	v
+new_bp	breakpoint.c	/^BP* new_bp() {$/;"	f
+nr_token	expr.c	/^int nr_token;$/;"	v
+print_breakpoint	breakpoint.c	/^void print_breakpoint() {$/;"	f
+print_reg	ui.c	/^void print_reg(){$/;"	f
+re	expr.c	/^static regex_t re[NR_REGEX];$/;"	v	file:
+regex	expr.c	/^	char *regex;$/;"	m	struct:rule	file:
+rl_gets	ui.c	/^char* rl_gets() {$/;"	f
+rule	expr.c	/^static struct rule {$/;"	s	file:
+rules	expr.c	/^} rules[] = {$/;"	v	typeref:struct:rule	file:
+str	expr.c	/^	char str[32];$/;"	m	struct:token	file:
+token	expr.c	/^typedef struct token {$/;"	s	file:
+token_type	expr.c	/^	int token_type;$/;"	m	struct:rule	file:
+tokens	expr.c	/^Token tokens[105];$/;"	v
+type	expr.c	/^	int type;$/;"	m	struct:token	file:
+work	breakpoint.c	/^void work() {$/;"	f
