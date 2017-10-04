@@ -1,5 +1,5 @@
 # ICS2015 Programming Assignment
-This is a course work from Introduction to Computer Systems. 
+This is a course work from NJU Introduction to Computer Systems. 
 
 For the guide of this programming assignment, refer to [https://nju-ics.gitbooks.io/ics2015-programming-assignment/content/index.html](https://nju-ics.gitbooks.io/ics2015-programming-assignment/content/index.html)
 
